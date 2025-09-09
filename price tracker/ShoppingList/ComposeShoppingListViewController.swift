@@ -41,7 +41,7 @@ class ComposeShoppingListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
-        //setupCleanUpButton()
+        setupAddButton()
         
         viewModel.loadShoppingList()
         setupUIBindings()
@@ -61,9 +61,9 @@ class ComposeShoppingListViewController: UIViewController {
         tableView.delegate = self
     }
     
-    private func setupCleanUpButton() {
-        cleanUpButton.layer.borderWidth = 2
-        cleanUpButton.layer.borderColor = UIColor.accent.cgColor
+    private func setupAddButton() {
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addProductButtonTapped))
+        navigationItem.rightBarButtonItem = addButton
     }
     
     private func setupUIBindings() {
@@ -82,14 +82,19 @@ class ComposeShoppingListViewController: UIViewController {
                 self?.cleanUpButton.isEnabled = true
             }
             
-            self?.tableView.beginUpdates()
-            self?.tableView.deleteSections(diff.deletedSections, with: .fade)
-            self?.tableView.insertSections(diff.insertedSections, with: .fade)
-            self?.tableView.deleteRows(at: diff.deletedRows, with: .fade)
-            self?.tableView.insertRows(at: diff.insertedRows, with: .fade)
-            self?.tableView.reloadRows(at: diff.updatedRows, with: .fade)
-            self?.tableView.endUpdates()
+            if diff.isEmpty {
+                self?.tableView.reloadData() //currency updated, reload rows
+            } else {
+                self?.tableView.beginUpdates()
+                self?.tableView.deleteSections(diff.deletedSections, with: .fade)
+                self?.tableView.insertSections(diff.insertedSections, with: .fade)
+                self?.tableView.deleteRows(at: diff.deletedRows, with: .fade)
+                self?.tableView.insertRows(at: diff.insertedRows, with: .fade)
+                self?.tableView.reloadRows(at: diff.updatedRows, with: .fade)
+                self?.tableView.endUpdates()
+            }
         }
+        
     }
     
     @IBAction private func startButtonTapped() {
@@ -100,6 +105,9 @@ class ComposeShoppingListViewController: UIViewController {
         viewModel.cleanUp()
     }
     
+    @objc private func addProductButtonTapped() {
+        viewModel.addProduct()
+    }
 }
 
 extension ComposeShoppingListViewController: UITableViewDataSource, UITableViewDelegate {
@@ -110,7 +118,7 @@ extension ComposeShoppingListViewController: UITableViewDataSource, UITableViewD
         let product = viewModel.sections[indexPath.section].products[indexPath.row]
         
         let cell = tableView.dequeueReusableCell(withIdentifier: ProductTableViewCell.identifier, for: indexPath) as! ProductTableViewCell
-        cell.update(forProduct: product)
+        cell.update(forProduct: product, currency: viewModel.currency)
         cell.selectionStyle = .none
         return cell
     }

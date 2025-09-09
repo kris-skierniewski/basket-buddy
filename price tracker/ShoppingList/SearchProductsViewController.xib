@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchProductsViewController" customModule="price_tracker" customModuleProvider="target">
+            <connections>
+                <outlet property="tableView" destination="NwZ-rd-B2K" id="aap-FY-kuc"/>
+                <outlet property="toastContainer" destination="kYV-kv-Yvq" id="0Rh-vu-2Oi"/>
+                <outlet property="view" destination="TOr-j1-AMa" id="CM0-nv-LF6"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="TOr-j1-AMa">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="NwZ-rd-B2K">
+                    <rect key="frame" x="0.0" y="118" width="393" height="666"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kYV-kv-Yvq" customClass="PassThroughView" customModule="price_tracker" customModuleProvider="target">
+                    <rect key="frame" x="196.66666666666666" y="764" width="0.0" height="0.0"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" priority="1" id="4Sp-kc-XPN"/>
+                        <constraint firstAttribute="height" priority="1" id="KcZ-5V-4i1"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="hBY-H1-sOl"/>
+            <keyboardLayoutGuide key="keyboard" id="Nz7-jo-9QJ"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="NwZ-rd-B2K" firstAttribute="top" secondItem="hBY-H1-sOl" secondAttribute="top" id="QbH-aB-BoQ"/>
+                <constraint firstItem="Nz7-jo-9QJ" firstAttribute="top" secondItem="NwZ-rd-B2K" secondAttribute="bottom" id="SFk-7w-8cr"/>
+                <constraint firstItem="kYV-kv-Yvq" firstAttribute="centerX" secondItem="TOr-j1-AMa" secondAttribute="centerX" id="cKW-6z-9Ct"/>
+                <constraint firstItem="NwZ-rd-B2K" firstAttribute="leading" secondItem="hBY-H1-sOl" secondAttribute="leading" id="hCi-5m-tKW"/>
+                <constraint firstItem="Nz7-jo-9QJ" firstAttribute="top" secondItem="kYV-kv-Yvq" secondAttribute="bottom" constant="20" id="i0q-6P-bL0"/>
+                <constraint firstItem="hBY-H1-sOl" firstAttribute="trailing" secondItem="NwZ-rd-B2K" secondAttribute="trailing" id="s54-QK-aEz"/>
+            </constraints>
+            <point key="canvasLocation" x="182" y="-1"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

@@ -117,6 +117,13 @@
 		B0F184172E704383008A33BD /* ShopFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F184162E70437F008A33BD /* ShopFilterViewModel.swift */; };
 		B0F184192E704C38008A33BD /* ShopFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F184182E704C25008A33BD /* ShopFilterViewController.swift */; };
 		B0F1841B2E704C72008A33BD /* ShopFilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0F1841A2E704C72008A33BD /* ShopFilterViewController.xib */; };
+		B0F1841D2E7067E6008A33BD /* NavigationTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F1841C2E7067DE008A33BD /* NavigationTitleView.swift */; };
+		B0F1841F2E7067F1008A33BD /* NavigationTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0F1841E2E7067F1008A33BD /* NavigationTitleView.xib */; };
+		B0F184212E7072DB008A33BD /* SearchProductsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F184202E7072CE008A33BD /* SearchProductsViewController.swift */; };
+		B0F184252E707570008A33BD /* SearchProductsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F184242E70756A008A33BD /* SearchProductsViewModel.swift */; };
+		B0F184272E708B2B008A33BD /* SearchProductsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0F184262E708B2B008A33BD /* SearchProductsViewController.xib */; };
+		B0F184292E7092FC008A33BD /* SearchProductsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F184282E7092F1008A33BD /* SearchProductsTableViewCell.swift */; };
+		B0F1842B2E70930F008A33BD /* SearchProductsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0F1842A2E70930F008A33BD /* SearchProductsTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -241,6 +248,13 @@
 		B0F184162E70437F008A33BD /* ShopFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopFilterViewModel.swift; sourceTree = "<group>"; };
 		B0F184182E704C25008A33BD /* ShopFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopFilterViewController.swift; sourceTree = "<group>"; };
 		B0F1841A2E704C72008A33BD /* ShopFilterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShopFilterViewController.xib; sourceTree = "<group>"; };
+		B0F1841C2E7067DE008A33BD /* NavigationTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationTitleView.swift; sourceTree = "<group>"; };
+		B0F1841E2E7067F1008A33BD /* NavigationTitleView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NavigationTitleView.xib; sourceTree = "<group>"; };
+		B0F184202E7072CE008A33BD /* SearchProductsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchProductsViewController.swift; sourceTree = "<group>"; };
+		B0F184242E70756A008A33BD /* SearchProductsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchProductsViewModel.swift; sourceTree = "<group>"; };
+		B0F184262E708B2B008A33BD /* SearchProductsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchProductsViewController.xib; sourceTree = "<group>"; };
+		B0F184282E7092F1008A33BD /* SearchProductsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchProductsTableViewCell.swift; sourceTree = "<group>"; };
+		B0F1842A2E70930F008A33BD /* SearchProductsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchProductsTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -293,6 +307,10 @@
 		B014FE052CE3E50A0098438F /* ShoppingList */ = {
 			isa = PBXGroup;
 			children = (
+				B0F184282E7092F1008A33BD /* SearchProductsTableViewCell.swift */,
+				B0F1842A2E70930F008A33BD /* SearchProductsTableViewCell.xib */,
+				B0F184202E7072CE008A33BD /* SearchProductsViewController.swift */,
+				B0F184262E708B2B008A33BD /* SearchProductsViewController.xib */,
 				B0F1840D2E6F1A75008A33BD /* ShoppingListViewController.swift */,
 				B0F1840F2E6F1A88008A33BD /* ShoppingListViewController.xib */,
 				B0F183FA2E6B1D29008A33BD /* ProductTableViewCell.swift */,
@@ -475,6 +493,7 @@
 				B0A819C62E61D3E500B2F8D7 /* ProductTableViewModel.swift */,
 				B0A819BD2E60AF8200B2F8D7 /* ComposeShoppingListViewModel.swift */,
 				B0717AC42E683E2000F27E52 /* AddProductViewModel.swift */,
+				B0F184242E70756A008A33BD /* SearchProductsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -514,6 +533,8 @@
 		B0B9BF992CC190A400C7E287 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B0F1841C2E7067DE008A33BD /* NavigationTitleView.swift */,
+				B0F1841E2E7067F1008A33BD /* NavigationTitleView.xib */,
 				B0F183FE2E6B244E008A33BD /* ToastView.swift */,
 				B0F184022E6B24B3008A33BD /* ToastView.xib */,
 				B0B9BF9A2CC190B300C7E287 /* RoundedBorderView.swift */,
@@ -629,11 +650,13 @@
 			files = (
 				B07F62B82C8CA4CD00CD1309 /* EmptyPriceRecordTableViewCell.xib in Resources */,
 				B0F1841B2E704C72008A33BD /* ShopFilterViewController.xib in Resources */,
+				B0F184272E708B2B008A33BD /* SearchProductsViewController.xib in Resources */,
 				B002AE652CC82D3A00EE3F8A /* PriceHistoryTableViewHeaderCell.xib in Resources */,
 				B07F62BD2C8CC5B200CD1309 /* SimpleTableViewController.xib in Resources */,
 				B08B15932CB3C50B002B4AC8 /* WelcomeViewController.xib in Resources */,
 				B0146AEF2CAB3D45007553A1 /* CreateAccountViewController.xib in Resources */,
 				B08FBE7C2C7FA48400455298 /* ProductTableViewController.xib in Resources */,
+				B0F1841F2E7067F1008A33BD /* NavigationTitleView.xib in Resources */,
 				B0F184102E6F1A88008A33BD /* ShoppingListViewController.xib in Resources */,
 				B002AE612CC8298900EE3F8A /* SimpleTableViewHeaderView.xib in Resources */,
 				B08B15952CB3C74C002B4AC8 /* onboarding text ideas in Resources */,
@@ -654,6 +677,7 @@
 				B014FE092CE3E52C0098438F /* ComposeShoppingListViewController.xib in Resources */,
 				B08FBE912C7FBDBB00455298 /* GoogleService-Info.plist in Resources */,
 				B07F62C12C8CC68400CD1309 /* SimpleTableViewCell.xib in Resources */,
+				B0F1842B2E70930F008A33BD /* SearchProductsTableViewCell.xib in Resources */,
 				B002AE5D2CC6B05B00EE3F8A /* AddPriceViewController.xib in Resources */,
 				B08B15992CB44A60002B4AC8 /* CarouselItemView.xib in Resources */,
 			);
@@ -706,9 +730,11 @@
 				B08FBE7E2C7FA5D800455298 /* AddProductViewController.swift in Sources */,
 				B08FBE742C7F976300455298 /* ProductTableViewController.swift in Sources */,
 				B0B9BF9D2CC192E500C7E287 /* ShadowView.swift in Sources */,
+				B0F184212E7072DB008A33BD /* SearchProductsViewController.swift in Sources */,
 				B002AE572CC412A300EE3F8A /* UserPreferences.swift in Sources */,
 				B0A819AD2E605FFD00B2F8D7 /* ProductCategory.swift in Sources */,
 				B0F183F72E6B047A008A33BD /* ShoppingListCoordinator.swift in Sources */,
+				B0F184292E7092FC008A33BD /* SearchProductsTableViewCell.swift in Sources */,
 				B07F62B22C8CA21D00CD1309 /* PriceRecordTableViewCell.swift in Sources */,
 				B07F62A92C8C9D7900CD1309 /* ProductDetailViewController.swift in Sources */,
 				B07F62B62C8CA4B900CD1309 /* EmptyPriceRecordTableViewCell.swift in Sources */,
@@ -730,6 +756,7 @@
 				B002AE6E2CC96B9F00EE3F8A /* CamerViewController.swift in Sources */,
 				B08FBE532C7F8C8900455298 /* AppDelegate.swift in Sources */,
 				B0717AE62E69C60B00F27E52 /* FirebaseAuthService.swift in Sources */,
+				B0F1841D2E7067E6008A33BD /* NavigationTitleView.swift in Sources */,
 				B002AE5F2CC8294100EE3F8A /* SimpleTableViewHeaderView.swift in Sources */,
 				B08FBE552C7F8C8900455298 /* SceneDelegate.swift in Sources */,
 				B08FBE762C7F9BB400455298 /* ProductWithPriceTableViewCell.swift in Sources */,
@@ -749,6 +776,7 @@
 				B014FE072CE3E51D0098438F /* ComposeShoppingListViewController.swift in Sources */,
 				B0A819AB2E605FD000B2F8D7 /* ProductCategoriser.swift in Sources */,
 				B0B9BF982CC18BFA00C7E287 /* TTTAttributedLabel.m in Sources */,
+				B0F184252E707570008A33BD /* SearchProductsViewModel.swift in Sources */,
 				B0A819BE2E60AF8900B2F8D7 /* ComposeShoppingListViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

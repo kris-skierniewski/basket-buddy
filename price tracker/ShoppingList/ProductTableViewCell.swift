@@ -12,13 +12,10 @@ class ProductTableViewCell: UITableViewCell {
     @IBOutlet private weak var nameLabel: UILabel!
     @IBOutlet private weak var descriptionLabel: UILabel!
     
+    @IBOutlet private weak var priceLabel: UILabel!
+    @IBOutlet private weak var cheapestShopLabel: UILabel!
     
-    func update(forProduct product: Product) {
-        nameLabel.text = product.name
-        descriptionLabel.text = product.description
-    }
-    
-    func update(forProduct product: ShoppingListProduct) {
+    func update(forProduct product: ShoppingListProduct, currency: Currency) {
         let attributes: [NSAttributedString.Key: Any] = [
             .font: nameLabel.font ?? UIFont.systemFont(ofSize: 17),
             .foregroundColor: nameLabel.textColor ?? UIColor.label,
@@ -28,5 +25,13 @@ class ProductTableViewCell: UITableViewCell {
         nameLabel.attributedText = NSAttributedString(string: product.productWithPrices.product.name, attributes: attributes)
         
         descriptionLabel.text = product.productWithPrices.product.description
+        
+        if let cheapestPriceRecord = product.productWithPrices.cheapestPrice {
+            priceLabel.text = String(format: "\(currency.symbol)%.2f", cheapestPriceRecord.price.price)
+            cheapestShopLabel.text = cheapestPriceRecord.shop.name
+        } else {
+            priceLabel.text = nil
+            cheapestShopLabel.text = nil
+        }
     }
 }

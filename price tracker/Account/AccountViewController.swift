@@ -23,6 +23,7 @@ class AccountViewController: UIViewController {
     init(viewModel: AccountViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        navigationItem.title = "Your account"
     }
     
     required init?(coder: NSCoder) {

@@ -16,6 +16,7 @@ class ProductTableViewController: UIViewController {
     
     @IBOutlet private weak var toastContainer: PassThroughView!
     private var toastView: ToastView?
+    private var navigationTitleView: NavigationTitleView?
     
     private var viewModel: ProductTableViewModel
     
@@ -25,6 +26,11 @@ class ProductTableViewController: UIViewController {
     init(viewModel: ProductTableViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        
+        
+        navigationTitleView = NavigationTitleView().viewFromXib()
+        navigationTitleView?.updateWith(title: "Your items", subtitle: nil)
+        navigationItem.titleView = navigationTitleView
     }
     
     @MainActor required init?(coder aDecoder: NSCoder) {
@@ -41,7 +47,7 @@ class ProductTableViewController: UIViewController {
         
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search your items"
+        searchController.searchBar.placeholder = "Search"
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
@@ -65,11 +71,14 @@ class ProductTableViewController: UIViewController {
         viewModel.onProductsUpdated = { [weak self] products in
             self?.tableView.reloadData()
             
-            if self?.viewModel.selectedFilter == .all {
-                self?.filterButton?.image = UIImage(systemName: "line.3.horizontal.decrease.circle")
-            } else {
+            if case .shop(let shop) = self?.viewModel.selectedFilter {
                 self?.filterButton?.image = UIImage(systemName: "line.3.horizontal.decrease.circle.fill")
+                self?.navigationTitleView?.updateWith(title: "Your items", subtitle: "Showing items cheapest at \(shop.name)")
+            } else {
+                self?.filterButton?.image = UIImage(systemName: "line.3.horizontal.decrease.circle")
+                self?.navigationTitleView?.updateWith(title: "Your items", subtitle: nil)
             }
+            
         }
         
         viewModel.onLoading = { [weak self] isLoading in

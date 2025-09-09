@@ -74,7 +74,7 @@ class AddPriceViewModel {
     
     func loadShopsAndUnits() {
         observerHandle = combinedRepository.observeShops(onChange: { [weak self] shops in
-            self?.allShops = shops
+            self?.allShops = shops.sorted()
             self?.filterShops(with: self!.shopName)
             self?.delegate?.viewModelDidUpdateShops(shops)
         })

@@ -22,6 +22,8 @@ class ShoppingListCoordinator {
             self.showShoppingListViewController()
         }
         
+        viewModel.onAddProductButtonTapped = showAddProductViewController
+        
         viewModel.onError = showErrorAlert(error:)
         
         let viewController = ComposeShoppingListViewController(viewModel: viewModel)
@@ -35,6 +37,21 @@ class ShoppingListCoordinator {
         
         let viewController = ShoppingListViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    private func showAddProductViewController() {
+        let viewModel = SearchProductsViewModel(combinedRepository: combinedRepository)
+        
+        let viewController = SearchProductsViewController(viewModel: viewModel)
+        
+        viewModel.onCompleted = {
+            viewController.dismiss(animated: true)
+        }
+        viewModel.onError = showErrorAlert(error:)
+        
+        let addProductNav = UINavigationController(rootViewController: viewController)
+        addProductNav.modalPresentationStyle = .fullScreen
+        navigationController.present(addProductNav, animated: true)
     }
     
     private func showErrorAlert(error: Error) {

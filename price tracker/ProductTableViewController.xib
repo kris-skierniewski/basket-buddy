@@ -90,15 +90,16 @@
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <keyboardLayoutGuide key="keyboard" id="Isk-NL-63g"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="GxO-fW-pis" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="4RW-vZ-EAu"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="rOC-Mw-veW" secondAttribute="bottom" constant="20" id="BGu-Ha-sPc"/>
+                <constraint firstItem="Isk-NL-63g" firstAttribute="top" secondItem="rOC-Mw-veW" secondAttribute="bottom" constant="20" id="BGu-Ha-sPc"/>
                 <constraint firstItem="Y54-dF-h4e" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="BOw-bX-TYS"/>
                 <constraint firstItem="rOC-Mw-veW" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="bq9-rn-n43"/>
                 <constraint firstItem="6z1-I1-4yE" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="loq-8X-7s9"/>
                 <constraint firstItem="GxO-fW-pis" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="niw-jE-ZZ3"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="GxO-fW-pis" secondAttribute="bottom" id="sCW-Fi-Hhh"/>
+                <constraint firstItem="Isk-NL-63g" firstAttribute="top" secondItem="GxO-fW-pis" secondAttribute="bottom" id="sCW-Fi-Hhh"/>
                 <constraint firstItem="Y54-dF-h4e" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="tzD-A6-JeP"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Y54-dF-h4e" secondAttribute="trailing" constant="20" id="vdk-94-d9f"/>
                 <constraint firstItem="rOC-Mw-veW" firstAttribute="top" secondItem="Y54-dF-h4e" secondAttribute="bottom" constant="20" id="wSN-bp-Lku"/>

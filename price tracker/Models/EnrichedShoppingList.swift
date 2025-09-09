@@ -27,4 +27,8 @@ struct EnrichedShoppingList: Identifiable {
         })
         return ShoppingList(id: id, products: shoppingListItems)
     }
+    
+    func isProductInList(_ productId: String) -> Bool {
+        return products.contains(where: { $0.productWithPrices.product.id == productId })
+    }
 }

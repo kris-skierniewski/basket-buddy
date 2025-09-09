@@ -43,14 +43,17 @@ class ComposeShoppingListViewModel {
     
     private let combinedRepository: CombinedRepositoryProtocol
     private var shoppingList: EnrichedShoppingList = EnrichedShoppingList()
-    private var observerHandles: [ObserverHandle] = []
+    private var shoppingListObserverHandles: [ObserverHandle] = []
+    private var preferencesObserverHandle: ObserverHandle?
     
     var sections: [ShoppingListSection] = []
+    var currency: Currency = .gbp
     
     var numberOfItems: Int {
         return shoppingList.products.count
     }
     
+    var onAddProductButtonTapped: (() -> Void)?
     var onContentsChanged: ((SectionedDiff) -> Void)?
     var onStartTapped: (() -> Void)?
     var onError: ((Error) -> Void)?
@@ -60,15 +63,22 @@ class ComposeShoppingListViewModel {
     }
     
     deinit {
-        observerHandles.forEach {
+        shoppingListObserverHandles.forEach {
             $0.remove()
         }
+        preferencesObserverHandle?.remove()
     }
     
     func loadShoppingList() {
-        observerHandles = combinedRepository.observeShoppingList(onChange: { [weak self] shoppingList in
+        shoppingListObserverHandles = combinedRepository.observeShoppingList(onChange: { [weak self] shoppingList in
             if let shoppingList = shoppingList {
                 self?.shoppingList = shoppingList
+                self?.groupProductsByCategory()
+            }
+        })
+        preferencesObserverHandle = combinedRepository.observePreferences(onChange: { [weak self] prefs in
+            if let prefs = prefs {
+                self?.currency = prefs.currency
                 self?.groupProductsByCategory()
             }
         })
@@ -131,6 +141,10 @@ class ComposeShoppingListViewModel {
             }
         }
         
+    }
+    
+    func addProduct() {
+        onAddProductButtonTapped?()
     }
     
     func start() {

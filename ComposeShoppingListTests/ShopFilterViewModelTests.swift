@@ -20,7 +20,7 @@ final class ShopFilterViewModelTests: XCTestCase {
     override func setUpWithError() throws  {
         
         mockRepository = MockCombinedRepository()
-        viewModel = ShopFilterViewModel(combinedRepository: mockRepository)
+        viewModel = ShopFilterViewModel(combinedRepository: mockRepository, selectedFilter: .all)
     }
     
     func testShowsFiltersForAllShopsAndNone() {

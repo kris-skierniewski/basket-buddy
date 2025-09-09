@@ -8,7 +8,7 @@
 class ProductCategoriser {
     private let keywords: [ProductCategory: [String]] = [
         .frozen: ["frozen", "freezer", "ice"],
-        .canned: ["canned", "tinned", "jar", "sauce", "baked beans"],
+        .canned: ["canned", "tinned", "jar", "sauce", "baked beans", "sweet corn"],
         .meat: ["chicken", "beef", "pork", "lamb", "turkey"],
         .fish: ["fish", "tuna", "cod", "haddock"],
         .grains: ["pasta", "rice", "cous"],
