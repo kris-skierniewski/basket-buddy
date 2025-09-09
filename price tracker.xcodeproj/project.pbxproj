@@ -14,7 +14,6 @@
 		B002AE612CC8298900EE3F8A /* SimpleTableViewHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B002AE602CC8298900EE3F8A /* SimpleTableViewHeaderView.xib */; };
 		B002AE632CC82CE600EE3F8A /* PriceHistoryTableViewHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B002AE622CC82CE600EE3F8A /* PriceHistoryTableViewHeaderCell.swift */; };
 		B002AE652CC82D3A00EE3F8A /* PriceHistoryTableViewHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B002AE642CC82D3A00EE3F8A /* PriceHistoryTableViewHeaderCell.xib */; };
-		B002AE6E2CC96B9F00EE3F8A /* CamerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B002AE6D2CC96B9F00EE3F8A /* CamerViewController.swift */; };
 		B0146AE92CAB38BD007553A1 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0146AE82CAB38BD007553A1 /* SignInViewController.swift */; };
 		B0146AEB2CAB38C7007553A1 /* SignInViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0146AEA2CAB38C7007553A1 /* SignInViewController.xib */; };
 		B0146AED2CAB3D3A007553A1 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0146AEC2CAB3D3A007553A1 /* CreateAccountViewController.swift */; };
@@ -144,7 +143,6 @@
 		B002AE602CC8298900EE3F8A /* SimpleTableViewHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SimpleTableViewHeaderView.xib; sourceTree = "<group>"; };
 		B002AE622CC82CE600EE3F8A /* PriceHistoryTableViewHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceHistoryTableViewHeaderCell.swift; sourceTree = "<group>"; };
 		B002AE642CC82D3A00EE3F8A /* PriceHistoryTableViewHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PriceHistoryTableViewHeaderCell.xib; sourceTree = "<group>"; };
-		B002AE6D2CC96B9F00EE3F8A /* CamerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CamerViewController.swift; sourceTree = "<group>"; };
 		B0146AE82CAB38BD007553A1 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		B0146AEA2CAB38C7007553A1 /* SignInViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SignInViewController.xib; sourceTree = "<group>"; };
 		B0146AEC2CAB3D3A007553A1 /* CreateAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
@@ -283,14 +281,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		B002AE6C2CC96B8600EE3F8A /* Camera */ = {
-			isa = PBXGroup;
-			children = (
-				B002AE6D2CC96B9F00EE3F8A /* CamerViewController.swift */,
-			);
-			path = Camera;
-			sourceTree = "<group>";
-		};
 		B0146AE72CAB3867007553A1 /* Account */ = {
 			isa = PBXGroup;
 			children = (
@@ -418,7 +408,6 @@
 				B0A819C12E60B57100B2F8D7 /* Services */,
 				B0A819A92E605FB100B2F8D7 /* Other */,
 				B014FE052CE3E50A0098438F /* ShoppingList */,
-				B002AE6C2CC96B8600EE3F8A /* Camera */,
 				B0B9BF992CC190A400C7E287 /* Views */,
 				B0B9BF942CC18BE200C7E287 /* External */,
 				B08B158F2CB3C4EC002B4AC8 /* Welcome */,
@@ -753,7 +742,6 @@
 				B0717ADB2E68C8A500F27E52 /* PriceCoordinator.swift in Sources */,
 				B0146AED2CAB3D3A007553A1 /* CreateAccountViewController.swift in Sources */,
 				B08FBE862C7FBB9000455298 /* Price.swift in Sources */,
-				B002AE6E2CC96B9F00EE3F8A /* CamerViewController.swift in Sources */,
 				B08FBE532C7F8C8900455298 /* AppDelegate.swift in Sources */,
 				B0717AE62E69C60B00F27E52 /* FirebaseAuthService.swift in Sources */,
 				B0F1841D2E7067E6008A33BD /* NavigationTitleView.swift in Sources */,
