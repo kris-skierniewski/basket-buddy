@@ -1,0 +1,49 @@
+//
+//  FirebaseProductRepository.swift
+//  price tracker
+//
+//  Created by Kris Skierniewski on 29/08/2025.
+//
+
+protocol ProductRepository {
+    func addProduct(_ product: Product, completion: @escaping (Result<Void, Error>) -> Void)
+    func updateProduct(_ product: Product, completion: @escaping (Result<Void, Error>) -> Void)
+    func deleteProduct(id: String, completion: @escaping (Result<Void, Error>) -> Void)
+    func observeProducts(onChange: @escaping ([Product]) -> Void) -> ObserverHandle
+    func deleteAllProducts(completion: @escaping (Result<Void, Error>) -> Void)
+}
+
+class FirebaseProductRepository: ProductRepository {
+    private let firebaseService: FirebaseDatabaseService
+    private let userPath: String
+    
+    init(firebaseService: FirebaseDatabaseService, userId: String) {
+        self.firebaseService = firebaseService
+        self.userPath = userId
+    }
+    
+    func addProduct(_ product: Product, completion: @escaping (Result<Void, Error>) -> Void) {
+        let path = "products/\(userPath)/\(product.id)"
+        firebaseService.create(product, at: path, completion: completion)
+    }
+    
+    func updateProduct(_ product: Product, completion: @escaping (Result<Void, Error>) -> Void) {
+        let path = "products/\(userPath)/\(product.id)"
+        firebaseService.update(product, at: path, completion: completion)
+    }
+    
+    func deleteProduct(id: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        let path = "products/\(userPath)/\(id)"
+        firebaseService.delete(at: path, completion: completion)
+    }
+    
+    func observeProducts(onChange: @escaping ([Product]) -> Void) -> ObserverHandle {
+        let path = "products/\(userPath)"
+        return firebaseService.observeList(path, as: Product.self, onChange: onChange)
+    }
+    
+    func deleteAllProducts(completion: @escaping (Result<Void, Error>) -> Void) {
+        let path = "products/\(userPath)"
+        firebaseService.delete(at: path, completion: completion)
+    }
+}

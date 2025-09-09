@@ -1,0 +1,32 @@
+
+rectangle.stack.badge.plus
+Screen 2: Add Your Items
+
+Title: Easily Add Your Groceries
+Text: Keep track of your favorite grocery items and their prices from different stores. Just enter the item, select a shop, and add the cost!
+
+list.bullet.clipboard
+Screen 3: Compare Prices
+
+Title: Find the Best Deals
+Text: We compare prices for you! See which store offers the best value per 100g, 100ml, or unit. Save money with every shopping trip!
+
+rectangle.and.text.magnifyingglass
+
+Screen 4: Lookup Feature
+
+Title: Quick Lookup
+Text: Can’t remember where you bought that item? Use our lookup feature to find your last purchase in seconds!
+
+tag
+
+Screen 5: Start Saving!
+
+Title: Let’s Start Saving!
+Text: Ready to take control of your grocery budget? Tap below to begin adding your items and discover the best deals!
+
+
+text at the bottom which says something like:
+
+By using the app you agree to our terms and privacy policy
+(link to privacy policy hosted in github for free)

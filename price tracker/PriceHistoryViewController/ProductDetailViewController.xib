@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProductDetailViewController" customModule="price_tracker" customModuleProvider="target">
+            <connections>
+                <outlet property="addButton" destination="2iV-8h-zdE" id="69C-eF-tT1"/>
+                <outlet property="tableView" destination="rDJ-XJ-rMM" id="hei-UU-Gj8"/>
+                <outlet property="view" destination="iN0-l3-epB" id="Z1J-sg-Rsj"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="rDJ-XJ-rMM">
+                    <rect key="frame" x="0.0" y="118" width="393" height="666"/>
+                </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="diG-eu-1VG" customClass="ShadowView" customModule="price_tracker" customModuleProvider="target">
+                    <rect key="frame" x="135.66666666666666" y="710" width="121.66666666666666" height="54"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2iV-8h-zdE" customClass="KButton" customModule="price_tracker" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="121.66666666666667" height="54"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pbg-bf-wq9">
+                                    <rect key="frame" x="55" y="15" width="36.666666666666657" height="24"/>
+                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="UF0-Ck-i0g">
+                                    <rect key="frame" x="30" y="19.333333333333329" width="20" height="15.666666666666671"/>
+                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="20" id="dPW-cP-V8t"/>
+                                        <constraint firstAttribute="width" secondItem="UF0-Ck-i0g" secondAttribute="height" multiplier="1:1" id="yaP-0X-zUX"/>
+                                    </constraints>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" name="AccentColor"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="Pbg-bf-wq9" secondAttribute="trailing" constant="30" id="31a-fC-BhZ"/>
+                                <constraint firstAttribute="bottom" secondItem="Pbg-bf-wq9" secondAttribute="bottom" constant="15" id="Red-gn-iIG"/>
+                                <constraint firstItem="Pbg-bf-wq9" firstAttribute="top" secondItem="2iV-8h-zdE" secondAttribute="top" constant="15" id="dk1-ez-dFs"/>
+                                <constraint firstItem="UF0-Ck-i0g" firstAttribute="leading" secondItem="2iV-8h-zdE" secondAttribute="leading" constant="30" id="hf6-HP-Dud"/>
+                                <constraint firstItem="Pbg-bf-wq9" firstAttribute="leading" secondItem="UF0-Ck-i0g" secondAttribute="trailing" constant="5" id="hgA-Ic-FQ9"/>
+                                <constraint firstItem="UF0-Ck-i0g" firstAttribute="centerY" secondItem="Pbg-bf-wq9" secondAttribute="centerY" id="iMO-Sk-a5i"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="27"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="addPriceRecordButtonTapped" destination="-1" eventType="touchUpInside" id="hvw-b5-VTq"/>
+                            </connections>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="2iV-8h-zdE" secondAttribute="bottom" id="1qy-s3-2I1"/>
+                        <constraint firstItem="2iV-8h-zdE" firstAttribute="leading" secondItem="diG-eu-1VG" secondAttribute="leading" id="D4n-sA-LQE"/>
+                        <constraint firstAttribute="trailing" secondItem="2iV-8h-zdE" secondAttribute="trailing" id="W0Y-GH-1gS"/>
+                        <constraint firstItem="2iV-8h-zdE" firstAttribute="centerX" secondItem="diG-eu-1VG" secondAttribute="centerX" id="Xcf-ut-0t7"/>
+                        <constraint firstItem="2iV-8h-zdE" firstAttribute="top" secondItem="diG-eu-1VG" secondAttribute="top" id="ywM-K5-1l6"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="diG-eu-1VG" secondAttribute="bottom" constant="20" id="0u1-ox-qiC"/>
+                <constraint firstItem="diG-eu-1VG" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="DW3-rV-Ykp"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="rDJ-XJ-rMM" secondAttribute="trailing" id="H9x-To-nlb"/>
+                <constraint firstItem="rDJ-XJ-rMM" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="N88-lO-REp"/>
+                <constraint firstItem="rDJ-XJ-rMM" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="WI1-JK-vBO"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="rDJ-XJ-rMM" secondAttribute="bottom" id="vtA-G8-e3E"/>
+            </constraints>
+            <point key="canvasLocation" x="-48" y="20"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="plus" catalog="system" width="128" height="113"/>
+        <namedColor name="AccentColor">
+            <color red="1" green="0.79199999570846558" blue="0.15700000524520874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

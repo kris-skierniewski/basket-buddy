@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="133" id="9zl-KM-HrQ" customClass="ShoppingListProductTableViewCell" customModule="price_tracker" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="133"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9zl-KM-HrQ" id="Dqy-ES-J21">
+                <rect key="frame" x="0.0" y="0.0" width="393" height="133"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SSi-yN-SHY">
+                        <rect key="frame" x="10" y="3" width="373" height="127"/>
+                        <color key="backgroundColor" systemColor="systemGray6Color"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="12"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="SG8-by-Qlx">
+                        <rect key="frame" x="348" y="52.333333333333321" width="30" height="28.666666666666679"/>
+                        <color key="tintColor" name="AccentColor"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="30" id="OlQ-oo-lrX"/>
+                            <constraint firstAttribute="height" constant="30" id="dUh-EX-kyx"/>
+                        </constraints>
+                    </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QHV-7u-czY">
+                        <rect key="frame" x="20" y="44.666666666666671" width="323" height="43.666666666666671"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mE8-BP-nBI">
+                                <rect key="frame" x="0.0" y="0.0" width="323" height="21.666666666666668"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="heb-5t-ZOH">
+                                <rect key="frame" x="0.0" y="25.666666666666664" width="323" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" systemColor="secondaryLabelColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="mE8-BP-nBI" firstAttribute="top" secondItem="QHV-7u-czY" secondAttribute="top" id="1cB-lG-CTj"/>
+                            <constraint firstAttribute="bottom" secondItem="heb-5t-ZOH" secondAttribute="bottom" id="8fL-8J-pBf"/>
+                            <constraint firstItem="heb-5t-ZOH" firstAttribute="leading" secondItem="QHV-7u-czY" secondAttribute="leading" id="Ey1-nT-4CV"/>
+                            <constraint firstItem="heb-5t-ZOH" firstAttribute="trailing" secondItem="mE8-BP-nBI" secondAttribute="trailing" id="Gu6-mp-Zdy"/>
+                            <constraint firstAttribute="trailing" secondItem="mE8-BP-nBI" secondAttribute="trailing" id="HfN-De-VsN"/>
+                            <constraint firstItem="heb-5t-ZOH" firstAttribute="top" secondItem="mE8-BP-nBI" secondAttribute="bottom" constant="4" id="WNW-v8-e6B"/>
+                            <constraint firstItem="mE8-BP-nBI" firstAttribute="leading" secondItem="QHV-7u-czY" secondAttribute="leading" id="pWF-lm-pA2"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="SSi-yN-SHY" firstAttribute="top" secondItem="Dqy-ES-J21" secondAttribute="top" constant="3" id="7Wa-s8-ftC"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="QHV-7u-czY" secondAttribute="bottom" constant="10" id="DbA-FP-wMZ"/>
+                    <constraint firstItem="SSi-yN-SHY" firstAttribute="leading" secondItem="Dqy-ES-J21" secondAttribute="leading" constant="10" id="GSo-I6-5Kl"/>
+                    <constraint firstItem="SSi-yN-SHY" firstAttribute="trailing" secondItem="SG8-by-Qlx" secondAttribute="trailing" constant="5" id="NQb-f2-VnH"/>
+                    <constraint firstItem="QHV-7u-czY" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Dqy-ES-J21" secondAttribute="top" constant="10" id="U54-I6-PBH"/>
+                    <constraint firstAttribute="bottom" secondItem="SSi-yN-SHY" secondAttribute="bottom" constant="3" id="Y8Y-3l-omE"/>
+                    <constraint firstItem="SG8-by-Qlx" firstAttribute="centerY" secondItem="Dqy-ES-J21" secondAttribute="centerY" id="Ygs-02-Un4"/>
+                    <constraint firstItem="QHV-7u-czY" firstAttribute="leading" secondItem="Dqy-ES-J21" secondAttribute="leading" constant="20" id="cMx-3a-a5P"/>
+                    <constraint firstItem="SG8-by-Qlx" firstAttribute="leading" secondItem="QHV-7u-czY" secondAttribute="trailing" constant="5" id="gXQ-1e-6bN"/>
+                    <constraint firstItem="QHV-7u-czY" firstAttribute="centerY" secondItem="Dqy-ES-J21" secondAttribute="centerY" id="hvb-1r-Lfw"/>
+                    <constraint firstAttribute="trailing" secondItem="SSi-yN-SHY" secondAttribute="trailing" constant="10" id="m6k-By-nGd"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="checkBoxImageView" destination="SG8-by-Qlx" id="4jS-wR-wKw"/>
+                <outlet property="descriptionLabel" destination="heb-5t-ZOH" id="87O-Z3-HbY"/>
+                <outlet property="nameLabel" destination="mE8-BP-nBI" id="chE-R8-lwJ"/>
+            </connections>
+            <point key="canvasLocation" x="78.625954198473281" y="-158.80281690140845"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="checkmark.circle" catalog="system" width="128" height="123"/>
+        <namedColor name="AccentColor">
+            <color red="1" green="0.79199999570846558" blue="0.15700000524520874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray6Color">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
