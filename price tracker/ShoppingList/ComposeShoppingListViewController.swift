@@ -13,6 +13,7 @@ class ComposeShoppingListViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
     
     @IBOutlet private weak var shoppingListEmptyView: UIView!
+    @IBOutlet private weak var shoppingListEmptyLabel: UILabel!
     @IBOutlet private weak var startButton: KButton!
     @IBOutlet private weak var cleanUpButton: KButton!
     
@@ -42,6 +43,7 @@ class ComposeShoppingListViewController: UIViewController {
         super.viewDidLoad()
         setupTableView()
         setupAddButton()
+        setupEmptyView()
         
         viewModel.loadShoppingList()
         setupUIBindings()
@@ -64,6 +66,10 @@ class ComposeShoppingListViewController: UIViewController {
     private func setupAddButton() {
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addProductButtonTapped))
         navigationItem.rightBarButtonItem = addButton
+    }
+    
+    private func setupEmptyView() {
+        shoppingListEmptyLabel.text = "You haven't added any items yet"
     }
     
     private func setupUIBindings() {
@@ -119,6 +125,9 @@ extension ComposeShoppingListViewController: UITableViewDataSource, UITableViewD
         
         let cell = tableView.dequeueReusableCell(withIdentifier: ProductTableViewCell.identifier, for: indexPath) as! ProductTableViewCell
         cell.update(forProduct: product, currency: viewModel.currency)
+        cell.onInfoButtonTapped = { [weak self] in
+            self?.viewModel.selectProduct(atIndexPath: indexPath)
+        }
         cell.selectionStyle = .none
         return cell
     }

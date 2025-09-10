@@ -15,6 +15,8 @@ class ProductTableViewCell: UITableViewCell {
     @IBOutlet private weak var priceLabel: UILabel!
     @IBOutlet private weak var cheapestShopLabel: UILabel!
     
+    var onInfoButtonTapped: (() -> Void)?
+    
     func update(forProduct product: ShoppingListProduct, currency: Currency) {
         let attributes: [NSAttributedString.Key: Any] = [
             .font: nameLabel.font ?? UIFont.systemFont(ofSize: 17),
@@ -33,5 +35,9 @@ class ProductTableViewCell: UITableViewCell {
             priceLabel.text = nil
             cheapestShopLabel.text = nil
         }
+    }
+    
+    @IBAction private func infoButtonTapped() {
+        onInfoButtonTapped?()
     }
 }

@@ -20,7 +20,7 @@ class ShoppingListSection: DiffableSectionProtocol {
     var title: String {
         
         if case .productCategory(let productCategory) = category {
-            return productCategory.rawValue.capitalized
+            return productCategory.title
         }
         return "Completed"
     }
@@ -53,6 +53,7 @@ class ComposeShoppingListViewModel {
         return shoppingList.products.count
     }
     
+    var onProductTapped: ((ProductWithPrices) -> Void)?
     var onAddProductButtonTapped: (() -> Void)?
     var onContentsChanged: ((SectionedDiff) -> Void)?
     var onStartTapped: (() -> Void)?
@@ -125,6 +126,11 @@ class ComposeShoppingListViewModel {
                 }
             }
         }
+    }
+    
+    func selectProduct(atIndexPath indexPath: IndexPath) {
+        let product = sections[indexPath.section].products[indexPath.row].productWithPrices
+        onProductTapped?(product)
     }
     
     func cleanUp() {

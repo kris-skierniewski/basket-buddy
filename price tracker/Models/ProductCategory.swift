@@ -13,10 +13,19 @@ enum ProductCategory: String, CaseIterable, Codable {
     case bakery
     case grains
     case produce
+    case herbsAndSpices
     case drinks
     case frozen
     case household
     case other
+    
+    var title: String {
+        switch self {
+        case .herbsAndSpices: return "Herbs & spices"
+        case .canned: return "Tins & Jars"
+        default: return rawValue.capitalized
+        }
+    }
     
     var iconName: String {
         switch self {
@@ -30,6 +39,7 @@ enum ProductCategory: String, CaseIterable, Codable {
         case .drinks: return "drinks"
         case .frozen: return "frozen"
         case .household: return "household"
+        case .herbsAndSpices: return "herbsandspices"
         case .other: return "other"
         }
     }

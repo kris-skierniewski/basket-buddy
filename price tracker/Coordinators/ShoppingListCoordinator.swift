@@ -10,9 +10,12 @@ class ShoppingListCoordinator {
     private let navigationController: UINavigationController
     private let combinedRepository: CombinedRepositoryProtocol
     
+    private let productCoordinator: ProductCoordinator //child coordinator
+    
     init(navigationController: UINavigationController, combinedRepository: CombinedRepositoryProtocol) {
         self.navigationController = navigationController
         self.combinedRepository = combinedRepository
+        self.productCoordinator = ProductCoordinator(navigationController: navigationController, combinedRepository: combinedRepository)
     }
     
     func start() {
@@ -23,6 +26,7 @@ class ShoppingListCoordinator {
         }
         
         viewModel.onAddProductButtonTapped = showAddProductViewController
+        viewModel.onProductTapped = showProductDetailViewController(product:)
         
         viewModel.onError = showErrorAlert(error:)
         
@@ -52,6 +56,10 @@ class ShoppingListCoordinator {
         let addProductNav = UINavigationController(rootViewController: viewController)
         addProductNav.modalPresentationStyle = .fullScreen
         navigationController.present(addProductNav, animated: true)
+    }
+    
+    private func showProductDetailViewController(product: ProductWithPrices) {
+        productCoordinator.showProductDetail(product)
     }
     
     private func showErrorAlert(error: Error) {

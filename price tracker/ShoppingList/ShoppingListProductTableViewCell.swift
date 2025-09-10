@@ -15,6 +15,8 @@ class ShoppingListProductTableViewCell: UITableViewCell {
     @IBOutlet private weak var descriptionLabel: UILabel!
     @IBOutlet private weak var checkBoxImageView: UIImageView!
     
+    @IBOutlet private weak var priceLabel: UILabel!
+    @IBOutlet private weak var cheapestShopLabel: UILabel!
     
     func update(withProduct product: ShoppingListProduct) {
         
@@ -33,6 +35,14 @@ class ShoppingListProductTableViewCell: UITableViewCell {
         } else {
             checkBoxImageView.image = UIImage(systemName: "checkmark.circle")?.withRenderingMode(.alwaysTemplate)
         }
+        
+//        if let cheapestPriceRecord = product.productWithPrices.cheapestPrice {
+//            priceLabel.text = String(format: "\(currency.symbol)%.2f", cheapestPriceRecord.price.price)
+//            cheapestShopLabel.text = cheapestPriceRecord.shop.name
+//        } else {
+            priceLabel.text = nil
+            cheapestShopLabel.text = nil
+//        }
         
     }
     

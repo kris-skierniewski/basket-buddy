@@ -33,7 +33,7 @@ class ProductDetailTableViewCell: UITableViewCell {
         nameLabel.text = product.product.name
         descriptionLabel.text = product.product.description
         
-        categoryLabel.text = "Category: \(product.product.category.rawValue.capitalized)"
+        categoryLabel.text = "Category: \(product.product.category.title)"
         
         
         if let priceRecord = product.cheapestPrice {

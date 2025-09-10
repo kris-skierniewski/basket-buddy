@@ -39,7 +39,7 @@ class ProductCoordinator {
         navigationController.pushViewController(productTableViewController, animated: false)
     }
     
-    private func showProductDetail(_ product: ProductWithPrices) {
+    func showProductDetail(_ product: ProductWithPrices) {
         
         let productDetailViewModel = ProductDetailViewModel(product: product, combinedRepository: combinedRepository)
         

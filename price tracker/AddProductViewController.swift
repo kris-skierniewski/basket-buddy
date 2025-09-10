@@ -69,11 +69,11 @@ class AddProductViewController: UIViewController {
         viewModel.onProductUpdated = { [weak self] in
             self?.nameTextField.text = self?.viewModel.name
             self?.descriptionTextField.text = self?.viewModel.description
-            self?.categoryTextField.text = self?.viewModel.currentCategory.rawValue.capitalized
+            self?.categoryTextField.text = self?.viewModel.currentCategory.title
         }
         
         viewModel.onCategoryUpdated = { [weak self] in
-            self?.categoryTextField.text = self?.viewModel.currentCategory.rawValue.capitalized
+            self?.categoryTextField.text = self?.viewModel.currentCategory.title
         }
     }
     

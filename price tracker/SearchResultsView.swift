@@ -41,7 +41,7 @@ class SearchResultsView: UIView, UITableViewDelegate, UITableViewDataSource {
         } else if let currency = item as? Currency {
             content.text = currency.symbol
         } else if let category = item as? ProductCategory {
-            content.text = category.rawValue.capitalized
+            content.text = category.title
         }
         cell.contentConfiguration = content
         
