@@ -33,6 +33,7 @@ enum RepositoryError: Error, Equatable, LocalizedError {
     case invalidIndex
     case shopNotFound
     case productAlreadyInShoppingList
+    case cannotFetchDataset
     
     var errorDescription: String? {
         switch self {
@@ -44,6 +45,8 @@ enum RepositoryError: Error, Equatable, LocalizedError {
             return "Shop not found."
         case .productAlreadyInShoppingList:
             return "Product already in shopping list."
+        case .cannotFetchDataset:
+            return "Your data cannot be fetched right now."
         }
     }
 }

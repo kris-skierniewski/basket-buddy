@@ -16,6 +16,10 @@ class AppCoordinator {
     
     let onboardingManager = OnboardingManager.shared
     
+    var datasetRepository: FirebaseDatasetRepository?
+    var userDatasetIdHandle: ObserverHandle?
+    var datasetHandle: ObserverHandle?
+    
     var currentUserId: String? {
         return authService.currentUserId
     }
@@ -29,7 +33,7 @@ class AppCoordinator {
         
         authStateHandle = authService.addStateDidChangeListener {
             if self.currentUserId != nil {
-                self.showMainFlow()
+                self.showDatasetLoadingFlow()
             } else {
                 self.showAuthFlow()
             }
@@ -37,14 +41,110 @@ class AppCoordinator {
         }
     }
     
-    private func showMainFlow() {
+    private var userDatasetId: String?
+    private var dataset: Dataset?
+    
+    private func showDatasetLoadingFlow() {
         
-        let firebaseDatabaseService = FirebaseDatabaseService()
-        let productRepository = FirebaseProductRepository(firebaseService: firebaseDatabaseService, userId: currentUserId!)
-        let shopRepository = FirebaseShopRepository(firebaseService: firebaseDatabaseService, userId: currentUserId!)
-        let priceRepository = FirebasePriceRepository(firebaseService: firebaseDatabaseService, userId: currentUserId!)
-        let userPreferencesRepository = FirebaseUserPreferenceRepository(firebaseService: firebaseDatabaseService, userId: currentUserId!)
-        let shoppingListRepository = FirebaseShoppingListRepository(firebaseService: firebaseDatabaseService, userId: currentUserId!)
+        let firebaseDatabaseService = FirebaseDatabaseService(userId: currentUserId!)
+        datasetRepository = FirebaseDatasetRepository(firebaseService: firebaseDatabaseService, userId: currentUserId!)
+        
+        datasetRepository?.getUserDatasetId { [weak self] result in
+            switch result {
+            case .success(let datasetId):
+                if let datasetId = datasetId {
+                    self?.userDatasetId = datasetId
+                    self?.observeUserDatasetId()
+                    self?.getDataset(withId: datasetId)
+                } else {
+                    self?.datasetRepository?.setupUserDataset { result in
+                        switch result {
+                        case .success(let datasetId):
+                            self?.getDataset(withId: datasetId)
+                        case .failure(let error):
+                            self?.showErrorAlert(error: error)
+                        }
+                    }
+                }
+            case .failure(let error):
+                self?.showErrorAlert(error: error)
+            }
+        }
+        
+        let loadingViewController = LoadingViewController()
+        window.rootViewController = loadingViewController
+        window.makeKeyAndVisible()
+    }
+    
+    private func observeUserDatasetId() {
+        datasetHandle?.remove()
+        userDatasetIdHandle?.remove()
+        userDatasetIdHandle = datasetRepository?.observeUserDatasetId(onChange: { [weak self] updatedDatasetId in
+            if let updatedDatasetId = updatedDatasetId,
+               updatedDatasetId != self?.userDatasetId {
+                self?.userDatasetId = updatedDatasetId
+                self?.getDataset(withId: updatedDatasetId)
+            }
+            
+        })
+    }
+    
+    private func getDataset(withId datasetId: String) {
+        datasetRepository?.getDataset(withId: datasetId) { [weak self] result in
+            switch result {
+            case .success(let dataset):
+                if let dataset = dataset {
+                    self?.dataset = dataset
+                    self?.observeDataSet(withId: datasetId)
+                    self?.showMainFlow(forDataset: dataset)
+                } else {
+                    guard let currentUserId = self?.currentUserId else {
+                        return
+                    }
+                    let newDataset = Dataset(id: datasetId, members: [currentUserId: true])
+                    self?.datasetRepository?.updateDataset(newDataset) { result in
+                        switch result {
+                        case .success():
+                            self?.observeDataSet(withId: datasetId)
+                        case .failure(let error):
+                            self?.showErrorAlert(error: error)
+                        }
+                    }
+                }
+            case .failure(let error):
+                self?.showErrorAlert(error: error)
+            }
+        }
+        
+    }
+    
+    private func observeDataSet(withId datasetId: String) {
+        datasetHandle?.remove()
+        datasetHandle = datasetRepository?.observeDataset(withId: datasetId, onChange: { [weak self] updatedDataset in
+            if let updatedDataset = updatedDataset,
+               updatedDataset != self?.dataset {
+                self?.dataset = updatedDataset
+                self?.showMainFlow(forDataset: updatedDataset)
+            }
+        })
+        
+    }
+    
+    private func showErrorAlert(error: Error) {
+        let alert = UIAlertController(title: "Sorry, something went wrong...", message: error.localizedDescription, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+        
+        window.rootViewController?.present(alert, animated: true)
+    }
+    
+    private func showMainFlow(forDataset dataset: Dataset) {
+        
+        let firebaseDatabaseService = FirebaseDatabaseService(userId: currentUserId!)
+        let productRepository = FirebaseProductRepository(firebaseService: firebaseDatabaseService, datasetId: dataset.id)
+        let shopRepository = FirebaseShopRepository(firebaseService: firebaseDatabaseService, datasetId: dataset.id)
+        let priceRepository = FirebasePriceRepository(firebaseService: firebaseDatabaseService, datasetId: dataset.id)
+        let userPreferencesRepository = FirebaseUserPreferenceRepository(firebaseService: firebaseDatabaseService, datasetId: dataset.id)
+        let shoppingListRepository = FirebaseShoppingListRepository(firebaseService: firebaseDatabaseService, datasetId: dataset.id)
         let combinedRepository = CombinedRepository(productRepository: productRepository, shopRepository: shopRepository, priceRepository: priceRepository, userPreferencesRepository: userPreferencesRepository, shoppingListRepository: shoppingListRepository)
         
         let tabBarController = UITabBarController()

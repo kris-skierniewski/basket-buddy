@@ -15,35 +15,35 @@ protocol ProductRepository {
 
 class FirebaseProductRepository: ProductRepository {
     private let firebaseService: FirebaseDatabaseService
-    private let userPath: String
+    private let datasetId: String
     
-    init(firebaseService: FirebaseDatabaseService, userId: String) {
+    init(firebaseService: FirebaseDatabaseService, datasetId: String) {
         self.firebaseService = firebaseService
-        self.userPath = userId
+        self.datasetId = datasetId
     }
     
     func addProduct(_ product: Product, completion: @escaping (Result<Void, Error>) -> Void) {
-        let path = "products/\(userPath)/\(product.id)"
+        let path = "datasets/\(datasetId)/products/\(product.id)"
         firebaseService.create(product, at: path, completion: completion)
     }
     
     func updateProduct(_ product: Product, completion: @escaping (Result<Void, Error>) -> Void) {
-        let path = "products/\(userPath)/\(product.id)"
+        let path = "datasets/\(datasetId)/products/\(product.id)"
         firebaseService.update(product, at: path, completion: completion)
     }
     
     func deleteProduct(id: String, completion: @escaping (Result<Void, Error>) -> Void) {
-        let path = "products/\(userPath)/\(id)"
+        let path = "datasets/\(datasetId)/products/\(id)"
         firebaseService.delete(at: path, completion: completion)
     }
     
     func observeProducts(onChange: @escaping ([Product]) -> Void) -> ObserverHandle {
-        let path = "products/\(userPath)"
+        let path = "datasets/\(datasetId)/products"
         return firebaseService.observeList(path, as: Product.self, onChange: onChange)
     }
     
     func deleteAllProducts(completion: @escaping (Result<Void, Error>) -> Void) {
-        let path = "products/\(userPath)"
+        let path = "datasets/\(datasetId)/products"
         firebaseService.delete(at: path, completion: completion)
     }
 }

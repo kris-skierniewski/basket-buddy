@@ -32,8 +32,39 @@ class FirebaseDatabaseService {
     private let jsonEncoder = JSONEncoder()
     private let jsonDecoder = JSONDecoder()
     
-    init() {
+    private let userId: String
+    
+    init(userId: String) {
+        self.userId = userId
         self.database = Database.database(url: "https://price-tracker-f4073-default-rtdb.europe-west1.firebasedatabase.app/").reference()
+        Database.database().isPersistenceEnabled = true
+    }
+    
+    func updateMultiple(_ updates: [String: any Codable], completion: @escaping(Result<Void, Error>) -> Void) {
+        var encodedUpdates: [String: Any] = [:]
+        for update in updates {
+            if isBasicType(update.value) {
+                encodedUpdates = [update.key: update.value]
+            } else { //must be struct
+                do {
+                    let data = try jsonEncoder.encode(update.value)
+                    let dictionary = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+                    if let dictionary = dictionary {
+                        encodedUpdates[update.key] = dictionary
+                    }
+                } catch {
+                    completion(.failure(error))
+                }
+            }
+        }
+        
+        database.updateChildValues(encodedUpdates) { error, _ in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(()))
+            }
+        }
     }
     
     func create<T: Codable>(_ item: T, at path: String, completion: @escaping (Result<Void, Error>) -> Void) {
@@ -65,9 +96,49 @@ class FirebaseDatabaseService {
         }
     }
     
+    func getValue<T:Codable>(_ path: String, as type: T.Type, completion: @escaping(Result<T?,Error>) -> Void) {
+        database.child(path).getData { error, snapshot in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                guard let nonNilValue = snapshot?.value else {
+                    completion(.success(nil))
+                    return
+                }
+                if let decodedValue = nonNilValue as? T {
+                    completion(.success(decodedValue))
+                    return
+                }
+                guard let value = nonNilValue as? [String: Any] else {
+                    
+                    completion(.success(nil))
+                    return
+                }
+                do {
+                    let data = try JSONSerialization.data(withJSONObject: value)
+                    let item = try JSONDecoder().decode(T.self, from: data)
+                    completion(.success(item))
+                } catch {
+                    completion(.failure(error))
+                }
+            }
+        }
+    }
+    
     func observe<T: Codable>(_ path: String, as type: T.Type, onChange: @escaping(T?) -> Void) -> ObserverHandle {
         let handle = database.child(path).observe(.value) { snapshot in
-            guard let value = snapshot.value as? [String: Any] else {
+            guard let nonNilValue = snapshot.value else {
+                onChange(nil)
+                return
+            }
+            
+            if let decodedValue = nonNilValue as? T {
+                onChange(decodedValue)
+                return
+            }
+            
+            guard let value = nonNilValue as? [String: Any] else {
+                
                 onChange(nil)
                 return
             }
@@ -149,6 +220,16 @@ class FirebaseDatabaseService {
         } catch {
             completion(.failure(error))
         }
+    }
+    
+    private func isBasicType(_ value: Any) -> Bool {
+        return value is String ||
+               value is Int ||
+               value is Double ||
+               value is Float ||
+               value is Bool ||
+               value is NSNumber ||
+               value is NSString
     }
     
 }

@@ -14,25 +14,25 @@ protocol ShoppingListRepository {
 class FirebaseShoppingListRepository: ShoppingListRepository {
     
     private let firebaseService: FirebaseDatabaseService
-    private let userPath: String
+    private let datasetId: String
     
-    init(firebaseService: FirebaseDatabaseService, userId: String) {
+    init(firebaseService: FirebaseDatabaseService, datasetId: String) {
         self.firebaseService = firebaseService
-        self.userPath = userId
+        self.datasetId = datasetId
     }
     
     func updateShoppingList(_ shoppingList: ShoppingList, completion: @escaping (Result<Void, any Error>) -> Void) {
-        let path = "shoppingList/\(userPath)"
+        let path = "datasets/\(datasetId)/shoppingList"
         firebaseService.update(shoppingList, at: path, completion: completion)
     }
     
     func deleteShoppingList( completion: @escaping (Result<Void, any Error>) -> Void) {
-        let path = "shoppingList/\(userPath)"
+        let path = "datasets/\(datasetId)/shoppingList"
         firebaseService.delete(at: path, completion: completion)
     }
     
     func observeShoppingList(onChange: @escaping (ShoppingList?) -> Void) -> any ObserverHandle {
-        let path = "shoppingList/\(userPath)"
+        let path = "datasets/\(datasetId)/shoppingList"
         return firebaseService.observe(path, as: ShoppingList.self, onChange: onChange)
     }
     

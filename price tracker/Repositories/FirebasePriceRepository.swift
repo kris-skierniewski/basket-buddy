@@ -15,35 +15,35 @@ protocol PriceRepository {
 
 class FirebasePriceRepository: PriceRepository {
     private let firebaseService: FirebaseDatabaseService
-    private let userPath: String
+    private let datasetId: String
     
-    init(firebaseService: FirebaseDatabaseService, userId: String) {
+    init(firebaseService: FirebaseDatabaseService, datasetId: String) {
         self.firebaseService = firebaseService
-        self.userPath = userId
+        self.datasetId = datasetId
     }
     
     func addPrice(_ price: Price, completion: @escaping (Result<Void, Error>) -> Void) {
-        let path = "prices/\(userPath)/\(price.productId)/\(price.id)"
+        let path = "datasets/\(datasetId)/prices/\(price.productId)/\(price.id)"
         firebaseService.create(price, at: path, completion: completion)
     }
     
     func updatePrice(_ price: Price, completion: @escaping (Result<Void, Error>) -> Void) {
-        let path = "prices/\(userPath)/\(price.productId)/\(price.id)"
+        let path = "datasets/\(datasetId)/prices/\(price.productId)/\(price.id)"
         firebaseService.update(price, at: path, completion: completion)
     }
     
     func deletePrice(_ price: Price, completion: @escaping (Result<Void, Error>) -> Void) {
-        let path = "prices/\(userPath)/\(price.productId)/\(price.id)"
+        let path = "datasets/\(datasetId)/prices/\(price.productId)/\(price.id)"
         firebaseService.delete(at: path, completion: completion)
     }
     
     func observePrices(onChange: @escaping ([Price]) -> Void) -> ObserverHandle {
-        let path = "prices/\(userPath)"
+        let path = "datasets/\(datasetId)/prices"
         return firebaseService.observeNestedUnkeyedList(path, as: Price.self, onChange: onChange)
     }
     
     func deleteAllPrices(completion: @escaping (Result<Void, Error>) -> Void) {
-        let path = "prices/\(userPath)"
+        let path = "datasets/\(datasetId)/prices"
         firebaseService.delete(at: path, completion: completion)
     }
 }

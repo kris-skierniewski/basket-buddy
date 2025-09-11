@@ -13,25 +13,25 @@ protocol ShopRepository {
 
 class FirebaseShopRepository: ShopRepository {
     private let firebaseService: FirebaseDatabaseService
-    private let userPath: String
+    private let datasetId: String
     
-    init(firebaseService: FirebaseDatabaseService, userId: String) {
+    init(firebaseService: FirebaseDatabaseService, datasetId: String) {
         self.firebaseService = firebaseService
-        self.userPath = userId
+        self.datasetId = datasetId
     }
     
     func addShop(_ shop: Shop, completion: @escaping (Result<Void, Error>) -> Void) {
-        let path = "shops/\(userPath)/\(shop.id)"
+        let path = "datasets/\(datasetId)/shops/\(shop.id)"
         firebaseService.create(shop, at: path, completion: completion)
     }
     
     func observeShops(onChange: @escaping ([Shop]) -> Void) -> ObserverHandle {
-        let path = "shops/\(userPath)"
+        let path = "datasets/\(datasetId)/shops"
         return firebaseService.observeList(path, as: Shop.self, onChange: onChange)
     }
     
     func deleteAllShops(completion: @escaping (Result<Void, Error>) -> Void) {
-        let path = "shops/\(userPath)"
+        let path = "datasets/\(datasetId)/shops"
         firebaseService.delete(at: path, completion: completion)
     }
 }
