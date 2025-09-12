@@ -32,10 +32,7 @@ class FirebaseDatabaseService {
     private let jsonEncoder = JSONEncoder()
     private let jsonDecoder = JSONDecoder()
     
-    private let userId: String
-    
-    init(userId: String) {
-        self.userId = userId
+    init() {
         self.database = Database.database(url: "https://price-tracker-f4073-default-rtdb.europe-west1.firebasedatabase.app/").reference()
         Database.database().isPersistenceEnabled = true
     }
@@ -44,11 +41,11 @@ class FirebaseDatabaseService {
         var encodedUpdates: [String: Any] = [:]
         for update in updates {
             if isBasicType(update.value) {
-                encodedUpdates = [update.key: update.value]
+                encodedUpdates[update.key] = update.value
             } else { //must be struct
                 do {
                     let data = try jsonEncoder.encode(update.value)
-                    let dictionary = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+                    let dictionary = try JSONSerialization.jsonObject(with: data) as? [String: Any]
                     if let dictionary = dictionary {
                         encodedUpdates[update.key] = dictionary
                     }

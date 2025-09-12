@@ -5,6 +5,8 @@
 //  Created by Kris Skierniewski on 29/08/2025.
 //
 
+import UIKit //should we be doing this ?
+
 class ProductTableViewModel {
     
     private let combinedRepository: CombinedRepositoryProtocol
@@ -21,6 +23,7 @@ class ProductTableViewModel {
     
     var selectedFilter: ShopFilter = .all
     
+    var onShareTapped: ((UIBarButtonItem) -> Void)?
     var onCurrencyUpdated: ((Currency) -> Void)?
     var onProductsUpdated: (([ProductWithPrices]) -> Void)?
     var onShoppingListUpdated: (() -> Void)?
@@ -130,6 +133,10 @@ class ProductTableViewModel {
     func setShopFilter(_ filter: ShopFilter) {
         selectedFilter = filter
         applyCurrentFilter()
+    }
+    
+    func share(sourceView: UIBarButtonItem) {
+        onShareTapped?(sourceView)
     }
     
     private func applyCurrentFilter() {

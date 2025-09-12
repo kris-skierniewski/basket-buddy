@@ -12,9 +12,24 @@ struct Dataset: Codable, Equatable {
     
 }
 
-class FirebaseDatasetRepository {
+protocol DatasetRepository {
+    func getUserDatasetId(completion: @escaping (Result<String?, Error>) -> Void)
+    func observeUserDatasetId(onChange: @escaping (String?) -> Void) -> any ObserverHandle
+    func updateUserDatasetId(_ datasetId: String, completion: @escaping (Result<Void, any Error>) -> Void)
+    func getDataset(withId datasetId: String, completion: @escaping(Result<Dataset?, Error>) -> Void)
+    func observeDataset(withId datasetId: String, onChange: @escaping (Dataset?) -> Void) -> any ObserverHandle
+    func updateDataset(_ dataset: Dataset, completion: @escaping (Result<Void, any Error>) -> Void)
+    func setupUserDataset(completion: @escaping(Result<String,Error>) -> Void)
+    func joinDataset(withId datasetId: String, completion: @escaping (Result<Void, any Error>) -> Void)
+    
+    //var userDatasetId: String? { get }
+}
+
+class FirebaseDatasetRepository: DatasetRepository {
     private let firebaseService: FirebaseDatabaseService
     private let userId: String
+    
+    //var userDatasetId: String?
     
     init(firebaseService: FirebaseDatabaseService, userId: String) {
         self.firebaseService = firebaseService
@@ -65,6 +80,23 @@ class FirebaseDatasetRepository {
             switch result {
             case .success(()):
                 completion(.success(datasetId))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+            
+        }
+    }
+    
+    func joinDataset(withId datasetId: String, completion: @escaping (Result<Void, any Error>) -> Void) {
+        let updates: [String: Codable] = [
+            "datasets/\(datasetId)/publicInfo/members/\(userId)": true,
+            "userDataset/\(userId)": datasetId
+        ]
+        
+        firebaseService.updateMultiple(updates) { result in
+            switch result {
+            case .success(()):
+                completion(.success(()))
             case .failure(let error):
                 completion(.failure(error))
             }

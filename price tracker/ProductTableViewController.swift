@@ -22,6 +22,7 @@ class ProductTableViewController: UIViewController {
     
     private let searchController = UISearchController(searchResultsController: nil)
     private var filterButton: UIBarButtonItem?
+    private var shareButton: UIBarButtonItem?
     
     init(viewModel: ProductTableViewModel) {
         self.viewModel = viewModel
@@ -43,7 +44,7 @@ class ProductTableViewController: UIViewController {
         setupUIBindings()
         setupToastView()
         viewModel.loadProducts()
-        setupFilterButton()
+        setupBarButtons()
         
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
@@ -111,18 +112,23 @@ class ProductTableViewController: UIViewController {
          
     }
     
-    private func setupFilterButton() {
+    private func setupBarButtons() {
         filterButton = UIBarButtonItem(image: UIImage(systemName: "line.3.horizontal.decrease.circle"), style: .plain, target: self, action: #selector(filterButtonTapped))
-        navigationItem.rightBarButtonItem = filterButton
-//        let filterButton = UITabBarItem(title: nil, image: UIImage(systemName: "line.3.horizontal.decrease.circle"), selectedImage: UIImage(systemName: "line.3.horizontal.decrease.circle.fill"))
-//        
-//        navigationItem.rightBarButtonItem = filterButton
+
+        shareButton = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(shareButtonTapped))
         
+        navigationItem.rightBarButtonItems = [shareButton!, filterButton!]
         
     }
     
     @objc private func filterButtonTapped() {
         viewModel.showShopFilters()
+    }
+    
+    @objc private func shareButtonTapped() {
+        if let shareButton = shareButton {
+            viewModel.share(sourceView: shareButton)
+        }
     }
     
     @IBAction private func addProductButtonTapped() {

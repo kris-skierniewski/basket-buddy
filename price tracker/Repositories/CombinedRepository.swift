@@ -148,6 +148,8 @@ class CombinedRepository: CombinedRepositoryProtocol {
     }
     
     func deleteAllUserData(completion: @escaping (Result<Void, Error>) -> Void) {
+        #warning("finish this!")
+        //TODO: needs to remove user from dataset and delete dataset if they're the only user !
         priceRepository.deleteAllPrices { [weak self] result in
             switch result {
             case .success(()):

@@ -9,16 +9,17 @@ import FirebaseAuth
 import SafariServices
 
 class AppCoordinator {
-    let window: UIWindow
+    private let window: UIWindow
     
-    var authStateHandle: AuthStateHandle?
-    var authService: AuthService
+    private var authStateHandle: AuthStateHandle?
+    private var authService: AuthService
     
-    let onboardingManager = OnboardingManager.shared
+    private let onboardingManager = OnboardingManager.shared
     
-    var datasetRepository: FirebaseDatasetRepository?
-    var userDatasetIdHandle: ObserverHandle?
-    var datasetHandle: ObserverHandle?
+    private var inviteService: FirebaseInviteService?
+    private var datasetRepository: FirebaseDatasetRepository?
+    private var userDatasetIdHandle: ObserverHandle?
+    private var datasetHandle: ObserverHandle?
     
     var currentUserId: String? {
         return authService.currentUserId
@@ -46,8 +47,9 @@ class AppCoordinator {
     
     private func showDatasetLoadingFlow() {
         
-        let firebaseDatabaseService = FirebaseDatabaseService(userId: currentUserId!)
+        let firebaseDatabaseService = FirebaseDatabaseService()
         datasetRepository = FirebaseDatasetRepository(firebaseService: firebaseDatabaseService, userId: currentUserId!)
+        inviteService = FirebaseInviteService(databaseService: firebaseDatabaseService, datasetRepository: datasetRepository!, authService: authService)
         
         datasetRepository?.getUserDatasetId { [weak self] result in
             switch result {
@@ -57,14 +59,15 @@ class AppCoordinator {
                     self?.observeUserDatasetId()
                     self?.getDataset(withId: datasetId)
                 } else {
-                    self?.datasetRepository?.setupUserDataset { result in
-                        switch result {
-                        case .success(let datasetId):
-                            self?.getDataset(withId: datasetId)
-                        case .failure(let error):
-                            self?.showErrorAlert(error: error)
-                        }
-                    }
+                    self?.showSelectDatasetFlow()
+//                    self?.datasetRepository?.setupUserDataset { result in
+//                        switch result {
+//                        case .success(let datasetId):
+//                            self?.getDataset(withId: datasetId)
+//                        case .failure(let error):
+//                            self?.showErrorAlert(error: error)
+//                        }
+//                    }
                 }
             case .failure(let error):
                 self?.showErrorAlert(error: error)
@@ -74,6 +77,19 @@ class AppCoordinator {
         let loadingViewController = LoadingViewController()
         window.rootViewController = loadingViewController
         window.makeKeyAndVisible()
+    }
+    
+    private func showSelectDatasetFlow() {
+        guard let datasetRepository = datasetRepository, let inviteService = inviteService else {
+            return
+        }
+        let viewModel = SelectDatasetViewModel(datasetRepository: datasetRepository, inviteService: inviteService)
+        viewModel.onSuccess = { [weak self] in
+            self?.showDatasetLoadingFlow()
+        }
+        let viewController = SelectDatasetViewController(viewModel: viewModel)
+        
+        window.rootViewController = viewController
     }
     
     private func observeUserDatasetId() {
@@ -139,7 +155,7 @@ class AppCoordinator {
     
     private func showMainFlow(forDataset dataset: Dataset) {
         
-        let firebaseDatabaseService = FirebaseDatabaseService(userId: currentUserId!)
+        let firebaseDatabaseService = FirebaseDatabaseService()
         let productRepository = FirebaseProductRepository(firebaseService: firebaseDatabaseService, datasetId: dataset.id)
         let shopRepository = FirebaseShopRepository(firebaseService: firebaseDatabaseService, datasetId: dataset.id)
         let priceRepository = FirebasePriceRepository(firebaseService: firebaseDatabaseService, datasetId: dataset.id)
@@ -150,11 +166,15 @@ class AppCoordinator {
         let tabBarController = UITabBarController()
         
         let productTableNav = UINavigationController()
-        let productCoordinator = ProductCoordinator(navigationController: productTableNav, combinedRepository: combinedRepository)
+        let productCoordinator = ProductCoordinator(navigationController: productTableNav,
+                                                    combinedRepository: combinedRepository,
+                                                    inviteService: inviteService!)
         productCoordinator.start()
         
         let shoppingListNav = UINavigationController()
-        let shoppingListCoordinator = ShoppingListCoordinator(navigationController: shoppingListNav, combinedRepository: combinedRepository)
+        let shoppingListCoordinator = ShoppingListCoordinator(navigationController: shoppingListNav,
+                                                              combinedRepository: combinedRepository,
+                                                              inviteService: inviteService!)
         shoppingListCoordinator.start()
         
         let accountNav = UINavigationController()

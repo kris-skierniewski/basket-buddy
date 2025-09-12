@@ -9,13 +9,19 @@ class ShoppingListCoordinator {
     
     private let navigationController: UINavigationController
     private let combinedRepository: CombinedRepositoryProtocol
+    private let inviteService: InviteServiceProtocol
     
     private let productCoordinator: ProductCoordinator //child coordinator
     
-    init(navigationController: UINavigationController, combinedRepository: CombinedRepositoryProtocol) {
+    init(navigationController: UINavigationController,
+         combinedRepository: CombinedRepositoryProtocol,
+         inviteService: InviteServiceProtocol) {
         self.navigationController = navigationController
         self.combinedRepository = combinedRepository
-        self.productCoordinator = ProductCoordinator(navigationController: navigationController, combinedRepository: combinedRepository)
+        self.inviteService = inviteService
+        self.productCoordinator = ProductCoordinator(navigationController: navigationController,
+                                                     combinedRepository: combinedRepository,
+                                                     inviteService: inviteService)
     }
     
     func start() {

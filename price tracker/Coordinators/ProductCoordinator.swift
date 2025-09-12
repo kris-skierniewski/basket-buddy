@@ -8,12 +8,16 @@
 class ProductCoordinator {
     private let navigationController: UINavigationController
     private let combinedRepository: CombinedRepositoryProtocol
+    private let inviteService: InviteServiceProtocol
     
     private var productTableViewModel: ProductTableViewModel?
     
-    init(navigationController: UINavigationController, combinedRepository: CombinedRepositoryProtocol) {
+    init(navigationController: UINavigationController,
+         combinedRepository: CombinedRepositoryProtocol,
+         inviteService: InviteServiceProtocol) {
         self.navigationController = navigationController
         self.combinedRepository = combinedRepository
+        self.inviteService = inviteService
     }
     
     func start() {
@@ -35,6 +39,8 @@ class ProductCoordinator {
         productTableViewModel?.onShopFilterButtonTapped = { filter in
             self.showShopFiltersViewController(selectedFilter: filter)
         }
+        
+        productTableViewModel?.onShareTapped = showShareFlow(sourceView:)
         
         navigationController.pushViewController(productTableViewController, animated: false)
     }
@@ -116,6 +122,33 @@ class ProductCoordinator {
         let viewController = ShopFilterViewController(viewModel: viewModel)
         let shopFiltersNav = UINavigationController(rootViewController: viewController)
         navigationController.topViewController?.present(shopFiltersNav, animated: true)
+    }
+    
+    private func showShareFlow(sourceView: UIBarButtonItem) {
+        
+        inviteService.createInvite() { [weak self] result in
+            switch result {
+            case .success(let invite):
+                
+                
+                let activityViewController = UIActivityViewController(
+                    activityItems: [invite],
+                    applicationActivities: nil
+                )
+                
+//                 For iPad - required to prevent crash
+                if let popover = activityViewController.popoverPresentationController {
+                    popover.sourceItem = sourceView
+                    popover.permittedArrowDirections = [.any]
+                }
+                self?.navigationController.topViewController?.present(activityViewController, animated: true)
+                
+                
+            case .failure(let error):
+                self?.showErrorAlert(error: error)
+            }
+        }
+        
     }
     
     private func showErrorAlert(error: Error) {

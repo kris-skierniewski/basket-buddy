@@ -51,6 +51,23 @@ enum RepositoryError: Error, Equatable, LocalizedError {
     }
 }
 
+enum InviteError: Error, Equatable, LocalizedError {
+    case inviteNotFound
+    case inviteExpired
+    case inviteCodeEmpty
+    
+    var errorDescription: String? {
+        switch self {
+        case .inviteExpired:
+            return "Invite expired."
+        case .inviteNotFound:
+            return "Invite not found."
+        case .inviteCodeEmpty:
+            return "Invite code is empty."
+        }
+    }
+}
+
 enum AuthenticationError: Error, Equatable, LocalizedError {
     case unknownError
     case notSignedIn
