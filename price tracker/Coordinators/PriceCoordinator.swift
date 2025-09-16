@@ -9,21 +9,23 @@ class PriceCoordinator {
     
     private let navigationController: UINavigationController
     private let combinedRepository: CombinedRepositoryProtocol
+    private let authService: AuthService
     private var product: ProductWithPrices
     
     
     private var addPriceViewModel: AddPriceViewModel?
     private var addPriceViewController: AddPriceViewController?
     
-    init(navigationController: UINavigationController, combinedRepository: CombinedRepositoryProtocol, product: ProductWithPrices) {
+    init(navigationController: UINavigationController, combinedRepository: CombinedRepositoryProtocol, authService: AuthService, product: ProductWithPrices) {
         self.navigationController = navigationController
         self.combinedRepository = combinedRepository
+        self.authService = authService
         self.product = product
     }
     
     func start(existingPrice: PriceWithShop? = nil) {
         
-        let addPriceViewModel = AddPriceViewModel(product: product, existingPrice: existingPrice, combinedRepository: combinedRepository)
+        let addPriceViewModel = AddPriceViewModel(product: product, existingPrice: existingPrice, combinedRepository: combinedRepository, authService: authService)
         
         addPriceViewModel.onSuccess = {
             self.navigationController.popViewController(animated: true)

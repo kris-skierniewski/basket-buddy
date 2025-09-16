@@ -12,15 +12,18 @@ final class AddPriceViewModelTests: XCTestCase {
     
     var viewModel: AddPriceViewModel!
     var mockRepository: MockCombinedRepository!
+    var mockAuthService: MockAuthService!
     var product: ProductWithPrices!
+    let mockUser = User(id: "user1", displayName: "User 1")
     
     override func setUpWithError() throws {
+        mockAuthService = MockAuthService()
+        mockAuthService.mockUserId = mockUser.id
         mockRepository = MockCombinedRepository()
-        let mockUser = User(id: "user1", displayName: "User 1")
         mockRepository.mockUsers = [mockUser]
         product = ProductWithPrices(product: Product(id: "product1", name: "Apple", description: "", authorUid: mockUser.id), author: mockUser, priceHistory: [])
         mockRepository.mockProductsWithPrices = [product]
-        viewModel = AddPriceViewModel(product: product, combinedRepository: mockRepository)
+        viewModel = AddPriceViewModel(product: product, combinedRepository: mockRepository, authService: mockAuthService)
     }
     
     func testCanAddValidPrice() {
@@ -147,13 +150,13 @@ final class AddPriceViewModelTests: XCTestCase {
     // Edit existing price
     func testPopulateFieldsWithExistingPriceForEditing() {
         let shop = Shop(id: "shop1", name: "Aldi")
-        let price = Price(productId: product.product.id, price: 0.5, shopId: "shop1", unit: .units, quantity: 3, notes: "")
-        let priceWithShop = PriceWithShop(price: price, shop: shop)
+        let price = Price(productId: product.product.id, price: 0.5, shopId: "shop1", unit: .units, quantity: 3, notes: "", authorUid: mockUser.id)
+        let priceWithShop = PriceWithShop(price: price, author: mockUser, shop: shop)
         product.priceHistory.append(priceWithShop)
         
         mockRepository.mockProductsWithPrices = [product]
         
-        viewModel = AddPriceViewModel(product: product, existingPrice: priceWithShop, combinedRepository: mockRepository)
+        viewModel = AddPriceViewModel(product: product, existingPrice: priceWithShop, combinedRepository: mockRepository, authService: mockAuthService)
         viewModel.loadShopsAndUnits()
         
         XCTAssertEqual(viewModel.shopName, shop.name)
@@ -165,13 +168,13 @@ final class AddPriceViewModelTests: XCTestCase {
 
     func testEditingExistingPriceDoesNotAddNewPriceRecord() {
         let shop = Shop(id: "shop1", name: "Aldi")
-        let price = Price(productId: product.product.id, price: 0.5, shopId: "shop1", unit: .units, quantity: 3, notes: "")
-        let priceWithShop = PriceWithShop(price: price, shop: shop)
+        let price = Price(productId: product.product.id, price: 0.5, shopId: "shop1", unit: .units, quantity: 3, notes: "", authorUid: mockUser.id)
+        let priceWithShop = PriceWithShop(price: price, author: mockUser, shop: shop)
         product.priceHistory.append(priceWithShop)
         
         mockRepository.mockProductsWithPrices = [product]
         
-        viewModel = AddPriceViewModel(product: product, existingPrice: priceWithShop, combinedRepository: mockRepository)
+        viewModel = AddPriceViewModel(product: product, existingPrice: priceWithShop, combinedRepository: mockRepository, authService: mockAuthService)
         viewModel.loadShopsAndUnits()
         
         XCTAssertEqual(mockRepository.mockProductsWithPrices.first!.priceHistory.count, 1)

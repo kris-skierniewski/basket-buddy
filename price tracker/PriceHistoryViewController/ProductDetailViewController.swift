@@ -136,7 +136,7 @@ extension ProductDetailViewController: UITableViewDataSource, UITableViewDelegat
             
             let priceRecord = viewModel.prices[indexPath.row]
             let cell = tableView.dequeueReusableCell(withIdentifier: PriceRecordTableViewCell.identifier, for: indexPath) as! PriceRecordTableViewCell
-            cell.update(withPriceRecord: priceRecord.price, shop: priceRecord.shop, currency: viewModel.currency)
+            cell.update(withPriceRecord: priceRecord, currency: viewModel.currency)
             cell.selectionStyle = .none
             return cell
             

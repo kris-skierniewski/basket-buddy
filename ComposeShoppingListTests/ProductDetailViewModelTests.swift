@@ -26,14 +26,14 @@ final class ProductDetailViewModelTests: XCTestCase {
         
         let product = Product(id: "product1", name: "Apple", description: "red", authorUid: mockUser.id)
         let shop = Shop(id: "shop1", name: "Tesco")
-        price1 = Price(productId: "product1", price: 0.5, shopId: "shop1", unit: .units, quantity: 1, notes: "")
-        price2 = Price(productId: "product1", price: 0.9, shopId: "shop1", unit: .units, quantity: 1, notes: "")
-        price3 = Price(productId: "product1", price: 0.7, shopId: "shop1", unit: .units, quantity: 1, notes: "")
+        price1 = Price(productId: "product1", price: 0.5, shopId: "shop1", unit: .units, quantity: 1, notes: "", authorUid: mockUser.id)
+        price2 = Price(productId: "product1", price: 0.9, shopId: "shop1", unit: .units, quantity: 1, notes: "", authorUid: mockUser.id)
+        price3 = Price(productId: "product1", price: 0.7, shopId: "shop1", unit: .units, quantity: 1, notes: "", authorUid: mockUser.id)
         
         productWithPrices = ProductWithPrices(product: product, author: mockUser, priceHistory: [
-            PriceWithShop(price: price1, shop: shop),
-            PriceWithShop(price: price2, shop: shop),
-            PriceWithShop(price: price3, shop: shop)])
+            PriceWithShop(price: price1, author: mockUser, shop: shop),
+            PriceWithShop(price: price2, author: mockUser, shop: shop),
+            PriceWithShop(price: price3, author: mockUser, shop: shop)])
         
         mockRepository.mockProductsWithPrices = [productWithPrices]
         

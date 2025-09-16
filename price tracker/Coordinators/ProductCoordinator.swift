@@ -71,13 +71,13 @@ class ProductCoordinator {
     
     private func showAddPriceViewController(for product: ProductWithPrices) {
         
-        let priceCoordinator = PriceCoordinator(navigationController: navigationController, combinedRepository: combinedRepository, product: product)
+        let priceCoordinator = PriceCoordinator(navigationController: navigationController, combinedRepository: combinedRepository, authService: authService, product: product)
         priceCoordinator.start()
         
     }
     
     private func showEditPriceViewController(for product: ProductWithPrices, price: PriceWithShop) {
-        let priceCoordinator = PriceCoordinator(navigationController: navigationController, combinedRepository: combinedRepository, product: product)
+        let priceCoordinator = PriceCoordinator(navigationController: navigationController, combinedRepository: combinedRepository, authService: authService, product: product)
         priceCoordinator.start(existingPrice: price)
     }
     

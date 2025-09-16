@@ -30,7 +30,9 @@ struct Price: Identifiable, Codable, Equatable {
     
     let notes: String?
     
-    init(productId: String, price: Double, shopId: String, unit: Unit, quantity: Double, notes: String) {
+    let authorUid: String
+    
+    init(productId: String, price: Double, shopId: String, unit: Unit, quantity: Double, notes: String, authorUid: String) {
         self.id = UUID().uuidString
         self.price = price
         self.shopId = shopId
@@ -39,9 +41,10 @@ struct Price: Identifiable, Codable, Equatable {
         self.quantity = quantity
         self.notes = notes
         self.productId = productId
+        self.authorUid = authorUid
     }
     
-    init(id: String, productId: String, price: Double, shopId: String, timestamp: Double, unit: Unit, quantity: Double, notes: String) {
+    init(id: String, productId: String, price: Double, shopId: String, timestamp: Double, unit: Unit, quantity: Double, notes: String, authorUid: String) {
         self.id = id
         self.productId = productId
         self.price = price
@@ -50,46 +53,7 @@ struct Price: Identifiable, Codable, Equatable {
         self.unit = unit
         self.quantity = quantity
         self.notes = notes
-    }
-    
-    init?(fromDictionary dictionary: [String: Any]) {
-        
-        let unitString = dictionary["unit"] as? String ?? Unit.units.rawValue
-        let quantity = dictionary["quantity"] as? Double ?? 1
-        let notes = dictionary["notes"] as? String ?? ""
-        
-        if let id = dictionary["id"] as? String,
-           let price = dictionary["price"] as? Double,
-           let shopId = dictionary["shopId"] as? String,
-           let timeStamp = dictionary["timestamp"] as? Double,
-           let unit = Unit(rawValue: unitString) {
-            
-            self.id = id
-            self.price = price
-            self.shopId = shopId
-            self.timestamp = timeStamp
-            
-            self.notes = notes
-            self.unit = unit
-            self.quantity = quantity
-            
-        } else {
-            return nil
-        }
-        productId = "" //TODO: remove
-    }
-    
-    var dictionaryValue: Any {
-        return [
-            "id": id,
-            "timestamp": timestamp,
-            "price": price,
-            "shopId": shopId,
-            "unit": unit.rawValue,
-            "quantity": quantity,
-            "notes":notes ?? ""
-        
-        ]
+        self.authorUid = authorUid
     }
     
     func priceString(currency: Currency) -> String {

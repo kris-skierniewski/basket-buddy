@@ -88,7 +88,7 @@ class MockCombinedRepository: CombinedRepositoryProtocol {
         let currentProduct = mockProductsWithPrices[productIndex]
         
         var newPriceHistory = currentProduct.priceHistory
-        newPriceHistory.append(PriceWithShop(price: price, shop: shop))
+        newPriceHistory.append(PriceWithShop(price: price, author: mockLoggedInUser, shop: shop))
         let newProduct = ProductWithPrices(product: currentProduct.product, author: currentProduct.author, priceHistory: newPriceHistory)
         mockProductsWithPrices[productIndex] = newProduct
         
@@ -111,7 +111,7 @@ class MockCombinedRepository: CombinedRepositoryProtocol {
         
         var newPriceHistory = currentProduct.priceHistory
         if let index = newPriceHistory.firstIndex(where: { $0.price.id == price.id}) {
-            newPriceHistory[index] = PriceWithShop(price: price, shop: newPriceHistory[index].shop)
+            newPriceHistory[index] = PriceWithShop(price: price, author: newPriceHistory[index].author, shop: newPriceHistory[index].shop)
         }
         let newProduct = ProductWithPrices(product: currentProduct.product, author: currentProduct.author, priceHistory: newPriceHistory)
         mockProductsWithPrices[productIndex] = newProduct

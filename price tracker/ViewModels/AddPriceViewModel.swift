@@ -43,15 +43,19 @@ class AddPriceViewModel {
     
     private var observerHandle: ObserverHandle?
     private var preferencesObserverHandle: ObserverHandle?
+    private var userObserverHandle: ObserverHandle?
     private var allShops: [Shop] = []
     private var filteredShops: [Shop] = []
+    private var currentUser: User?
     
     private let combinedRepository: CombinedRepositoryProtocol
+    private let authService: AuthService
     private let product: ProductWithPrices
     
-    init(product: ProductWithPrices, existingPrice: PriceWithShop? = nil, combinedRepository: CombinedRepositoryProtocol) {
+    init(product: ProductWithPrices, existingPrice: PriceWithShop? = nil, combinedRepository: CombinedRepositoryProtocol, authService: AuthService) {
         self.product = product
         self.combinedRepository = combinedRepository
+        self.authService = authService
         if let existingPrice = existingPrice {
             self.existingPrice = existingPrice.price
             self.selectedShop = existingPrice.shop
@@ -70,6 +74,7 @@ class AddPriceViewModel {
     deinit {
         observerHandle?.remove()
         preferencesObserverHandle?.remove()
+        userObserverHandle?.remove()
     }
     
     func loadShopsAndUnits() {
@@ -85,6 +90,11 @@ class AddPriceViewModel {
                 self?.onCurrencyUpdated?(prefs.currency)
             }
         })
+        if let currentUserId = authService.currentUserId {
+            userObserverHandle = combinedRepository.observeUser(withId: currentUserId) { [weak self] updatedUser in
+                self?.currentUser = updatedUser
+            }
+        }
         
         delegate?.viewModelDidUpdateUnits(Unit.allCases)
     }
@@ -155,11 +165,11 @@ class AddPriceViewModel {
     
     private func addOrUpdatePrice(withShop shop: Shop, completion: @escaping (Result<Void,Error>) -> Void) {
         if let existingPrice = existingPrice {
-            let price = Price(id: existingPrice.id, productId: existingPrice.productId, price: price!, shopId: shop.id, timestamp: existingPrice.timestamp, unit: unit!, quantity: quantity!, notes: notes)
+            let price = Price(id: existingPrice.id, productId: existingPrice.productId, price: price!, shopId: shop.id, timestamp: existingPrice.timestamp, unit: unit!, quantity: quantity!, notes: notes, authorUid: existingPrice.authorUid)
             
             combinedRepository.updatePrice(price, completion: completion)
         } else {
-            let price = Price(productId: product.product.id, price: price!, shopId: shop.id, unit: unit!, quantity: quantity!, notes: notes)
+            let price = Price(productId: product.product.id, price: price!, shopId: shop.id, unit: unit!, quantity: quantity!, notes: notes, authorUid: currentUser!.id)
             
             combinedRepository.addPrice(price, completion: completion)
             

@@ -107,7 +107,8 @@ class CombinedRepository: CombinedRepositoryProtocol {
                 .filter { $0.productId == product.id }
                 .compactMap { price in
                     guard let shop = currentShops[price.shopId] else { return nil }
-                    return PriceWithShop(price: price, shop: shop)
+                    guard let author = currentUsers[price.authorUid] else { return nil }
+                    return PriceWithShop(price: price, author: author, shop: shop)
                 }
             
             if let user = currentUsers[product.authorUid] {

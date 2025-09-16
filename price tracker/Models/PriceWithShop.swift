@@ -7,5 +7,6 @@
 
 struct PriceWithShop: Equatable {
     let price: Price
+    let author: User
     let shop: Shop
 }

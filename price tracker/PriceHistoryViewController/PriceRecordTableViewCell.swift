@@ -12,27 +12,31 @@ class PriceRecordTableViewCell: UITableViewCell {
     static let identifier = "PriceRecordTableViewCell"
     
     @IBOutlet private weak var dateLabel: UILabel!
+    @IBOutlet private weak var authorLabel: UILabel!
+    
     @IBOutlet private weak var shopNameLabel: UILabel!
     @IBOutlet private weak var priceLabel: UILabel!
     @IBOutlet private weak var pricePerUnitLabel: UILabel!
     @IBOutlet private weak var quantityAndUnitLabel: UILabel!
     @IBOutlet private weak var notesLabel: UILabel!
     
-    func update(withPriceRecord priceRecord: Price, shop: Shop, currency: Currency) {
+    func update(withPriceRecord price: PriceWithShop, currency: Currency) {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEEE, MMM d yyyy"
         
-        dateLabel.text = dateFormatter.string(from: Date(timeIntervalSince1970: priceRecord.timestamp))
-        shopNameLabel.text = shop.name
+        dateLabel.text = dateFormatter.string(from: Date(timeIntervalSince1970: price.price.timestamp))
+        authorLabel.text = price.author.displayName
         
-        quantityAndUnitLabel.text = priceRecord.quantityAndUnitString()
+        shopNameLabel.text = price.shop.name
         
-        pricePerUnitLabel.text = priceRecord.perUnitPriceString(currency: currency)
+        quantityAndUnitLabel.text = price.price.quantityAndUnitString()
         
-        priceLabel.text = priceRecord.priceString(currency: currency)
+        pricePerUnitLabel.text = price.price.perUnitPriceString(currency: currency)
         
-        notesLabel.text = priceRecord.notes
+        priceLabel.text = price.price.priceString(currency: currency)
+        
+        notesLabel.text = price.price.notes
         
     }
     
