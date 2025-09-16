@@ -13,17 +13,38 @@ class AccountViewModel {
     var emailAddress: String = ""
     var currency: Currency = .gbp
     
+    private var user: User?
+    var displayName: String {
+        return user?.displayName ?? ""
+    }
+    var newDisplayName: String = ""
+    
+    var isEditing: Bool = false {
+        didSet {
+            onIsEditingChanged?(isEditing)
+        }
+    }
+    
+    var onIsEditingChanged: ((Bool) -> Void)?
     var onError: ((Error) -> Void)?
     var onCurrencyChanged: ((Currency) -> Void)?
     var onEmailAddressChanged: ((String) -> Void)?
+    var onDisplayNameChanged: ((String) -> Void)?
     
+    private var userObserverHandle: ObserverHandle?
     private var userPreferences: UserPreferences?
-    private var observerHandle: ObserverHandle?
+    private var preferencesObserverHandle: ObserverHandle?
     private var authStateHandle: AuthStateHandle?
     
     init(authService: AuthService, combinedRepository: CombinedRepositoryProtocol) {
         self.authService = authService
         self.combinedRepository = combinedRepository
+    }
+    
+    deinit {
+        preferencesObserverHandle?.remove()
+        authStateHandle?.remove()
+        userObserverHandle?.remove()
     }
     
     func loadUser() {
@@ -33,12 +54,23 @@ class AccountViewModel {
             self?.onEmailAddressChanged?(self?.emailAddress ?? "")
         })
         
-        observerHandle = combinedRepository.observePreferences { [weak self] userPreferences in
+        preferencesObserverHandle = combinedRepository.observePreferences { [weak self] userPreferences in
             if let userPreferences = userPreferences {
                 self?.userPreferences = userPreferences
                 self?.currency = userPreferences.currency
                 self?.onCurrencyChanged?(userPreferences.currency)
             }
+        }
+        
+        if let currentUserId = authService.currentUserId {
+            userObserverHandle = combinedRepository.observeUser(withId: currentUserId, onChange: { [weak self] updatedUser in
+                if let updatedUser = updatedUser {
+                    self?.user = updatedUser
+                    self?.onDisplayNameChanged?(updatedUser.displayName)
+                } else {
+                    self?.user = User(id: currentUserId, displayName: "")
+                }
+            })
         }
     }
     
@@ -78,6 +110,34 @@ class AccountViewModel {
             switch result {
             case .success(()):
                 break
+            case .failure(let error):
+                self?.onError?(error)
+            }
+        }
+    }
+    
+    func saveUser() {
+        guard !newDisplayName.isEmpty else {
+            onError?(AuthenticationError.displayNameEmpty)
+            return
+        }
+        
+        guard let user = user else {
+            onError?(AuthenticationError.notSignedIn)
+            return
+        }
+        
+        if newDisplayName == user.displayName {
+            isEditing = false
+            return
+        }
+        
+        let updatedUser = User(id: user.id, displayName: newDisplayName)
+        combinedRepository.updateUser(updatedUser) { [weak self] result in
+            switch result {
+            case .success(()):
+                print("success")
+                self?.isEditing = false
             case .failure(let error):
                 self?.onError?(error)
             }

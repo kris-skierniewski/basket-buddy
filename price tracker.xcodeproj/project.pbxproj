@@ -130,6 +130,8 @@
 		B0F184392E735C9F008A33BD /* SelectDatasetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F184382E735C98008A33BD /* SelectDatasetViewModel.swift */; };
 		B0F1843B2E735CC0008A33BD /* SelectDatasetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F1843A2E735CBA008A33BD /* SelectDatasetViewController.swift */; };
 		B0F1843D2E735CD8008A33BD /* SelectDatasetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0F1843C2E735CD8008A33BD /* SelectDatasetViewController.xib */; };
+		B0F1844A2E742324008A33BD /* FirebaseUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F184492E74231D008A33BD /* FirebaseUserRepository.swift */; };
+		B0F1844C2E742569008A33BD /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F1844B2E742567008A33BD /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -267,6 +269,8 @@
 		B0F184382E735C98008A33BD /* SelectDatasetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDatasetViewModel.swift; sourceTree = "<group>"; };
 		B0F1843A2E735CBA008A33BD /* SelectDatasetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDatasetViewController.swift; sourceTree = "<group>"; };
 		B0F1843C2E735CD8008A33BD /* SelectDatasetViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectDatasetViewController.xib; sourceTree = "<group>"; };
+		B0F184492E74231D008A33BD /* FirebaseUserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUserRepository.swift; sourceTree = "<group>"; };
+		B0F1844B2E742567008A33BD /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -463,6 +467,7 @@
 		B08FBE6E2C7F963200455298 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				B0F1844B2E742567008A33BD /* User.swift */,
 				B0717AB42E673ABB00F27E52 /* ProductWithPrice.swift */,
 				B0717AB62E673ADD00F27E52 /* PriceWithShop.swift */,
 				B0A819AC2E605FF700B2F8D7 /* ProductCategory.swift */,
@@ -519,6 +524,7 @@
 		B0A819C22E61D2BF00B2F8D7 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				B0F184492E74231D008A33BD /* FirebaseUserRepository.swift */,
 				B0F1842E2E72CD80008A33BD /* FirebaseDatasetRepository.swift */,
 				B0F183F82E6B080E008A33BD /* ShoppingListRepository.swift */,
 				B0717AB22E673A7600F27E52 /* CombinedRepository.swift */,
@@ -717,6 +723,7 @@
 				B0146AE92CAB38BD007553A1 /* SignInViewController.swift in Sources */,
 				B0717AE12E69C36500F27E52 /* SignInViewModel.swift in Sources */,
 				B0146AF32CAB46DF007553A1 /* AccountViewController.swift in Sources */,
+				B0F1844C2E742569008A33BD /* User.swift in Sources */,
 				B08FBE7A2C7FA18100455298 /* UIViewExtensions.swift in Sources */,
 				B0717AB32E673A8600F27E52 /* CombinedRepository.swift in Sources */,
 				B0717AD42E685AB500F27E52 /* ProductDetailViewModel.swift in Sources */,
@@ -770,6 +777,7 @@
 				B0146AED2CAB3D3A007553A1 /* CreateAccountViewController.swift in Sources */,
 				B08FBE862C7FBB9000455298 /* Price.swift in Sources */,
 				B08FBE532C7F8C8900455298 /* AppDelegate.swift in Sources */,
+				B0F1844A2E742324008A33BD /* FirebaseUserRepository.swift in Sources */,
 				B0717AE62E69C60B00F27E52 /* FirebaseAuthService.swift in Sources */,
 				B0F1841D2E7067E6008A33BD /* NavigationTitleView.swift in Sources */,
 				B002AE5F2CC8294100EE3F8A /* SimpleTableViewHeaderView.swift in Sources */,

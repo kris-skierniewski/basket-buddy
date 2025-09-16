@@ -25,6 +25,7 @@ class ProductDetailTableViewCell: UITableViewCell {
     @IBOutlet private weak var notesLabel: UILabel!
     
     @IBOutlet private weak var categoryLabel: UILabel!
+    @IBOutlet private weak var authorLabel: UILabel!
     
     @IBOutlet private weak var bestValueViewHiddenConstraint: NSLayoutConstraint!
     
@@ -51,6 +52,8 @@ class ProductDetailTableViewCell: UITableViewCell {
             notesLabel.text = nil
             bestValueViewHiddenConstraint.priority = .required
         }
+        
+        authorLabel.text = "Added by: \(product.author.displayName)"
         
     }
     

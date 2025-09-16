@@ -16,7 +16,9 @@ final class AddPriceViewModelTests: XCTestCase {
     
     override func setUpWithError() throws {
         mockRepository = MockCombinedRepository()
-        product = ProductWithPrices(product: Product(id: "product1", name: "Apple", description: ""), priceHistory: [])
+        let mockUser = User(id: "user1", displayName: "User 1")
+        mockRepository.mockUsers = [mockUser]
+        product = ProductWithPrices(product: Product(id: "product1", name: "Apple", description: "", authorUid: mockUser.id), author: mockUser, priceHistory: [])
         mockRepository.mockProductsWithPrices = [product]
         viewModel = AddPriceViewModel(product: product, combinedRepository: mockRepository)
     }

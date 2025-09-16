@@ -12,10 +12,16 @@ final class AddProductViewModelTests: XCTestCase {
     
     var viewModel: AddProductViewModel!
     var mockRepository: MockCombinedRepository!
+    var mockAuthService: MockAuthService!
+    
+    let mockUser = User(id: "user1", displayName: "User 1")
     
     override func setUpWithError() throws {
+        mockAuthService = MockAuthService()
+        mockAuthService.mockUserId = mockUser.id
         mockRepository = MockCombinedRepository()
-        viewModel = AddProductViewModel(combinedRepository: mockRepository)
+        mockRepository.mockUsers = [mockUser]
+        viewModel = AddProductViewModel(combinedRepository: mockRepository, authService: mockAuthService)
     }
     
     func testCanAddProductWithValidNameAndDescription() {
@@ -60,10 +66,10 @@ final class AddProductViewModelTests: XCTestCase {
     
     func testCanUpdateExistingProduct() {
         
-        let existingProduct = Product(id: "1", name: "Apple", description: "green")
-        mockRepository.mockProductsWithPrices = [ProductWithPrices(product: existingProduct, priceHistory: [])]
+        let existingProduct = Product(id: "1", name: "Apple", description: "green", authorUid: mockUser.id)
+        mockRepository.mockProductsWithPrices = [ProductWithPrices(product: existingProduct, author: mockUser, priceHistory: [])]
         
-        viewModel = AddProductViewModel(withExistingProduct: existingProduct, combinedRepository: mockRepository)
+        viewModel = AddProductViewModel(withExistingProduct: existingProduct, combinedRepository: mockRepository, authService: mockAuthService)
         
         var didSucceed = false
         viewModel.onSuccess = {

@@ -12,7 +12,11 @@ class AccountViewController: UIViewController {
     
     @IBOutlet private weak var emailLabel: UILabel!
     
-    @IBOutlet private var currencyTextField: UITextField!
+    @IBOutlet private weak var currencyTextField: UITextField!
+    @IBOutlet private weak var displayNameTextField: UITextField!
+    
+    @IBOutlet private weak var displayNameTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var saveButtonContainer: UIView!
     
     @IBOutlet private weak var currencyTableViewControllerShadowView: UIView!
     @IBOutlet private weak var currencyTableViewControllerContainer: UIView!
@@ -41,11 +45,37 @@ class AccountViewController: UIViewController {
     private func setupUIBindings() {
         currencyTextField.text = viewModel.currency.symbol
         emailLabel.text = viewModel.emailAddress
+        displayNameTextField.text = viewModel.displayName
+        
+        displayNameTrailingConstraint.constant = 0
+        saveButtonContainer.isHidden = true
+        
+        displayNameTextField.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
+        displayNameTextField.delegate = self
+        
         viewModel.onCurrencyChanged = { [weak self] currency in
             self?.currencyTextField.text = currency.symbol
         }
         viewModel.onEmailAddressChanged = { [weak self] email in
             self?.emailLabel.text = email
+        }
+        
+        viewModel.onDisplayNameChanged = { [weak self] displayName in
+            self?.displayNameTextField.text = displayName
+            self?.viewModel.newDisplayName = displayName
+        }
+        
+        viewModel.onIsEditingChanged = { [weak self] isEditing in
+            
+            if !isEditing {
+                self?.displayNameTextField.resignFirstResponder()
+            }
+            
+            self?.displayNameTrailingConstraint.constant = isEditing ? 100 : 0
+            UIView.animate(withDuration: 0.3) {
+                self?.saveButtonContainer.isHidden = !isEditing
+                self?.view.layoutIfNeeded()
+            }
         }
     }
     
@@ -108,6 +138,16 @@ class AccountViewController: UIViewController {
         }
     }
     
+    @IBAction private func saveButtonTapped() {
+        viewModel.saveUser()
+    }
+    
+    @objc private func textFieldEditingChanged(_ textField: UITextField) {
+        if textField == displayNameTextField {
+            viewModel.newDisplayName = textField.text ?? ""
+        }
+    }
+    
     private func hideCurrencySearchResults() {
         currencyTableViewControllerShadowView.isHidden = true
     }
@@ -116,3 +156,8 @@ class AccountViewController: UIViewController {
     }
 }
 
+extension AccountViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        viewModel.isEditing = true
+    }
+}

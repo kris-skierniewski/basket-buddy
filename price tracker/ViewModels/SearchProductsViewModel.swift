@@ -13,13 +13,18 @@ struct SearchProductsRow {
 class SearchProductsViewModel {
     
     private let combinedRepository: CombinedRepositoryProtocol
+    private let authService: AuthService
+    
     private var productsObserverHandles: [ObserverHandle] = []
     private var shoppingListObserverHandles: [ObserverHandle] = []
     private var preferencesObserverHandle: ObserverHandle?
+    private var userObserverHandle: ObserverHandle?
     
     private var searchString: String = ""
     private var allProducts: [ProductWithPrices] = []
     private var shoppingList: EnrichedShoppingList = EnrichedShoppingList()
+    
+    private var currentUser: User?
     
     var currency: Currency = .gbp
     var rows: [SearchProductsRow] = []
@@ -30,13 +35,16 @@ class SearchProductsViewModel {
     
     private var filteredProducts: [ProductWithPrices] = []
     
-    init(combinedRepository: CombinedRepositoryProtocol) {
+    init(combinedRepository: CombinedRepositoryProtocol, authService: AuthService) {
         self.combinedRepository = combinedRepository
+        self.authService = authService
     }
     
     deinit {
         productsObserverHandles.forEach { $0.remove() }
         shoppingListObserverHandles.forEach({ $0.remove() })
+        preferencesObserverHandle?.remove()
+        userObserverHandle?.remove()
     }
     
     func loadProducts() {
@@ -57,6 +65,12 @@ class SearchProductsViewModel {
                 self?.applyCurrentFilter()
             }
         })
+        if let currentUserId = authService.currentUserId {
+            userObserverHandle = combinedRepository.observeUser(withId: currentUserId, onChange: { [weak self] updatedUser in
+                self?.currentUser = updatedUser
+            })
+        }
+        
     }
     
     func search(_ searchString: String) {
@@ -135,9 +149,13 @@ class SearchProductsViewModel {
                 $0.product.description.lowercased().contains(searchString.lowercased())
             })
             if filteredProducts.count == 0 {
-                let newProduct = ProductWithPrices(product: Product(id: UUID().uuidString, name: searchString, description: ""), priceHistory: [])
-                let newProductRow = SearchProductsRow(product: newProduct, exists: false, isInShoppingList: false)
-                rows = [newProductRow]
+                if let currentUser = currentUser {
+                    let newProduct = ProductWithPrices(product: Product(id: UUID().uuidString, name: searchString, description: "", authorUid: currentUser.id), author: currentUser, priceHistory: [])
+                    let newProductRow = SearchProductsRow(product: newProduct, exists: false, isInShoppingList: false)
+                    rows = [newProductRow]
+                } else {
+                    rows = []
+                }
                 
             } else {
                 rows = filteredProducts.map {

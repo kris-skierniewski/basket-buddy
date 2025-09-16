@@ -8,6 +8,7 @@
 struct ProductWithPrices: Equatable, Comparable {
     
     let product: Product
+    let author: User
     var priceHistory: [PriceWithShop]
     
     var cheapestPrice: PriceWithShop? {

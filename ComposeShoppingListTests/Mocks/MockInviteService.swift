@@ -10,12 +10,13 @@ import XCTest
 class MockInviteService: InviteServiceProtocol {
     
     var mockUserId: String = ""
+    var mockDatasetId: String = ""
     
     var mockInvites: [Invite] = []
     
-    func createInvite(for datasetId: String, invitedBy: String, completion: @escaping (Result<String, any Error>) -> Void) {
+    func createInvite(completion: @escaping (Result<String, any Error>) -> Void) {
         
-        let invite = Invite(code: "ABC123", datasetId: datasetId, invitedBy: mockUserId, createdAt: Date().timeIntervalSince1970, expiresAt: Date().timeIntervalSince1970 + 604800)
+        let invite = Invite(code: "ABC123", datasetId: mockDatasetId, invitedBy: mockUserId, createdAt: Date().timeIntervalSince1970, expiresAt: Date().timeIntervalSince1970 + 604800)
         mockInvites.append(invite)
         completion(.success(invite.code))
     }

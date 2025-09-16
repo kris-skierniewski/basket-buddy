@@ -9,15 +9,18 @@ class ProductCoordinator {
     private let navigationController: UINavigationController
     private let combinedRepository: CombinedRepositoryProtocol
     private let inviteService: InviteServiceProtocol
+    private let authService: AuthService
     
     private var productTableViewModel: ProductTableViewModel?
     
     init(navigationController: UINavigationController,
          combinedRepository: CombinedRepositoryProtocol,
-         inviteService: InviteServiceProtocol) {
+         inviteService: InviteServiceProtocol,
+         authService: AuthService) {
         self.navigationController = navigationController
         self.combinedRepository = combinedRepository
         self.inviteService = inviteService
+        self.authService = authService
     }
     
     func start() {
@@ -79,7 +82,7 @@ class ProductCoordinator {
     }
     
     private func showAddProductViewController(searchString: String?) {
-        let viewModel = AddProductViewModel(searchString: searchString, combinedRepository: combinedRepository)
+        let viewModel = AddProductViewModel(searchString: searchString, combinedRepository: combinedRepository, authService: authService)
         
         viewModel.onSuccess = {
             self.navigationController.popViewController(animated: true)
@@ -96,7 +99,7 @@ class ProductCoordinator {
     }
     
     private func showEditProductViewController(for product: ProductWithPrices) {
-        let viewModel = AddProductViewModel(withExistingProduct: product.product, combinedRepository: combinedRepository)
+        let viewModel = AddProductViewModel(withExistingProduct: product.product, combinedRepository: combinedRepository, authService: authService)
         
         viewModel.onSuccess = {
             self.navigationController.popViewController(animated: true)

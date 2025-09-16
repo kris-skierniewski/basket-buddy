@@ -11,14 +11,24 @@ import XCTest
 class SearchProductsViewModelTests: XCTestCase {
     
     var mockCombinedRepository: MockCombinedRepository!
+    var mockAuthService: MockAuthService!
     var viewModel: SearchProductsViewModel!
     
-    let apple = ProductWithPrices(product: Product(id: "0", name: "Apple", description: ""), priceHistory: [])
-    let rice = ProductWithPrices(product: Product(id: "1", name: "Rice", description: ""), priceHistory: [])
+    let mockUser = User(id: "user1", displayName: "User 1")
+    
+    var apple: ProductWithPrices!
+    var rice: ProductWithPrices!
     
     override func setUpWithError() throws {
+        mockAuthService = MockAuthService()
+        mockAuthService.mockUserId = mockUser.id
         mockCombinedRepository = MockCombinedRepository()
-        viewModel = SearchProductsViewModel(combinedRepository: mockCombinedRepository)
+        mockCombinedRepository.mockUsers = [mockUser]
+        mockCombinedRepository.mockLoggedInUser = mockUser
+        viewModel = SearchProductsViewModel(combinedRepository: mockCombinedRepository, authService: mockAuthService)
+        
+        apple = ProductWithPrices(product: Product(id: "0", name: "Apple", description: "", authorUid: mockUser.id), author: mockUser, priceHistory: [])
+        rice = ProductWithPrices(product: Product(id: "1", name: "Rice", description: "", authorUid: mockUser.id), author: mockUser, priceHistory: [])
     }
     
     func testCanSearchExistingProducts() {

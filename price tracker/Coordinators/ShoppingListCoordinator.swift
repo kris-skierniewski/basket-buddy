@@ -10,18 +10,22 @@ class ShoppingListCoordinator {
     private let navigationController: UINavigationController
     private let combinedRepository: CombinedRepositoryProtocol
     private let inviteService: InviteServiceProtocol
+    private let authService: AuthService
     
     private let productCoordinator: ProductCoordinator //child coordinator
     
     init(navigationController: UINavigationController,
          combinedRepository: CombinedRepositoryProtocol,
-         inviteService: InviteServiceProtocol) {
+         inviteService: InviteServiceProtocol,
+         authService: AuthService) {
         self.navigationController = navigationController
         self.combinedRepository = combinedRepository
         self.inviteService = inviteService
+        self.authService = authService
         self.productCoordinator = ProductCoordinator(navigationController: navigationController,
                                                      combinedRepository: combinedRepository,
-                                                     inviteService: inviteService)
+                                                     inviteService: inviteService,
+                                                     authService: authService)
     }
     
     func start() {
@@ -50,7 +54,7 @@ class ShoppingListCoordinator {
     }
     
     private func showAddProductViewController() {
-        let viewModel = SearchProductsViewModel(combinedRepository: combinedRepository)
+        let viewModel = SearchProductsViewModel(combinedRepository: combinedRepository, authService: authService)
         
         let viewController = SearchProductsViewController(viewModel: viewModel)
         

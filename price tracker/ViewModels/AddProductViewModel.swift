@@ -6,7 +6,10 @@
 //
 
 class AddProductViewModel {
-    let combinedRepository: CombinedRepositoryProtocol
+    
+    private let combinedRepository: CombinedRepositoryProtocol
+    private let authService: AuthService
+    
     private var existingProduct: Product?
     private let searchString: String?
     
@@ -24,9 +27,14 @@ class AddProductViewModel {
     var onSuccess: (() -> Void)?
     var onCancel: (() -> Void)?
     
-    init(withExistingProduct product: Product? = nil, searchString: String? = nil, combinedRepository: CombinedRepositoryProtocol) {
+    init(withExistingProduct product: Product? = nil,
+         searchString: String? = nil,
+         combinedRepository: CombinedRepositoryProtocol,
+         authService: AuthService){
+        
         self.existingProduct = product
         self.combinedRepository = combinedRepository
+        self.authService = authService
         self.searchString = searchString
         
         if product == nil {
@@ -68,7 +76,7 @@ class AddProductViewModel {
         if let existingProduct = existingProduct {
             //update
             onLoading?(true)
-            let updatedProduct = Product(id: existingProduct.id, name: name, description: description, category: currentCategory)
+            let updatedProduct = Product(id: existingProduct.id, name: name, description: description, category: currentCategory, authorUid: existingProduct.authorUid)
             combinedRepository.updateProduct(updatedProduct) { [weak self] result in
                 self?.onLoading?(false)
                 switch result {
@@ -80,7 +88,7 @@ class AddProductViewModel {
             }
         } else {
             //add new
-            let newProduct = Product(id: UUID().uuidString, name: name, description: description, category: currentCategory)
+            let newProduct = Product(id: UUID().uuidString, name: name, description: description, category: currentCategory, authorUid: authService.currentUserId!)
             
             onLoading?(true)
             combinedRepository.addProduct(newProduct) { [weak self] result in

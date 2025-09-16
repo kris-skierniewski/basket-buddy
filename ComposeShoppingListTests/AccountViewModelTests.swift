@@ -14,10 +14,13 @@ final class AccountViewModelTests: XCTestCase {
     var mockRepository: MockCombinedRepository!
     var viewModel: AccountViewModel!
     
+    let mockUser = User(id: "mockUser1", displayName: "Test user")
     
     override func setUpWithError() throws {
         mockRepository = MockCombinedRepository()
+        mockRepository.mockUsers = [mockUser]
         mockAuthService = MockAuthService()
+        mockAuthService.mockUserId = mockUser.id
         viewModel = AccountViewModel(authService: mockAuthService, combinedRepository: mockRepository)
     }
     
@@ -28,7 +31,7 @@ final class AccountViewModelTests: XCTestCase {
     
     func deleteAccountRemovesAllProducts() {
         mockRepository.mockProductsWithPrices = [
-            ProductWithPrices(product: Product(id: "id", name: "Test product", description: ""),
+            ProductWithPrices(product: Product(id: "id", name: "Test product", description: "", authorUid: mockUser.id), author: mockUser,
                               priceHistory: [])]
         
         viewModel.deleteAccount()
@@ -70,5 +73,13 @@ final class AccountViewModelTests: XCTestCase {
         
     }
     
+    func testCanUpdateDisplayName() {
+        
+        viewModel.loadUser()
+        viewModel.newDisplayName = "Kris"
+        viewModel.saveUser()
+        
+        XCTAssertEqual(mockRepository.mockUsers.first?.displayName, "Kris")
+    }
     
 }

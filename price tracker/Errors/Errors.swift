@@ -74,6 +74,7 @@ enum AuthenticationError: Error, Equatable, LocalizedError {
     case emptyEmailAddress
     case emptyPassword
     case passwordsDontMatch
+    case displayNameEmpty
     
     var errorDescription: String? {
         switch self {
@@ -87,6 +88,8 @@ enum AuthenticationError: Error, Equatable, LocalizedError {
             return "Password is empty."
         case .passwordsDontMatch:
             return "Passwords do not match"
+        case .displayNameEmpty:
+            return "Display name is empty"
         }
     }
     

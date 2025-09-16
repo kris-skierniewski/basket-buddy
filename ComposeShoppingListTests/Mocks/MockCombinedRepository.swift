@@ -14,6 +14,12 @@ class MockCombinedRepository: CombinedRepositoryProtocol {
     var mockUserPreferences: UserPreferences?
     var mockShoppingList: EnrichedShoppingList?
     
+    var mockLoggedInUser = User(id: "user1", displayName: "User 1")
+    
+    var mockUsers: [User] = []
+    private var onUsersChangeCallBacks: [(([User]) -> Void)] = []
+    private var onUserChangeCallBack: [((User?) -> Void)] = []
+    
     private var onChangeCallBacks: [(([ProductWithPrices]) -> Void)] = []
     
     private var onShopsChangeCallBacks: [(([Shop]) -> Void)] = []
@@ -29,10 +35,12 @@ class MockCombinedRepository: CombinedRepositoryProtocol {
         
         let mockPriceHandle = MockObserverHandle()
         
+        let mockUserHandle = MockObserverHandle()
+        
         onChangeCallBacks.append(onChange)
         onChange(mockProductsWithPrices)
         
-        return [mockProductHandle, mockShopHandle, mockPriceHandle]
+        return [mockProductHandle, mockShopHandle, mockPriceHandle, mockUserHandle]
     }
     
     func observeShops(onChange: @escaping ([price_tracker.Shop]) -> Void) -> any price_tracker.ObserverHandle {
@@ -42,7 +50,7 @@ class MockCombinedRepository: CombinedRepositoryProtocol {
     }
     
     func addProduct(_ product: Product, completion: @escaping (Result<Void, any Error>) -> Void) {
-        let newProduct = ProductWithPrices(product: product, priceHistory: [])
+        let newProduct = ProductWithPrices(product: product, author: mockLoggedInUser, priceHistory: [])
         mockProductsWithPrices.append(newProduct)
         triggerObservers()
         completion(.success(()))
@@ -51,7 +59,7 @@ class MockCombinedRepository: CombinedRepositoryProtocol {
     func updateProduct(_ product: Product, completion: @escaping (Result<Void, any Error>) -> Void) {
         if let index = mockProductsWithPrices.firstIndex(where: { $0.product.id == product.id }) {
             
-            let newProductWithPrices = ProductWithPrices(product: product, priceHistory: mockProductsWithPrices[index].priceHistory)
+            let newProductWithPrices = ProductWithPrices(product: product, author: mockProductsWithPrices[index].author, priceHistory: mockProductsWithPrices[index].priceHistory)
             mockProductsWithPrices[index] = newProductWithPrices
             triggerObservers()
         }
@@ -81,7 +89,7 @@ class MockCombinedRepository: CombinedRepositoryProtocol {
         
         var newPriceHistory = currentProduct.priceHistory
         newPriceHistory.append(PriceWithShop(price: price, shop: shop))
-        let newProduct = ProductWithPrices(product: currentProduct.product, priceHistory: newPriceHistory)
+        let newProduct = ProductWithPrices(product: currentProduct.product, author: currentProduct.author, priceHistory: newPriceHistory)
         mockProductsWithPrices[productIndex] = newProduct
         
         triggerObservers()
@@ -105,7 +113,7 @@ class MockCombinedRepository: CombinedRepositoryProtocol {
         if let index = newPriceHistory.firstIndex(where: { $0.price.id == price.id}) {
             newPriceHistory[index] = PriceWithShop(price: price, shop: newPriceHistory[index].shop)
         }
-        let newProduct = ProductWithPrices(product: currentProduct.product, priceHistory: newPriceHistory)
+        let newProduct = ProductWithPrices(product: currentProduct.product, author: currentProduct.author, priceHistory: newPriceHistory)
         mockProductsWithPrices[productIndex] = newProduct
         
         triggerObservers()
@@ -121,7 +129,7 @@ class MockCombinedRepository: CombinedRepositoryProtocol {
         let currentProduct = mockProductsWithPrices[productIndex]
         
         let newPriceHistory = currentProduct.priceHistory.filter({ $0.price.id != price.id})
-        let newProduct = ProductWithPrices(product: currentProduct.product, priceHistory: newPriceHistory)
+        let newProduct = ProductWithPrices(product: currentProduct.product, author: currentProduct.author, priceHistory: newPriceHistory)
         mockProductsWithPrices[productIndex] = newProduct
         
         triggerObservers()
@@ -194,6 +202,34 @@ class MockCombinedRepository: CombinedRepositoryProtocol {
             
         }
             
+    }
+    
+    // MARK: USERS
+    func updateUser(_ user: User, completion: @escaping (Result<Void, Error>) -> Void) {
+        if let matchingUserIndex = mockUsers.firstIndex(where: { $0.id == user.id }) {
+            mockUsers[matchingUserIndex] = user
+        }
+        triggerObservers()
+        completion(.success(()))
+        
+    }
+    func observeUser(withId userId: String, onChange: @escaping (User?) -> Void) -> ObserverHandle {
+        onUserChangeCallBack.append(onChange)
+        let observedUser = mockUsers.first(where: { $0.id == userId })
+        onChange(observedUser)
+        return MockObserverHandle()
+    }
+    func deleteUser(_ user: User, completion: @escaping (Result<Void, Error>) -> Void) {
+        if let matchingIndex = mockUsers.firstIndex(where: { $0.id == user.id }) {
+            mockUsers.remove(at: matchingIndex)
+        }
+        triggerObservers()
+        completion(.success(()))
+    }
+    func observeUsers(onChange: @escaping ([User]) -> Void) -> ObserverHandle {
+        onUsersChangeCallBacks.append(onChange)
+        onChange(mockUsers)
+        return MockObserverHandle()
     }
     
     private func triggerObservers() {

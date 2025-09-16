@@ -12,14 +12,22 @@ final class ShoppingListViewModelTests: XCTestCase {
     
     var mockRepository: MockCombinedRepository!
     var viewModel: ShoppingListViewModel!
+    let mockUser = User(id: "user1", displayName: "User 1")
     
-    let bread = ProductWithPrices(product: Product(id: "0", name: "Bread", description: "Brown", category: .bakery), priceHistory: [])
-    let milk = ProductWithPrices(product: Product(id: "1", name: "Milk", description: "", category: .dairy), priceHistory: [])
-    let rice = ProductWithPrices(product: Product(id: "2", name: "Rice", description: "", category: .grains), priceHistory: [])
+    var bread: ProductWithPrices!
+    var milk: ProductWithPrices!
+    var rice: ProductWithPrices!
+    
     
     override func setUpWithError() throws {
         
         mockRepository = MockCombinedRepository()
+        mockRepository.mockUsers = [mockUser]
+        
+        bread = ProductWithPrices(product: Product(id: "0", name: "Bread", description: "Brown", category: .bakery, authorUid: mockUser.id), author: mockUser, priceHistory: [])
+        milk = ProductWithPrices(product: Product(id: "1", name: "Milk", description: "", category: .dairy, authorUid: mockUser.id), author: mockUser, priceHistory: [])
+        rice = ProductWithPrices(product: Product(id: "2", name: "Rice", description: "", category: .grains, authorUid: mockUser.id), author: mockUser, priceHistory: [])
+        
         mockRepository.mockProductsWithPrices = [bread, milk, rice]
         mockRepository.mockShoppingList = EnrichedShoppingList(id: "shoppingList1", products: [
             ShoppingListProduct(productWithPrices: bread, isChecked: false),

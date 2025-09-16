@@ -37,7 +37,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Category:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B5j-0D-SLH">
-                        <rect key="frame" x="20" y="237.66666666666666" width="353" height="14.333333333333343"/>
+                        <rect key="frame" x="19.999999999999996" y="237.66666666666666" width="55.666666666666657" height="14.333333333333343"/>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -113,16 +113,24 @@
                             <constraint firstItem="Hv9-W2-BhF" firstAttribute="top" secondItem="yI6-RF-1n4" secondAttribute="bottom" constant="1" id="yYI-dN-uVQ"/>
                         </constraints>
                     </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Added by: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rmK-6Q-gt4">
+                        <rect key="frame" x="312" y="238.33333333333334" width="61" height="13.333333333333343"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="T7T-Ac-F1D" firstAttribute="top" secondItem="EEx-Eg-yDm" secondAttribute="bottom" constant="10" id="4QO-oS-uTy"/>
                     <constraint firstItem="EEx-Eg-yDm" firstAttribute="leading" secondItem="uPV-xo-wD5" secondAttribute="leading" constant="20" id="4Rn-NT-h5d"/>
+                    <constraint firstItem="rmK-6Q-gt4" firstAttribute="centerY" secondItem="B5j-0D-SLH" secondAttribute="centerY" id="6fZ-bx-6Ie"/>
+                    <constraint firstItem="rmK-6Q-gt4" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="B5j-0D-SLH" secondAttribute="trailing" constant="20" id="9fy-pd-bbQ"/>
                     <constraint firstAttribute="bottom" secondItem="RVC-An-BWf" secondAttribute="bottom" constant="30" id="FyF-cj-Wu3"/>
-                    <constraint firstItem="B5j-0D-SLH" firstAttribute="trailing" secondItem="T7T-Ac-F1D" secondAttribute="trailing" id="GyS-oc-0B3"/>
                     <constraint firstAttribute="trailing" secondItem="T7T-Ac-F1D" secondAttribute="trailing" constant="20" id="Hu5-i9-1bZ"/>
                     <constraint firstItem="RVC-An-BWf" firstAttribute="top" secondItem="B5j-0D-SLH" secondAttribute="bottom" constant="20" id="LAT-XH-uCr"/>
                     <constraint firstItem="wxZ-uR-Sq1" firstAttribute="leading" secondItem="uPV-xo-wD5" secondAttribute="leading" id="Ux3-et-WOu"/>
                     <constraint firstItem="B5j-0D-SLH" firstAttribute="top" secondItem="T7T-Ac-F1D" secondAttribute="bottom" constant="10" id="bxv-b5-wWr"/>
+                    <constraint firstItem="rmK-6Q-gt4" firstAttribute="trailing" secondItem="T7T-Ac-F1D" secondAttribute="trailing" id="d7i-GJ-4pA"/>
                     <constraint firstAttribute="trailing" secondItem="RVC-An-BWf" secondAttribute="trailing" constant="20" id="dsa-AW-BUe"/>
                     <constraint firstItem="T7T-Ac-F1D" firstAttribute="leading" secondItem="uPV-xo-wD5" secondAttribute="leading" constant="20" id="hSo-uK-7KU"/>
                     <constraint firstAttribute="trailing" secondItem="EEx-Eg-yDm" secondAttribute="trailing" constant="100" id="nbd-ue-b1d"/>
@@ -134,6 +142,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="authorLabel" destination="rmK-6Q-gt4" id="zEH-zo-KPf"/>
                 <outlet property="bestValueViewHiddenConstraint" destination="IE0-16-H7S" id="7R8-jT-nCK"/>
                 <outlet property="categoryLabel" destination="B5j-0D-SLH" id="Blj-jQ-2fl"/>
                 <outlet property="descriptionLabel" destination="T7T-Ac-F1D" id="06s-m8-0Fp"/>

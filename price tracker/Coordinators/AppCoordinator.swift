@@ -161,20 +161,22 @@ class AppCoordinator {
         let priceRepository = FirebasePriceRepository(firebaseService: firebaseDatabaseService, datasetId: dataset.id)
         let userPreferencesRepository = FirebaseUserPreferenceRepository(firebaseService: firebaseDatabaseService, datasetId: dataset.id)
         let shoppingListRepository = FirebaseShoppingListRepository(firebaseService: firebaseDatabaseService, datasetId: dataset.id)
-        let combinedRepository = CombinedRepository(productRepository: productRepository, shopRepository: shopRepository, priceRepository: priceRepository, userPreferencesRepository: userPreferencesRepository, shoppingListRepository: shoppingListRepository)
+        let userRepository = FirebaseUserRepository(firebaseService: firebaseDatabaseService)
+        let combinedRepository = CombinedRepository(productRepository: productRepository, shopRepository: shopRepository, priceRepository: priceRepository, userPreferencesRepository: userPreferencesRepository, shoppingListRepository: shoppingListRepository, userRepository: userRepository)
         
         let tabBarController = UITabBarController()
         
         let productTableNav = UINavigationController()
         let productCoordinator = ProductCoordinator(navigationController: productTableNav,
                                                     combinedRepository: combinedRepository,
-                                                    inviteService: inviteService!)
+                                                    inviteService: inviteService!,
+                                                    authService: authService)
         productCoordinator.start()
         
         let shoppingListNav = UINavigationController()
         let shoppingListCoordinator = ShoppingListCoordinator(navigationController: shoppingListNav,
                                                               combinedRepository: combinedRepository,
-                                                              inviteService: inviteService!)
+                                                              inviteService: inviteService!, authService: authService)
         shoppingListCoordinator.start()
         
         let accountNav = UINavigationController()
