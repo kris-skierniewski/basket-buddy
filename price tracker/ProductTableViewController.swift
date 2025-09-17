@@ -22,7 +22,6 @@ class ProductTableViewController: UIViewController {
     
     private let searchController = UISearchController(searchResultsController: nil)
     private var filterButton: UIBarButtonItem?
-    private var shareButton: UIBarButtonItem?
     
     init(viewModel: ProductTableViewModel) {
         self.viewModel = viewModel
@@ -114,21 +113,13 @@ class ProductTableViewController: UIViewController {
     
     private func setupBarButtons() {
         filterButton = UIBarButtonItem(image: UIImage(systemName: "line.3.horizontal.decrease.circle"), style: .plain, target: self, action: #selector(filterButtonTapped))
-
-        shareButton = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(shareButtonTapped))
         
-        navigationItem.rightBarButtonItems = [shareButton!, filterButton!]
+        navigationItem.rightBarButtonItems = [filterButton!]
         
     }
     
     @objc private func filterButtonTapped() {
         viewModel.showShopFilters()
-    }
-    
-    @objc private func shareButtonTapped() {
-        if let shareButton = shareButton {
-            viewModel.share(sourceView: shareButton)
-        }
     }
     
     @IBAction private func addProductButtonTapped() {

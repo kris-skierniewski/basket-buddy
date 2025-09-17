@@ -24,9 +24,10 @@ class PriceRecordTableViewCell: UITableViewCell {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEEE, MMM d yyyy"
+        let dateString = dateFormatter.string(from: Date(timeIntervalSince1970: price.price.timestamp))
         
-        dateLabel.text = dateFormatter.string(from: Date(timeIntervalSince1970: price.price.timestamp))
-        authorLabel.text = price.author.displayName
+        dateLabel.text = "\(dateString) - \(price.author.displayName)"
+        //authorLabel.text = price.author.displayName
         
         shopNameLabel.text = price.shop.name
         

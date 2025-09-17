@@ -22,6 +22,8 @@ protocol DatasetRepository {
     func setupUserDataset(completion: @escaping(Result<String,Error>) -> Void)
     func joinDataset(withId datasetId: String, completion: @escaping (Result<Void, any Error>) -> Void)
     
+    func deleteDataset(withId datasetId: String, completion: @escaping (Result<Void, Error>) -> Void)
+    func deleteUserFromDataset(datasetId: String, userId: String, completion:  @escaping (Result<Void, Error>) -> Void)
     //var userDatasetId: String? { get }
 }
 
@@ -101,6 +103,29 @@ class FirebaseDatasetRepository: DatasetRepository {
                 completion(.failure(error))
             }
             
+        }
+    }
+    
+    func deleteUserFromDataset(datasetId: String, userId: String, completion:  @escaping (Result<Void, Error>) -> Void) {
+        let updates: [String: Any] = [
+            "datasets/\(datasetId)/publicInfo/members/\(userId)": NSNull(),
+            "userDataset/\(self.userId)": NSNull()
+        ]
+        
+        firebaseService.updateMultiple(updates, completion: completion)
+    }
+    
+    func deleteDataset(withId datasetId: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        let datasetPath = "datasets/\(datasetId)"
+        firebaseService.delete(at: datasetPath) { result in
+            switch result {
+            case .success():
+                let userDatasetPath = "userDataset/\(self.userId)"
+                self.firebaseService.delete(at: userDatasetPath, completion: completion)
+                
+            case .failure(let error):
+                completion(.failure(error))
+            }
         }
     }
 }

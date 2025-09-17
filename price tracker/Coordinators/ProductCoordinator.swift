@@ -11,13 +11,20 @@ class ProductCoordinator {
     private let inviteService: InviteServiceProtocol
     private let authService: AuthService
     
+    private let datasetId: String
+    private let datasetRepository: DatasetRepository
+    
     private var productTableViewModel: ProductTableViewModel?
     
     init(navigationController: UINavigationController,
+         datasetId: String,
+         datasetRepository: DatasetRepository,
          combinedRepository: CombinedRepositoryProtocol,
          inviteService: InviteServiceProtocol,
          authService: AuthService) {
         self.navigationController = navigationController
+        self.datasetId = datasetId
+        self.datasetRepository = datasetRepository
         self.combinedRepository = combinedRepository
         self.inviteService = inviteService
         self.authService = authService
@@ -43,7 +50,8 @@ class ProductCoordinator {
             self.showShopFiltersViewController(selectedFilter: filter)
         }
         
-        productTableViewModel?.onShareTapped = showShareFlow(sourceView:)
+        
+        //= showShareFlow(sourceView:)
         
         navigationController.pushViewController(productTableViewController, animated: false)
     }
@@ -125,33 +133,6 @@ class ProductCoordinator {
         let viewController = ShopFilterViewController(viewModel: viewModel)
         let shopFiltersNav = UINavigationController(rootViewController: viewController)
         navigationController.topViewController?.present(shopFiltersNav, animated: true)
-    }
-    
-    private func showShareFlow(sourceView: UIBarButtonItem) {
-        
-        inviteService.createInvite() { [weak self] result in
-            switch result {
-            case .success(let invite):
-                
-                
-                let activityViewController = UIActivityViewController(
-                    activityItems: [invite],
-                    applicationActivities: nil
-                )
-                
-//                 For iPad - required to prevent crash
-                if let popover = activityViewController.popoverPresentationController {
-                    popover.sourceItem = sourceView
-                    popover.permittedArrowDirections = [.any]
-                }
-                self?.navigationController.topViewController?.present(activityViewController, animated: true)
-                
-                
-            case .failure(let error):
-                self?.showErrorAlert(error: error)
-            }
-        }
-        
     }
     
     private func showErrorAlert(error: Error) {

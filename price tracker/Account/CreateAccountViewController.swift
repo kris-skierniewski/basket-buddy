@@ -11,6 +11,8 @@ import UIKit
 
 class CreateAccountViewController: UIViewController {
     
+    @IBOutlet private weak var displayNameTextField: UITextField!
+    
     @IBOutlet private weak var emailTextField: UITextField!
     
     @IBOutlet private weak var passwordTextField: UITextField!
@@ -35,6 +37,7 @@ class CreateAccountViewController: UIViewController {
     }
     
     private func setupUIBindings() {
+        displayNameTextField.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
         emailTextField.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
         passwordTextField.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
         confirmPasswordTextField.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
@@ -42,6 +45,8 @@ class CreateAccountViewController: UIViewController {
     
     @objc private func textFieldEditingChanged(_ textField: UITextField) {
         switch textField {
+        case displayNameTextField:
+            viewModel.displayName = textField.text ?? ""
         case emailTextField:
             viewModel.emailAddress = textField.text ?? ""
         case passwordTextField:

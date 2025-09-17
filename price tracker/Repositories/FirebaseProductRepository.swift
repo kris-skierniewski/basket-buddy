@@ -8,6 +8,7 @@
 protocol ProductRepository {
     func addProduct(_ product: Product, completion: @escaping (Result<Void, Error>) -> Void)
     func updateProduct(_ product: Product, completion: @escaping (Result<Void, Error>) -> Void)
+    func updateProducts(_ products: [String: Any], completion: @escaping (Result<Void, Error>) -> Void)
     func deleteProduct(id: String, completion: @escaping (Result<Void, Error>) -> Void)
     func observeProducts(onChange: @escaping ([Product]) -> Void) -> ObserverHandle
     func deleteAllProducts(completion: @escaping (Result<Void, Error>) -> Void)
@@ -30,6 +31,11 @@ class FirebaseProductRepository: ProductRepository {
     func updateProduct(_ product: Product, completion: @escaping (Result<Void, Error>) -> Void) {
         let path = "datasets/\(datasetId)/products/\(product.id)"
         firebaseService.update(product, at: path, completion: completion)
+    }
+    
+    func updateProducts(_ products: [String: Any], completion: @escaping (Result<Void, Error>) -> Void) {
+        let path = "datasets/\(datasetId)/products"
+        firebaseService.updateItems(products, at: path, completion: completion)
     }
     
     func deleteProduct(id: String, completion: @escaping (Result<Void, Error>) -> Void) {

@@ -6,12 +6,14 @@
 //
 
 class AuthCoordinator {
-    let navigationController: UINavigationController
-    let authService: AuthService
+    private let navigationController: UINavigationController
+    private let authService: AuthService
+    private let userRepository: UserRepository
     
-    init(navigationController: UINavigationController, authService: AuthService) {
+    init(navigationController: UINavigationController, authService: AuthService, userRepository: UserRepository) {
         self.navigationController = navigationController
         self.authService = authService
+        self.userRepository = userRepository
     }
     
     func start() {
@@ -32,7 +34,7 @@ class AuthCoordinator {
     }
     
     private func showCreateAccountViewController() {
-        let viewModel = CreateAccountViewModel(authService: authService)
+        let viewModel = CreateAccountViewModel(authService: authService, userRepository: userRepository)
         viewModel.onError = { [weak self] error in
             self?.showErrorAlert(error: error)
         }

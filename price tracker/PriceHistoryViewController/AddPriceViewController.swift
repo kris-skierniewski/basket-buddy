@@ -143,8 +143,8 @@ class AddPriceViewController: UIViewController {
     }
     
     private func showShopSearchResults() {
-        shopTableViewControllerShadowView.isHidden = false
         let shops = viewModel.getFilteredShops()
+        shopTableViewControllerShadowView.isHidden = shops.count == 0
         shopSearchResults?.configure(with: shops, onItemSelected: { [weak self] item in
             if let shop = item as? Shop {
                 self?.selectShop(shop)

@@ -8,6 +8,7 @@
 protocol PriceRepository {
     func addPrice(_ price: Price, completion: @escaping (Result<Void, Error>) -> Void)
     func updatePrice(_ price: Price, completion: @escaping (Result<Void, Error>) -> Void)
+    func updatePrices(_ prices: [String: Any], completion: @escaping (Result<Void, Error>) -> Void)
     func deletePrice(_ price: Price, completion: @escaping (Result<Void, Error>) -> Void)
     func observePrices(onChange: @escaping ([Price]) -> Void) -> ObserverHandle
     func deleteAllPrices(completion: @escaping (Result<Void, Error>) -> Void)
@@ -30,6 +31,11 @@ class FirebasePriceRepository: PriceRepository {
     func updatePrice(_ price: Price, completion: @escaping (Result<Void, Error>) -> Void) {
         let path = "datasets/\(datasetId)/prices/\(price.productId)/\(price.id)"
         firebaseService.update(price, at: path, completion: completion)
+    }
+    
+    func updatePrices(_ prices: [String: Any], completion: @escaping (Result<Void, Error>) -> Void) {
+        let path = "datasets/\(datasetId)/prices"
+        firebaseService.updateItems(prices, at: path, completion: completion)
     }
     
     func deletePrice(_ price: Price, completion: @escaping (Result<Void, Error>) -> Void) {

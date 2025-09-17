@@ -27,7 +27,7 @@ protocol CombinedRepositoryProtocol {
     func deleteShoppingList(completion: @escaping (Result<Void, Error>) -> Void)
     func observeShoppingList(onChange: @escaping (EnrichedShoppingList?) -> Void) -> [ObserverHandle]
     
-    func deleteAllUserData(completion: @escaping (Result<Void, Error>) -> Void)
+    func deleteAllUserData(userId: String, completion: @escaping (Result<Void, Error>) -> Void)
     
     func updateUser(_ user: User, completion: @escaping (Result<Void, Error>) -> Void)
     func observeUser(withId userId: String, onChange: @escaping (User?) -> Void) -> ObserverHandle
@@ -168,22 +168,42 @@ class CombinedRepository: CombinedRepositoryProtocol {
         priceRepository.updatePrice(price, completion: completion)
     }
     
-    func deleteAllUserData(completion: @escaping (Result<Void, Error>) -> Void) {
-        #warning("finish this!")
-        //TODO: needs to remove user from dataset and delete dataset if they're the only user !
-        priceRepository.deleteAllPrices { [weak self] result in
-            switch result {
-            case .success(()):
-                
-                self?.shopRepository.deleteAllShops { result in
-                    switch result {
-                    case .success(()):
-                        self?.productRepository.deleteAllProducts(completion: completion)
-                    case .failure(let error):
-                        completion(.failure(error))
-                    }
+    func deleteAllUserData(userId: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        
+        let filteredProducts = currentProducts.values.filter({
+            $0.authorUid != userId
+        })
+        let filteredProductIds = filteredProducts.map({ $0.id })
+        
+        var mappedProducts: [String: Any] = currentProducts
+        currentProducts.forEach({ key, value in
+            if filteredProductIds.contains(key) == false {
+                mappedProducts[key] = NSNull()
+            }
+        })
+        
+        let filteredPrices = currentPrices.filter({
+            $0.authorUid != userId && filteredProductIds.contains($0.productId)
+        })
+        let filteredPriceIds = filteredPrices.map({ $0.id })
+        
+        let groupedPrices = Dictionary(grouping: currentPrices, by: { $0.productId })
+
+        // Step 2: within each group, make a [id: Price] dictionary
+        let nestedPrices: [String: [String: Any]] = groupedPrices.mapValues { group in
+            Dictionary(uniqueKeysWithValues: group.map {
+                if filteredPriceIds.contains($0.id) {
+                    return ($0.id, $0)
+                } else {
+                    return ($0.id, NSNull())
                 }
-                
+            })
+        }
+        
+        productRepository.updateProducts(mappedProducts) { result in
+            switch result {
+            case .success():
+                self.priceRepository.updatePrices(nestedPrices, completion: completion)
             case .failure(let error):
                 completion(.failure(error))
             }

@@ -11,7 +11,7 @@ protocol AuthService {
     var currentUserId: String? { get }
     var currentUserEmailAddress: String? { get }
     func signIn(email: String, password: String, completion: @escaping ((Result<Void,Error>) -> Void))
-    func createUser(email: String, password: String, completion: @escaping ((Result<Void,Error>) -> Void))
+    func createUser(email: String, password: String, completion: @escaping ((Result<String,Error>) -> Void))
     func sendPasswordReset(with email: String, completion: @escaping ((Result<Void,Error>) -> Void))
     func signOut() -> Result<Void,Error>
     func deleteUser(_ completion: @escaping ((Result<Void, Error>) -> Void))
@@ -59,12 +59,12 @@ class FirebaseAuthService: AuthService {
         
     }
     
-    func createUser(email: String, password: String, completion: @escaping ((Result<Void,Error>) -> Void)) {
-        Auth.auth().createUser(withEmail: email, password: password) { _, error in
+    func createUser(email: String, password: String, completion: @escaping ((Result<String,Error>) -> Void)) {
+        Auth.auth().createUser(withEmail: email, password: password) { result, error in
             if let error = error {
                 completion(.failure(error))
-            } else {
-                completion(.success(()))
+            } else if let userId = result?.user.uid {
+                completion(.success(userId))
             }
         }
     }

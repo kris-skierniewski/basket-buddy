@@ -83,24 +83,24 @@ class AccountViewModel {
     
     func deleteAccount() {
         
-        combinedRepository.deleteAllUserData { [weak self] result in
-            switch result {
-            case .success(()):
-                
-                self?.authService.deleteUser { result in
-                    switch result {
-                    case .success(()):
-                        break
-                        //will observer handle this ?
-                    case .failure(let error):
-                        self?.onError?(error)
-                    }
-                }
-                
-            case .failure(let error):
-                self?.onError?(error)
-            }
-        }
+//        combinedRepository.deleteAllUserData { [weak self] result in
+//            switch result {
+//            case .success(()):
+//                
+//                self?.authService.deleteUser { result in
+//                    switch result {
+//                    case .success(()):
+//                        break
+//                        //will observer handle this ?
+//                    case .failure(let error):
+//                        self?.onError?(error)
+//                    }
+//                }
+//                
+//            case .failure(let error):
+//                self?.onError?(error)
+//            }
+//        }
     }
     
     func setCurrencyPreference(_ currency: Currency) {

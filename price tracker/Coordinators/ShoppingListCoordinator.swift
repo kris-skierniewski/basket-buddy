@@ -11,18 +11,26 @@ class ShoppingListCoordinator {
     private let combinedRepository: CombinedRepositoryProtocol
     private let inviteService: InviteServiceProtocol
     private let authService: AuthService
+    private let datasetId: String
+    private let datasetRepository: DatasetRepository
     
     private let productCoordinator: ProductCoordinator //child coordinator
     
     init(navigationController: UINavigationController,
          combinedRepository: CombinedRepositoryProtocol,
          inviteService: InviteServiceProtocol,
-         authService: AuthService) {
+         authService: AuthService,
+         datasetRepository: DatasetRepository,
+         datasetId: String) {
         self.navigationController = navigationController
         self.combinedRepository = combinedRepository
         self.inviteService = inviteService
         self.authService = authService
+        self.datasetRepository = datasetRepository
+        self.datasetId = datasetId
         self.productCoordinator = ProductCoordinator(navigationController: navigationController,
+                                                     datasetId: datasetId,
+                                                     datasetRepository: datasetRepository,
                                                      combinedRepository: combinedRepository,
                                                      inviteService: inviteService,
                                                      authService: authService)

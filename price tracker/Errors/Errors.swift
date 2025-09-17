@@ -34,6 +34,7 @@ enum RepositoryError: Error, Equatable, LocalizedError {
     case shopNotFound
     case productAlreadyInShoppingList
     case cannotFetchDataset
+    case notEncodable
     
     var errorDescription: String? {
         switch self {
@@ -47,6 +48,8 @@ enum RepositoryError: Error, Equatable, LocalizedError {
             return "Product already in shopping list."
         case .cannotFetchDataset:
             return "Your data cannot be fetched right now."
+        case .notEncodable:
+            return "Your data cannot be encoded."
         }
     }
 }

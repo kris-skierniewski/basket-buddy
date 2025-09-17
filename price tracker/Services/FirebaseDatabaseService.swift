@@ -37,14 +37,16 @@ class FirebaseDatabaseService {
         Database.database().isPersistenceEnabled = true
     }
     
-    func updateMultiple(_ updates: [String: any Codable], completion: @escaping(Result<Void, Error>) -> Void) {
+    func updateMultiple(_ updates: [String: Any], completion: @escaping(Result<Void, Error>) -> Void) {
         var encodedUpdates: [String: Any] = [:]
         for update in updates {
             if isBasicType(update.value) {
                 encodedUpdates[update.key] = update.value
-            } else { //must be struct
+            } else if update.value is NSNull {
+                encodedUpdates[update.key] = NSNull()
+            } else if let codableValue = update.value as? Codable { //must be struct
                 do {
-                    let data = try jsonEncoder.encode(update.value)
+                    let data = try jsonEncoder.encode(codableValue)
                     let dictionary = try JSONSerialization.jsonObject(with: data) as? [String: Any]
                     if let dictionary = dictionary {
                         encodedUpdates[update.key] = dictionary
@@ -52,6 +54,8 @@ class FirebaseDatabaseService {
                 } catch {
                     completion(.failure(error))
                 }
+            } else {
+                completion(.failure(RepositoryError.notEncodable))
             }
         }
         
@@ -217,6 +221,59 @@ class FirebaseDatabaseService {
         } catch {
             completion(.failure(error))
         }
+    }
+    
+    func updateItems(_ items: [String: Any], at path: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        var flattenedItems = items
+        
+        if let nestedItems = items as? [String: [String: Any]] {
+            flattenedItems = flattenItems(nestedItems)
+        }
+        
+        var updates: [String: Any] = [:]
+        
+        do {
+            for item in flattenedItems {
+                if isBasicType(item.value) {
+                    updates[item.key] = item.value
+                } else if item.value is NSNull {
+                    updates[item.key] = NSNull()
+                } else if let encodable = item.value as? Codable { //must be struct
+                    let data = try jsonEncoder.encode(encodable)
+                    let dictionary = try JSONSerialization.jsonObject(with: data) as? [String: Any]
+                    if let dictionary = dictionary {
+                        updates[item.key] = dictionary
+                    }
+                } else {
+                    throw(RepositoryError.notEncodable)
+                }
+            }
+            
+        } catch {
+            completion(.failure(error))
+            return
+        }
+        
+        database.child(path).updateChildValues(updates) { error, _ in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(()))
+            }
+        }
+        
+    }
+    
+    private func flattenItems(_ items: [String: [String : Any]]) -> [String: Any] {
+        var flattenedItems = [String: Any]()
+        for (key, value) in items {
+            for (nestedKey, nestedValue) in value {
+                let path = "\(key)/\(nestedKey)"
+                flattenedItems[path] = nestedValue
+            }
+            
+        }
+        return flattenedItems
     }
     
     private func isBasicType(_ value: Any) -> Bool {

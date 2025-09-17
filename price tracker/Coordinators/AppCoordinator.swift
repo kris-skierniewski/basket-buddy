@@ -13,6 +13,7 @@ class AppCoordinator {
     
     private var authStateHandle: AuthStateHandle?
     private var authService: AuthService
+    private var firebaseDatabaseService: FirebaseDatabaseService
     
     private let onboardingManager = OnboardingManager.shared
     
@@ -28,6 +29,7 @@ class AppCoordinator {
     init(window: UIWindow) {
         self.window = window
         self.authService = FirebaseAuthService()
+        self.firebaseDatabaseService = FirebaseDatabaseService()
     }
     
     func start() {
@@ -47,7 +49,6 @@ class AppCoordinator {
     
     private func showDatasetLoadingFlow() {
         
-        let firebaseDatabaseService = FirebaseDatabaseService()
         datasetRepository = FirebaseDatasetRepository(firebaseService: firebaseDatabaseService, userId: currentUserId!)
         inviteService = FirebaseInviteService(databaseService: firebaseDatabaseService, datasetRepository: datasetRepository!, authService: authService)
         
@@ -155,7 +156,6 @@ class AppCoordinator {
     
     private func showMainFlow(forDataset dataset: Dataset) {
         
-        let firebaseDatabaseService = FirebaseDatabaseService()
         let productRepository = FirebaseProductRepository(firebaseService: firebaseDatabaseService, datasetId: dataset.id)
         let shopRepository = FirebaseShopRepository(firebaseService: firebaseDatabaseService, datasetId: dataset.id)
         let priceRepository = FirebasePriceRepository(firebaseService: firebaseDatabaseService, datasetId: dataset.id)
@@ -168,6 +168,8 @@ class AppCoordinator {
         
         let productTableNav = UINavigationController()
         let productCoordinator = ProductCoordinator(navigationController: productTableNav,
+                                                    datasetId: dataset.id,
+                                                    datasetRepository: datasetRepository!,
                                                     combinedRepository: combinedRepository,
                                                     inviteService: inviteService!,
                                                     authService: authService)
@@ -176,11 +178,19 @@ class AppCoordinator {
         let shoppingListNav = UINavigationController()
         let shoppingListCoordinator = ShoppingListCoordinator(navigationController: shoppingListNav,
                                                               combinedRepository: combinedRepository,
-                                                              inviteService: inviteService!, authService: authService)
+                                                              inviteService: inviteService!,
+                                                              authService: authService,
+                                                              datasetRepository: datasetRepository!,
+                                                              datasetId: dataset.id)
         shoppingListCoordinator.start()
         
         let accountNav = UINavigationController()
-        let accountCoordinator = AccountCoordinator(navigationController: accountNav, combinedRepository: combinedRepository, authService: authService)
+        let accountCoordinator = AccountCoordinator(navigationController: accountNav,
+                                                    combinedRepository: combinedRepository,
+                                                    authService: authService,
+                                                    inviteService: inviteService!,
+                                                    datasetRepository: datasetRepository!,
+                                                    datasetId: dataset.id)
         accountCoordinator.start()
         
         productTableNav.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house"), tag: 0)
@@ -194,7 +204,8 @@ class AppCoordinator {
     
     private func showAuthFlow() {
         let authNavController = UINavigationController()
-        let authCoordinator = AuthCoordinator(navigationController: authNavController, authService: authService)
+        let userRepository = FirebaseUserRepository(firebaseService: firebaseDatabaseService)
+        let authCoordinator = AuthCoordinator(navigationController: authNavController, authService: authService, userRepository: userRepository)
         authCoordinator.start()
         
         window.rootViewController = authNavController
