@@ -37,9 +37,24 @@ class ProductDetailViewController: UIViewController {
             self?.tableView.reloadData()
         }
         
+        setupAddButton()
+        
         let editButton = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(editTapped))
         navigationItem.rightBarButtonItem = editButton
-        
+    }
+    
+    private func setupAddButton() {
+        if #available(iOS 26.0, *) {
+            addButton.configuration = UIButton.Configuration.prominentGlass()
+        } else {
+            addButton.configuration = UIButton.Configuration.filled()
+            addButton.configuration?.cornerStyle = .capsule
+        }
+        addButton.configuration?.buttonSize = .large
+        addButton.tintColor = .accent
+        addButton.setImage(UIImage(systemName: "plus"), for: .normal)
+        addButton.setTitle("Add", for: .normal)
+        addButton.configuration?.imagePadding = 5
     }
     
     override func viewDidLayoutSubviews() {

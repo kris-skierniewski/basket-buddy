@@ -143,7 +143,7 @@ class MockCombinedRepository: CombinedRepositoryProtocol {
     }
     
     var numberOfTimesDeleteAllUserDataCalled = 0
-    func deleteAllUserData(completion: @escaping (Result<Void, any Error>) -> Void) {
+    func deleteAllUserData(userId: String, completion: @escaping (Result<Void, any Error>) -> Void) {
         mockShops.removeAll()
         mockProductsWithPrices.removeAll()
         triggerObservers()

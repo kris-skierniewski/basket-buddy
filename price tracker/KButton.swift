@@ -11,15 +11,15 @@ class KButton: UIButton {
     
     private var originalBackgroundColor: UIColor?
     
-    override var isEnabled: Bool {
-        didSet {
-            updateAppearanceForState()
-        }
-    }
+//    override var isEnabled: Bool {
+//        didSet {
+//            updateAppearanceForState()
+//        }
+//    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        originalBackgroundColor = backgroundColor
+        //originalBackgroundColor = backgroundColor
     }
     
     override init(frame: CGRect) {
@@ -43,6 +43,7 @@ class KButton: UIButton {
     }
     
     @objc func addHitState() {
+        if #available(iOS 26.0, *) { return }
         let newTransform = transform.scaledBy(x: 0.9, y: 0.9)
         UIView.animate(withDuration: 0.1) { [weak self] in
             self?.transform = newTransform
@@ -50,6 +51,7 @@ class KButton: UIButton {
     }
     
     @objc func removeHitState() {
+        if #available(iOS 26.0, *) { return }
         let newTransform = CGAffineTransform(a: transform.a < 0 ? -1 : 1,
                                              b: transform.b,
                                              c: transform.c,
@@ -61,14 +63,14 @@ class KButton: UIButton {
         }
     }
     
-    private func updateAppearanceForState() {
-        if let originalBackgroundColor = originalBackgroundColor {
-            if isEnabled  {
-                backgroundColor = originalBackgroundColor
-            } else {
-                backgroundColor = .systemGray4
-            }
-        }
-    }
+//    private func updateAppearanceForState() {
+//        if let originalBackgroundColor = originalBackgroundColor {
+//            if isEnabled  {
+//                backgroundColor = originalBackgroundColor
+//            } else {
+//                backgroundColor = .systemGray4
+//            }
+//        }
+//    }
     
 }

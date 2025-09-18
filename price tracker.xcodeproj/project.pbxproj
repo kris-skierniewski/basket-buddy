@@ -19,8 +19,6 @@
 		B0146AED2CAB3D3A007553A1 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0146AEC2CAB3D3A007553A1 /* CreateAccountViewController.swift */; };
 		B0146AEF2CAB3D45007553A1 /* CreateAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0146AEE2CAB3D45007553A1 /* CreateAccountViewController.xib */; };
 		B0146AF12CAB425B007553A1 /* UITextFieldExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0146AF02CAB425B007553A1 /* UITextFieldExtensions.swift */; };
-		B0146AF32CAB46DF007553A1 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0146AF22CAB46DF007553A1 /* AccountViewController.swift */; };
-		B0146AF52CAB46E9007553A1 /* AccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0146AF42CAB46E9007553A1 /* AccountViewController.xib */; };
 		B014FE072CE3E51D0098438F /* ComposeShoppingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B014FE062CE3E51D0098438F /* ComposeShoppingListViewController.swift */; };
 		B014FE092CE3E52C0098438F /* ComposeShoppingListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B014FE082CE3E52C0098438F /* ComposeShoppingListViewController.xib */; };
 		B014FE0B2CE3E66F0098438F /* ShoppingListProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B014FE0A2CE3E66F0098438F /* ShoppingListProductTableViewCell.swift */; };
@@ -44,7 +42,6 @@
 		B0717ADF2E697FED00F27E52 /* SearchResultsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0717ADE2E697FED00F27E52 /* SearchResultsView.xib */; };
 		B0717AE12E69C36500F27E52 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0717AE02E69C36100F27E52 /* SignInViewModel.swift */; };
 		B0717AE62E69C60B00F27E52 /* FirebaseAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0717AE52E69C60100F27E52 /* FirebaseAuthService.swift */; };
-		B0717AEB2E69D4EA00F27E52 /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0717AEA2E69D4E600F27E52 /* AccountViewModel.swift */; };
 		B0717AF02E69DFFB00F27E52 /* FirebaseUserPreferenceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0717AEF2E69DFF300F27E52 /* FirebaseUserPreferenceRepository.swift */; };
 		B07F62A92C8C9D7900CD1309 /* ProductDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07F62A82C8C9D7900CD1309 /* ProductDetailViewController.swift */; };
 		B07F62AB2C8C9D8500CD1309 /* ProductDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B07F62AA2C8C9D8500CD1309 /* ProductDetailViewController.xib */; };
@@ -138,6 +135,10 @@
 		B0F184552E79A7B4008A33BD /* DatasetInformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F184542E79A7AC008A33BD /* DatasetInformationViewModel.swift */; };
 		B0F1845A2E79B260008A33BD /* DatasetMemberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F184592E79B25F008A33BD /* DatasetMemberTableViewCell.swift */; };
 		B0F1845C2E79B27C008A33BD /* DatasetMemberTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0F1845B2E79B27C008A33BD /* DatasetMemberTableViewCell.xib */; };
+		B0F5F8E02E7C40AB005DEEF4 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F5F8DF2E7C40A6005DEEF4 /* WebViewController.swift */; };
+		B0F5F8E22E7C40D9005DEEF4 /* WebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0F5F8E12E7C40D9005DEEF4 /* WebViewController.xib */; };
+		B0F5F8E42E7C410C005DEEF4 /* WebViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F5F8E32E7C410A005DEEF4 /* WebViewModel.swift */; };
+		B0F5F8E62E7C4275005DEEF4 /* acknowledgements.html in Resources */ = {isa = PBXBuildFile; fileRef = B0F5F8E52E7C4275005DEEF4 /* acknowledgements.html */; };
 		B0F74E5F2E79B9ED00746A9F /* SimpleBodyTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F74E5E2E79B9E200746A9F /* SimpleBodyTextTableViewCell.swift */; };
 		B0F74E612E79BB3200746A9F /* SimpleBodyTextTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0F74E602E79BB3200746A9F /* SimpleBodyTextTableViewCell.xib */; };
 		B0F74E632E79BEB900746A9F /* ActionButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F74E622E79BEAF00746A9F /* ActionButtonTableViewCell.swift */; };
@@ -178,8 +179,6 @@
 		B0146AEC2CAB3D3A007553A1 /* CreateAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
 		B0146AEE2CAB3D45007553A1 /* CreateAccountViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateAccountViewController.xib; sourceTree = "<group>"; };
 		B0146AF02CAB425B007553A1 /* UITextFieldExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtensions.swift; sourceTree = "<group>"; };
-		B0146AF22CAB46DF007553A1 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
-		B0146AF42CAB46E9007553A1 /* AccountViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountViewController.xib; sourceTree = "<group>"; };
 		B014FE062CE3E51D0098438F /* ComposeShoppingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeShoppingListViewController.swift; sourceTree = "<group>"; };
 		B014FE082CE3E52C0098438F /* ComposeShoppingListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ComposeShoppingListViewController.xib; sourceTree = "<group>"; };
 		B014FE0A2CE3E66F0098438F /* ShoppingListProductTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListProductTableViewCell.swift; sourceTree = "<group>"; };
@@ -203,7 +202,6 @@
 		B0717ADE2E697FED00F27E52 /* SearchResultsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchResultsView.xib; sourceTree = "<group>"; };
 		B0717AE02E69C36100F27E52 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 		B0717AE52E69C60100F27E52 /* FirebaseAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthService.swift; sourceTree = "<group>"; };
-		B0717AEA2E69D4E600F27E52 /* AccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModel.swift; sourceTree = "<group>"; };
 		B0717AEF2E69DFF300F27E52 /* FirebaseUserPreferenceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUserPreferenceRepository.swift; sourceTree = "<group>"; };
 		B07F62A82C8C9D7900CD1309 /* ProductDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailViewController.swift; sourceTree = "<group>"; };
 		B07F62AA2C8C9D8500CD1309 /* ProductDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductDetailViewController.xib; sourceTree = "<group>"; };
@@ -298,6 +296,10 @@
 		B0F184542E79A7AC008A33BD /* DatasetInformationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatasetInformationViewModel.swift; sourceTree = "<group>"; };
 		B0F184592E79B25F008A33BD /* DatasetMemberTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatasetMemberTableViewCell.swift; sourceTree = "<group>"; };
 		B0F1845B2E79B27C008A33BD /* DatasetMemberTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DatasetMemberTableViewCell.xib; sourceTree = "<group>"; };
+		B0F5F8DF2E7C40A6005DEEF4 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		B0F5F8E12E7C40D9005DEEF4 /* WebViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WebViewController.xib; sourceTree = "<group>"; };
+		B0F5F8E32E7C410A005DEEF4 /* WebViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewModel.swift; sourceTree = "<group>"; };
+		B0F5F8E52E7C4275005DEEF4 /* acknowledgements.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = acknowledgements.html; sourceTree = "<group>"; };
 		B0F74E5E2E79B9E200746A9F /* SimpleBodyTextTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleBodyTextTableViewCell.swift; sourceTree = "<group>"; };
 		B0F74E602E79BB3200746A9F /* SimpleBodyTextTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SimpleBodyTextTableViewCell.xib; sourceTree = "<group>"; };
 		B0F74E622E79BEAF00746A9F /* ActionButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButtonTableViewCell.swift; sourceTree = "<group>"; };
@@ -350,8 +352,6 @@
 				B0146AEA2CAB38C7007553A1 /* SignInViewController.xib */,
 				B0146AEC2CAB3D3A007553A1 /* CreateAccountViewController.swift */,
 				B0146AEE2CAB3D45007553A1 /* CreateAccountViewController.xib */,
-				B0146AF22CAB46DF007553A1 /* AccountViewController.swift */,
-				B0146AF42CAB46E9007553A1 /* AccountViewController.xib */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -500,6 +500,7 @@
 				B08FBE5B2C7F8C8B00455298 /* Assets.xcassets */,
 				B08FBE5D2C7F8C8B00455298 /* LaunchScreen.storyboard */,
 				B08FBE602C7F8C8B00455298 /* Info.plist */,
+				B0F5F8E52E7C4275005DEEF4 /* acknowledgements.html */,
 				B08FBE662C7F8CD300455298 /* Navigator.swift */,
 				B08B158D2CB1CD78002B4AC8 /* PassThroughView.swift */,
 				B08FBE792C7FA18100455298 /* UIViewExtensions.swift */,
@@ -532,6 +533,8 @@
 		B0A819A92E605FB100B2F8D7 /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				B0F5F8DF2E7C40A6005DEEF4 /* WebViewController.swift */,
+				B0F5F8E12E7C40D9005DEEF4 /* WebViewController.xib */,
 				B0F183F42E6AFDFD008A33BD /* SectionedDiffCalculator.swift */,
 				B0A819AA2E605FC600B2F8D7 /* ProductCategoriser.swift */,
 			);
@@ -541,6 +544,7 @@
 		B0A819BC2E60AF7700B2F8D7 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				B0F5F8E32E7C410A005DEEF4 /* WebViewModel.swift */,
 				B0F74E802E7AE98500746A9F /* ChangeDisplayNameViewModel.swift */,
 				B0F74E822E7AF4B200746A9F /* JoinGroupViewModel.swift */,
 				B0F74E722E7AAA0600746A9F /* KTableViewModel.swift */,
@@ -551,7 +555,6 @@
 				B0F1840B2E6EF31D008A33BD /* ShoppingListViewModel.swift */,
 				B0F183F22E6AE520008A33BD /* WelcomeViewModel.swift */,
 				B0F183EA2E6A009E008A33BD /* CreateAccountViewModel.swift */,
-				B0717AEA2E69D4E600F27E52 /* AccountViewModel.swift */,
 				B0F74E662E7A9ED100746A9F /* SettingsViewModel.swift */,
 				B0717AE02E69C36100F27E52 /* SignInViewModel.swift */,
 				B0717AD52E687B9900F27E52 /* AddPriceViewModel.swift */,
@@ -746,6 +749,7 @@
 				B07F62B82C8CA4CD00CD1309 /* EmptyPriceRecordTableViewCell.xib in Resources */,
 				B0F1841B2E704C72008A33BD /* ShopFilterViewController.xib in Resources */,
 				B0F184272E708B2B008A33BD /* SearchProductsViewController.xib in Resources */,
+				B0F5F8E62E7C4275005DEEF4 /* acknowledgements.html in Resources */,
 				B002AE652CC82D3A00EE3F8A /* PriceHistoryTableViewHeaderCell.xib in Resources */,
 				B07F62BD2C8CC5B200CD1309 /* SimpleTableViewController.xib in Resources */,
 				B08B15932CB3C50B002B4AC8 /* WelcomeViewController.xib in Resources */,
@@ -761,7 +765,6 @@
 				B0B9BFA12CC193BD00C7E287 /* NoResultsProductTableViewCell.xib in Resources */,
 				B014FE0D2CE3E6940098438F /* ShoppingListProductTableViewCell.xib in Resources */,
 				B0146AEB2CAB38C7007553A1 /* SignInViewController.xib in Resources */,
-				B0146AF52CAB46E9007553A1 /* AccountViewController.xib in Resources */,
 				B07F62AB2C8C9D8500CD1309 /* ProductDetailViewController.xib in Resources */,
 				B08FBE802C7FA5E600455298 /* AddProductViewController.xib in Resources */,
 				B0F184032E6B24B3008A33BD /* ToastView.xib in Resources */,
@@ -775,6 +778,7 @@
 				B0F184532E79A7A0008A33BD /* DatasetInformationViewController.xib in Resources */,
 				B014FE092CE3E52C0098438F /* ComposeShoppingListViewController.xib in Resources */,
 				B0F74E7B2E7AE6E000746A9F /* TextFieldTableViewCell.xib in Resources */,
+				B0F5F8E22E7C40D9005DEEF4 /* WebViewController.xib in Resources */,
 				B0F184332E72DA34008A33BD /* LoadingViewController.xib in Resources */,
 				B08FBE912C7FBDBB00455298 /* GoogleService-Info.plist in Resources */,
 				B07F62C12C8CC68400CD1309 /* SimpleTableViewCell.xib in Resources */,
@@ -808,7 +812,6 @@
 				B0A819C42E61D2CE00B2F8D7 /* FirebaseProductRepository.swift in Sources */,
 				B0146AE92CAB38BD007553A1 /* SignInViewController.swift in Sources */,
 				B0717AE12E69C36500F27E52 /* SignInViewModel.swift in Sources */,
-				B0146AF32CAB46DF007553A1 /* AccountViewController.swift in Sources */,
 				B0F74E832E7AF4B700746A9F /* JoinGroupViewModel.swift in Sources */,
 				B0F1844C2E742569008A33BD /* User.swift in Sources */,
 				B08FBE7A2C7FA18100455298 /* UIViewExtensions.swift in Sources */,
@@ -824,7 +827,6 @@
 				B0F184052E6EC209008A33BD /* ShoppingListProduct.swift in Sources */,
 				B0F183F12E6AE1D2008A33BD /* OnboardingManager.swift in Sources */,
 				B08B15972CB44A55002B4AC8 /* CarouselItemView.swift in Sources */,
-				B0717AEB2E69D4EA00F27E52 /* AccountViewModel.swift in Sources */,
 				B0F183F92E6B0814008A33BD /* ShoppingListRepository.swift in Sources */,
 				B0717ACD2E684DD000F27E52 /* AppCoordinator.swift in Sources */,
 				B0B9BF9F2CC193B000C7E287 /* NoResultsProductTableViewCell.swift in Sources */,
@@ -846,6 +848,7 @@
 				B002AE572CC412A300EE3F8A /* UserPreferences.swift in Sources */,
 				B0F74E712E7AA9F500746A9F /* KTableViewController.swift in Sources */,
 				B0A819AD2E605FFD00B2F8D7 /* ProductCategory.swift in Sources */,
+				B0F5F8E42E7C410C005DEEF4 /* WebViewModel.swift in Sources */,
 				B0F183F72E6B047A008A33BD /* ShoppingListCoordinator.swift in Sources */,
 				B0F184292E7092FC008A33BD /* SearchProductsTableViewCell.swift in Sources */,
 				B07F62B22C8CA21D00CD1309 /* PriceRecordTableViewCell.swift in Sources */,
@@ -866,6 +869,7 @@
 				B0F183FF2E6B2451008A33BD /* ToastView.swift in Sources */,
 				B0F184192E704C38008A33BD /* ShopFilterViewController.swift in Sources */,
 				B0F1840C2E6EF321008A33BD /* ShoppingListViewModel.swift in Sources */,
+				B0F5F8E02E7C40AB005DEEF4 /* WebViewController.swift in Sources */,
 				B0F183EB2E6A00A3008A33BD /* CreateAccountViewModel.swift in Sources */,
 				B0717ADB2E68C8A500F27E52 /* PriceCoordinator.swift in Sources */,
 				B0146AED2CAB3D3A007553A1 /* CreateAccountViewController.swift in Sources */,

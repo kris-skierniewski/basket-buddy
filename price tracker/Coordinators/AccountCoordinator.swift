@@ -34,6 +34,7 @@ class AccountCoordinator {
         settingsViewModel.onDeleteAccountTapped = {
             self.showDeleteAccountAlert(viewModel: settingsViewModel)
         }
+        settingsViewModel.onAcknowledgementsTapped = showAcknowldegementsViewController
         
         let settingsViewController = SettingsViewController(viewModel: settingsViewModel)
         navigationController.pushViewController(settingsViewController, animated: false)
@@ -125,6 +126,12 @@ class AccountCoordinator {
         }))
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         navigationController.topViewController?.present(alertController, animated: true)
+    }
+    
+    private func showAcknowldegementsViewController() {
+        let viewModel = WebViewModel()
+        let viewController = WebViewController(viewModel: viewModel)
+        navigationController.pushViewController(viewController, animated: true)
     }
     
     private func showErrorAlert(error: Error) {

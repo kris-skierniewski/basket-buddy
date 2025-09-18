@@ -8,6 +8,7 @@
 class SettingsViewController: UIViewController {
     
     @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var signOutButton: KButton!
     
     private var viewModel: SettingsViewModel
     
@@ -26,6 +27,7 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
         setupTableView()
         setupUIBindings()
+        setupButtons()
         viewModel.loadUser()
         navigationItem.title = "Account"
     }
@@ -39,6 +41,18 @@ class SettingsViewController: UIViewController {
         viewModel.onSectionsUpdated = { [weak self] in
             self?.tableView.reloadData()
         }
+    }
+    
+    private func setupButtons() {
+        if #available(iOS 26.0, *) {
+            signOutButton.configuration = UIButton.Configuration.clearGlass()
+        } else {
+            signOutButton.configuration = UIButton.Configuration.filled()
+            signOutButton.configuration?.cornerStyle = .capsule
+            signOutButton.tintColor = .systemBackground
+        }
+        signOutButton.configuration?.buttonSize = .medium
+        signOutButton.setTitle("Sign out", for: .normal)
     }
     
     @IBAction private func signOutTapped() {

@@ -38,6 +38,10 @@ class MockProductRepository: ProductRepository {
         completion(.success(()))
     }
     
+    func updateProducts(_ products: [String : Any], completion: @escaping (Result<Void, any Error>) -> Void) {
+        completion(.success(()))
+    }
+    
     func deleteProduct(id: String, completion: @escaping (Result<Void, any Error>) -> Void) {
         mockProducts.removeAll { $0.id == id }
         triggerObservers()

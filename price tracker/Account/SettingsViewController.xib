@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SettingsViewController" customModule="price_tracker" customModuleProvider="target">
             <connections>
+                <outlet property="signOutButton" destination="nIe-jT-XFg" id="ySb-pQ-Pgf"/>
                 <outlet property="tableView" destination="Kkq-Ry-kHR" id="zZa-RA-2zq"/>
                 <outlet property="view" destination="rFv-CD-sg0" id="5Ml-QU-k7d"/>
             </connections>
@@ -25,41 +26,23 @@
                     <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                 </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hhi-Gz-3Ot" customClass="ShadowView" customModule="price_tracker" customModuleProvider="target">
-                    <rect key="frame" x="143.66666666666666" y="703" width="105.66666666666666" height="51"/>
+                    <rect key="frame" x="159" y="719" width="75" height="35"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QEZ-JL-HlY" customClass="KButton" customModule="price_tracker" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="0.0" width="105.66666666666667" height="51"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign out" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vSf-uq-lRd">
-                                    <rect key="frame" x="20" y="15" width="65.666666666666671" height="21"/>
-                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                            </subviews>
-                            <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
-                            <constraints>
-                                <constraint firstAttribute="bottom" secondItem="vSf-uq-lRd" secondAttribute="bottom" constant="15" id="HhH-O1-PpY"/>
-                                <constraint firstAttribute="trailing" secondItem="vSf-uq-lRd" secondAttribute="trailing" constant="20" id="LeL-1b-l3I"/>
-                                <constraint firstItem="vSf-uq-lRd" firstAttribute="leading" secondItem="QEZ-JL-HlY" secondAttribute="leading" constant="20" id="LlW-WW-fwc"/>
-                                <constraint firstItem="vSf-uq-lRd" firstAttribute="top" secondItem="QEZ-JL-HlY" secondAttribute="top" constant="15" id="pby-Rv-gzO"/>
-                            </constraints>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                    <real key="value" value="25.5"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nIe-jT-XFg" customClass="KButton" customModule="price_tracker" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="75" height="35"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" title="Button"/>
                             <connections>
-                                <action selector="signOutTapped" destination="-1" eventType="touchUpInside" id="Sq4-ss-s6F"/>
+                                <action selector="signOutTapped" destination="-1" eventType="touchUpInside" id="21Q-77-xfP"/>
                             </connections>
-                        </view>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="QEZ-JL-HlY" firstAttribute="leading" secondItem="hhi-Gz-3Ot" secondAttribute="leading" id="JNj-9M-vlV"/>
-                        <constraint firstAttribute="trailing" secondItem="QEZ-JL-HlY" secondAttribute="trailing" id="LCz-xr-d1x"/>
-                        <constraint firstAttribute="bottom" secondItem="QEZ-JL-HlY" secondAttribute="bottom" id="dKD-2U-cdo"/>
-                        <constraint firstItem="QEZ-JL-HlY" firstAttribute="top" secondItem="hhi-Gz-3Ot" secondAttribute="top" id="veD-dF-nOc"/>
+                        <constraint firstAttribute="trailing" secondItem="nIe-jT-XFg" secondAttribute="trailing" id="YZB-4u-kwU"/>
+                        <constraint firstItem="nIe-jT-XFg" firstAttribute="top" secondItem="hhi-Gz-3Ot" secondAttribute="top" id="fjM-Yz-E3t"/>
+                        <constraint firstItem="nIe-jT-XFg" firstAttribute="leading" secondItem="hhi-Gz-3Ot" secondAttribute="leading" id="rJh-04-6RF"/>
+                        <constraint firstAttribute="bottom" secondItem="nIe-jT-XFg" secondAttribute="bottom" id="uaw-M8-NGr"/>
                     </constraints>
                 </view>
             </subviews>
@@ -79,9 +62,6 @@
     <resources>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="tertiarySystemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>

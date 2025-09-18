@@ -34,7 +34,7 @@ class DatasetInformationViewModelTests: XCTestCase {
         mockDatasetRepository.mockDatasets = [mockDataset]
         
         
-        viewModel = DatasetInformationViewModel(dataset: mockDataset, combinedRepository: mockCombinedRepository, datasetRepository: mockDatasetRepository, authService: mockAuthService)
+        viewModel = DatasetInformationViewModel(datasetId: mockDataset.id, combinedRepository: mockCombinedRepository, datasetRepository: mockDatasetRepository, authService: mockAuthService)
     }
     
     func testLoadDatasetMembers() {

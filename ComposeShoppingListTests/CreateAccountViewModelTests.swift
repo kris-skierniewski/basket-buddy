@@ -11,17 +11,20 @@ import XCTest
 final class CreateAccountViewModelTests: XCTestCase {
     
     var mockAuthService: MockAuthService!
+    var mockUserRepository: MockUserRepository!
     
     var viewModel: CreateAccountViewModel!
     
     override func setUpWithError() throws {
         mockAuthService = MockAuthService()
-        viewModel = CreateAccountViewModel(authService: mockAuthService)
+        mockUserRepository = MockUserRepository()
+        viewModel = CreateAccountViewModel(authService: mockAuthService, userRepository: mockUserRepository)
     }
     
     func testCanRegisterWithValidCredentials() {
         var didSucceed = false
         
+        viewModel.displayName = "Test user"
         viewModel.emailAddress = "test@test.com"
         viewModel.password = "password"
         viewModel.confirmPassword = "password"
@@ -52,6 +55,7 @@ final class CreateAccountViewModelTests: XCTestCase {
         var emittedError: Error?
         
         viewModel.emailAddress = "test@email.com"
+        viewModel.displayName = "Test user"
         
         viewModel.onError = { error in
             emittedError = error
@@ -64,6 +68,7 @@ final class CreateAccountViewModelTests: XCTestCase {
     func testRegisterFailsIfPasswordsDontMatch() {
         var emittedError: Error?
         
+        viewModel.displayName = "Test user"
         viewModel.emailAddress = "test@email.com"
         viewModel.password = "test"
         

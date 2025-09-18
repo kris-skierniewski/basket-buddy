@@ -27,6 +27,7 @@ class ShoppingListViewController: UIViewController {
         super.viewDidLoad()
         setupTableView()
         setupUIBindings()
+        setupButtons()
         viewModel.loadShoppingList()
     }
     
@@ -61,6 +62,18 @@ class ShoppingListViewController: UIViewController {
             self?.tableView.reloadRows(at: diff.updatedRows, with: .fade)
             self?.tableView.endUpdates()
         }
+    }
+    
+    private func setupButtons() {
+        if #available(iOS 26.0, *) {
+            cleanUpButton.configuration = UIButton.Configuration.clearGlass()
+        } else {
+            cleanUpButton.configuration = UIButton.Configuration.filled()
+            cleanUpButton.configuration?.cornerStyle = .capsule
+            cleanUpButton.tintColor = .systemBackground
+        }
+        cleanUpButton.configuration?.buttonSize = .medium
+        cleanUpButton.setTitle("Clean up", for: .normal)
     }
     
     @IBAction private func cleanUpButtonTapped() {

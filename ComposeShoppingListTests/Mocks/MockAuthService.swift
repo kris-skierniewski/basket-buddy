@@ -18,6 +18,7 @@ class MockAuthStateHandle: AuthStateHandle {
 
 class MockAuthService: AuthService {
     
+    
     var currentUserId: String? {
         return mockUserId
     }
@@ -33,8 +34,8 @@ class MockAuthService: AuthService {
         completion(.success(()))
     }
     
-    func createUser(email: String, password: String, completion: @escaping (Result<Void, any Error>) -> Void) {
-        completion(.success(()))
+    func createUser(email: String, password: String, completion: @escaping (Result<String, any Error>) -> Void) {
+        completion(.success(("newUserId")))
     }
     
     func sendPasswordReset(with email: String, completion: @escaping (Result<Void, any Error>) -> Void) {

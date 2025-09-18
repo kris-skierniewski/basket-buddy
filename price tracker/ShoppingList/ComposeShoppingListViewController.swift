@@ -44,6 +44,7 @@ class ComposeShoppingListViewController: UIViewController {
         setupTableView()
         setupAddButton()
         setupEmptyView()
+        setupButtons()
         
         viewModel.loadShoppingList()
         setupUIBindings()
@@ -61,6 +62,31 @@ class ComposeShoppingListViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.dataSource = self
         tableView.delegate = self
+    }
+    
+    private func setupButtons() {
+        
+        if #available(iOS 26.0, *) {
+            startButton.configuration = UIButton.Configuration.prominentGlass()
+        } else {
+            startButton.configuration = UIButton.Configuration.filled()
+            startButton.configuration?.cornerStyle = .capsule
+        }
+        startButton.configuration?.buttonSize = .large
+        startButton.tintColor = .accent
+        startButton.setTitle("Start", for: .normal)
+        
+        
+        if #available(iOS 26.0, *) {
+            cleanUpButton.configuration = UIButton.Configuration.clearGlass()
+        } else {
+            cleanUpButton.configuration = UIButton.Configuration.filled()
+            cleanUpButton.configuration?.cornerStyle = .capsule
+            cleanUpButton.tintColor = .systemBackground
+        }
+        cleanUpButton.configuration?.buttonSize = .medium
+        cleanUpButton.setTitle("Clean up", for: .normal)
+        
     }
     
     private func setupAddButton() {

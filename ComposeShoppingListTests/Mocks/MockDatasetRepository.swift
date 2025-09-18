@@ -86,5 +86,20 @@ class MockDatasetRepository: DatasetRepository {
         })
     }
     
+    func deleteDataset(withId datasetId: String, completion: @escaping (Result<Void, any Error>) -> Void) {
+        if let matchingDatasetIndex = mockDatasets.firstIndex(where: { $0.id == datasetId }) {
+            mockDatasets.remove(at: matchingDatasetIndex)
+            triggerDatasetObservers(for: datasetId)
+        }
+    }
+    
+    func deleteUserFromDataset(datasetId: String, userId: String, completion: @escaping (Result<Void, any Error>) -> Void) {
+        if let matchingDatasetIndex = mockDatasets.firstIndex(where: { $0.id == datasetId }) {
+            mockDatasets[matchingDatasetIndex].members[userId] = nil
+            mockUserDatasetId = nil
+        }
+    }
+    
+    
     
 }

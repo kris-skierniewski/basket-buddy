@@ -57,4 +57,8 @@ class MockPriceRepository: PriceRepository {
         }
     }
     
+    func updatePrices(_ prices: [String : Any], completion: @escaping (Result<Void, any Error>) -> Void) {
+        completion(.success(()))
+    }
+    
 }

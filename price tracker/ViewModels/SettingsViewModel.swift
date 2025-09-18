@@ -54,6 +54,7 @@ class SettingsViewModel {
     var onInviteTapped: (() -> Void)?
     var onJoinGroupTapped: (() -> Void)?
     var onDeleteAccountTapped: (() -> Void)?
+    var onAcknowledgementsTapped: (() -> Void)?
     
     init(authService: AuthService, combinedRepository: CombinedRepositoryProtocol, datasetRepository: DatasetRepository, datasetId: String) {
         self.authService = authService
@@ -122,6 +123,10 @@ class SettingsViewModel {
         
         let secondSection = SettingsSection(rows: [displayNameRow, currencyRow, inviteRow, joinRow, deleteAccountRow])
         newSections.append(secondSection)
+        
+        let acknowdlegementsRow = SettingsRow(title: "Acknowledgements", subtitle: "", didSelectBlock: onAcknowledgementsTapped)
+        let thirdSection = SettingsSection(rows: [acknowdlegementsRow])
+        newSections.append(thirdSection)
         
         self.sections = newSections
         onSectionsUpdated?()

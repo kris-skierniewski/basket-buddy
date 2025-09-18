@@ -12,7 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShoppingListViewController" customModule="price_tracker" customModuleProvider="target">
             <connections>
-                <outlet property="cleanUpButton" destination="2ji-fz-e3m" id="EGH-25-zki"/>
+                <outlet property="cleanUpButton" destination="JDq-Tk-ZCv" id="QzM-PE-rwo"/>
                 <outlet property="shoppingListEmptyView" destination="LS4-mj-4r7" id="y5x-kq-WYJ"/>
                 <outlet property="tableView" destination="bOY-yP-IoZ" id="EkY-WL-VC8"/>
                 <outlet property="view" destination="Oor-Le-Rro" id="6AQ-si-cgT"/>
@@ -56,41 +56,23 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2MH-Hj-UMo" customClass="ShadowView" customModule="price_tracker" customModuleProvider="target">
-                    <rect key="frame" x="139.33333333333334" y="716" width="114.66666666666666" height="43"/>
+                    <rect key="frame" x="159" y="724" width="75" height="35"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2ji-fz-e3m" customClass="KButton" customModule="price_tracker" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="0.0" width="114.66666666666667" height="43"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Clean up" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v30-8J-Phg">
-                                    <rect key="frame" x="20" y="10" width="74.666666666666671" height="23"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                            </subviews>
-                            <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
-                            <constraints>
-                                <constraint firstItem="v30-8J-Phg" firstAttribute="top" secondItem="2ji-fz-e3m" secondAttribute="top" constant="10" id="27g-bI-7OX"/>
-                                <constraint firstAttribute="trailing" secondItem="v30-8J-Phg" secondAttribute="trailing" constant="20" id="S4E-1e-yNq"/>
-                                <constraint firstItem="v30-8J-Phg" firstAttribute="leading" secondItem="2ji-fz-e3m" secondAttribute="leading" constant="20" id="SWo-FB-M25"/>
-                                <constraint firstAttribute="bottom" secondItem="v30-8J-Phg" secondAttribute="bottom" constant="10" id="jk7-iS-jxQ"/>
-                            </constraints>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                    <integer key="value" value="22"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JDq-Tk-ZCv" customClass="KButton" customModule="price_tracker" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="75" height="35"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" title="Button"/>
                             <connections>
-                                <action selector="cleanUpButtonTapped" destination="-1" eventType="touchUpInside" id="wEY-a0-fbx"/>
+                                <action selector="cleanUpButtonTapped" destination="-1" eventType="touchUpInside" id="NeT-s4-VN0"/>
                             </connections>
-                        </view>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="2ji-fz-e3m" firstAttribute="centerX" secondItem="2MH-Hj-UMo" secondAttribute="centerX" id="5NI-S6-S4C"/>
-                        <constraint firstItem="2ji-fz-e3m" firstAttribute="leading" secondItem="2MH-Hj-UMo" secondAttribute="leading" id="6gO-PQ-4wU"/>
-                        <constraint firstItem="2ji-fz-e3m" firstAttribute="top" secondItem="2MH-Hj-UMo" secondAttribute="top" id="HGd-Q6-lEB"/>
-                        <constraint firstAttribute="trailing" secondItem="2ji-fz-e3m" secondAttribute="trailing" id="TlY-Be-KtV"/>
-                        <constraint firstAttribute="bottom" secondItem="2ji-fz-e3m" secondAttribute="bottom" id="xvv-RB-8aP"/>
+                        <constraint firstItem="JDq-Tk-ZCv" firstAttribute="top" secondItem="2MH-Hj-UMo" secondAttribute="top" id="CBb-gn-vRf"/>
+                        <constraint firstItem="JDq-Tk-ZCv" firstAttribute="leading" secondItem="2MH-Hj-UMo" secondAttribute="leading" id="IAq-2Q-fg5"/>
+                        <constraint firstAttribute="bottom" secondItem="JDq-Tk-ZCv" secondAttribute="bottom" id="KD4-di-q7C"/>
+                        <constraint firstAttribute="trailing" secondItem="JDq-Tk-ZCv" secondAttribute="trailing" id="uXM-1q-fdO"/>
                     </constraints>
                 </view>
             </subviews>
@@ -117,9 +99,6 @@
         </namedColor>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="tertiarySystemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>

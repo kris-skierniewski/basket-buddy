@@ -12,10 +12,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ComposeShoppingListViewController" customModule="price_tracker" customModuleProvider="target">
             <connections>
-                <outlet property="cleanUpButton" destination="r5O-oI-5Ua" id="fkV-fk-fC4"/>
+                <outlet property="cleanUpButton" destination="BI4-kp-8Zr" id="NuL-BE-PxR"/>
                 <outlet property="shoppingListEmptyLabel" destination="N6t-rI-4Kl" id="3Bx-0e-DJN"/>
                 <outlet property="shoppingListEmptyView" destination="Xtf-Vu-td1" id="joo-LY-K18"/>
-                <outlet property="startButton" destination="jgH-YD-XW7" id="Uyz-Lw-ow4"/>
+                <outlet property="startButton" destination="rFG-jF-ORw" id="ARB-aQ-Djc"/>
                 <outlet property="tableView" destination="fUJ-kd-gpi" id="C2F-dl-KmM"/>
                 <outlet property="view" destination="iN0-l3-epB" id="vgr-OF-Zuc"/>
             </connections>
@@ -58,80 +58,43 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xcx-iG-QXp" customClass="ShadowView" customModule="price_tracker" customModuleProvider="target">
-                    <rect key="frame" x="149.33333333333334" y="705" width="94.333333333333343" height="54"/>
+                    <rect key="frame" x="159" y="724" width="75" height="35"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jgH-YD-XW7" customClass="KButton" customModule="price_tracker" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="0.0" width="94.333333333333329" height="54"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="umX-cJ-atP">
-                                    <rect key="frame" x="25.000000000000004" y="15" width="44.333333333333343" height="24"/>
-                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
-                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                            </subviews>
-                            <color key="backgroundColor" name="AccentColor"/>
-                            <constraints>
-                                <constraint firstItem="umX-cJ-atP" firstAttribute="leading" secondItem="jgH-YD-XW7" secondAttribute="leading" constant="25" id="4kv-aU-nkQ"/>
-                                <constraint firstAttribute="bottom" secondItem="umX-cJ-atP" secondAttribute="bottom" constant="15" id="Ekb-9E-1aj"/>
-                                <constraint firstAttribute="trailing" secondItem="umX-cJ-atP" secondAttribute="trailing" constant="25" id="YhT-xV-Y29"/>
-                                <constraint firstItem="umX-cJ-atP" firstAttribute="top" secondItem="jgH-YD-XW7" secondAttribute="top" constant="15" id="evx-jp-I1c"/>
-                            </constraints>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                    <integer key="value" value="27"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rFG-jF-ORw" customClass="KButton" customModule="price_tracker" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="75" height="35"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" title="Button"/>
                             <connections>
-                                <action selector="startButtonTapped" destination="-1" eventType="touchUpInside" id="DCk-Kp-IgW"/>
+                                <action selector="startButtonTapped" destination="-1" eventType="touchUpInside" id="Cmx-i7-Lfy"/>
                             </connections>
-                        </view>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="jgH-YD-XW7" firstAttribute="centerX" secondItem="Xcx-iG-QXp" secondAttribute="centerX" id="2LO-as-iE2"/>
-                        <constraint firstAttribute="bottom" secondItem="jgH-YD-XW7" secondAttribute="bottom" id="AYJ-Fa-iCP"/>
-                        <constraint firstAttribute="trailing" secondItem="jgH-YD-XW7" secondAttribute="trailing" id="HMP-Hx-gf5"/>
-                        <constraint firstItem="jgH-YD-XW7" firstAttribute="leading" secondItem="Xcx-iG-QXp" secondAttribute="leading" id="YW9-sm-pGj"/>
-                        <constraint firstItem="jgH-YD-XW7" firstAttribute="top" secondItem="Xcx-iG-QXp" secondAttribute="top" id="zqa-VK-SGp"/>
+                        <constraint firstAttribute="bottom" secondItem="rFG-jF-ORw" secondAttribute="bottom" id="7fD-t8-LbK"/>
+                        <constraint firstAttribute="trailing" secondItem="rFG-jF-ORw" secondAttribute="trailing" id="bCq-VN-QCe"/>
+                        <constraint firstItem="rFG-jF-ORw" firstAttribute="top" secondItem="Xcx-iG-QXp" secondAttribute="top" id="o8G-rn-oMu"/>
+                        <constraint firstItem="rFG-jF-ORw" firstAttribute="leading" secondItem="Xcx-iG-QXp" secondAttribute="leading" id="sAQ-JO-meb"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AE3-zp-OqC" customClass="ShadowView" customModule="price_tracker" customModuleProvider="target">
-                    <rect key="frame" x="24.666666666666664" y="716" width="114.66666666666669" height="43"/>
+                    <rect key="frame" x="74" y="724" width="75" height="35"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r5O-oI-5Ua" customClass="KButton" customModule="price_tracker" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="0.0" width="114.66666666666667" height="43"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Clean up" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6zI-3Y-s0Z">
-                                    <rect key="frame" x="19.999999999999993" y="10" width="74.666666666666657" height="23"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                            </subviews>
-                            <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
-                            <constraints>
-                                <constraint firstAttribute="trailing" secondItem="6zI-3Y-s0Z" secondAttribute="trailing" constant="20" id="Ldr-HT-K9u"/>
-                                <constraint firstItem="6zI-3Y-s0Z" firstAttribute="leading" secondItem="r5O-oI-5Ua" secondAttribute="leading" constant="20" id="Nwd-ed-i9H"/>
-                                <constraint firstAttribute="bottom" secondItem="6zI-3Y-s0Z" secondAttribute="bottom" constant="10" id="fff-rT-fsk"/>
-                                <constraint firstItem="6zI-3Y-s0Z" firstAttribute="top" secondItem="r5O-oI-5Ua" secondAttribute="top" constant="10" id="qSf-VW-3YG"/>
-                            </constraints>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                    <integer key="value" value="22"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BI4-kp-8Zr" customClass="KButton" customModule="price_tracker" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="75" height="35"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" title="Button"/>
                             <connections>
-                                <action selector="cleanUpButtonTapped" destination="-1" eventType="touchUpInside" id="YRN-Dd-EvR"/>
+                                <action selector="cleanUpButtonTapped" destination="-1" eventType="touchUpInside" id="z7s-IT-gB5"/>
                             </connections>
-                        </view>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="bottom" secondItem="r5O-oI-5Ua" secondAttribute="bottom" id="3ga-0M-Mp4"/>
-                        <constraint firstItem="r5O-oI-5Ua" firstAttribute="leading" secondItem="AE3-zp-OqC" secondAttribute="leading" id="4KC-zk-kmy"/>
-                        <constraint firstItem="r5O-oI-5Ua" firstAttribute="top" secondItem="AE3-zp-OqC" secondAttribute="top" id="JJo-FW-zeN"/>
-                        <constraint firstItem="r5O-oI-5Ua" firstAttribute="centerX" secondItem="AE3-zp-OqC" secondAttribute="centerX" id="kbK-3D-CrJ"/>
-                        <constraint firstAttribute="trailing" secondItem="r5O-oI-5Ua" secondAttribute="trailing" id="uaF-AD-f7H"/>
+                        <constraint firstAttribute="trailing" secondItem="BI4-kp-8Zr" secondAttribute="trailing" id="1Vd-ke-795"/>
+                        <constraint firstItem="BI4-kp-8Zr" firstAttribute="leading" secondItem="AE3-zp-OqC" secondAttribute="leading" id="efw-pD-ze3"/>
+                        <constraint firstAttribute="bottom" secondItem="BI4-kp-8Zr" secondAttribute="bottom" id="kh5-YR-cco"/>
+                        <constraint firstItem="BI4-kp-8Zr" firstAttribute="top" secondItem="AE3-zp-OqC" secondAttribute="top" id="olR-oh-Yqh"/>
                     </constraints>
                 </view>
             </subviews>
@@ -161,9 +124,6 @@
         </namedColor>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="tertiarySystemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>

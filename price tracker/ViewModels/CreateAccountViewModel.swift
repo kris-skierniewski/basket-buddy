@@ -10,6 +10,7 @@ class CreateAccountViewModel {
     private let authService: AuthService
     private let userRepository: UserRepository
     
+    var onSuccess: (() -> Void)?
     var onError: ((Error) -> Void)?
     
     var displayName: String = ""
@@ -35,7 +36,7 @@ class CreateAccountViewModel {
                 self.userRepository.updateUser(user) { result in
                     switch result {
                     case .success():
-                        break
+                        self.onSuccess?()
                     case .failure(let error):
                         self.onError?(error)
                     }
