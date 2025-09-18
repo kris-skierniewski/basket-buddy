@@ -15,6 +15,8 @@ class AddProductViewController: UIViewController {
     
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     
+    @IBOutlet private weak var categoryLoadingView: UIView!
+    
     @IBOutlet private weak var categoryTableViewControllerShadowView: UIView!
     @IBOutlet weak var categoryTableViewControllerContainer: UIView!
     private var categorySearchResults: SearchResultsView?
@@ -45,6 +47,9 @@ class AddProductViewController: UIViewController {
     }
     
     private func setupUIBindings() {
+        
+        categoryLoadingView.isHidden = true
+        
         nameTextField.autocapitalizationType = .sentences
         descriptionTextField.autocapitalizationType = .sentences
         
@@ -74,6 +79,10 @@ class AddProductViewController: UIViewController {
         
         viewModel.onCategoryUpdated = { [weak self] in
             self?.categoryTextField.text = self?.viewModel.currentCategory.title
+        }
+        
+        viewModel.onCategoryLoading = { [weak self] isLoading in
+            self?.categoryLoadingView.isHidden = !isLoading
         }
     }
     

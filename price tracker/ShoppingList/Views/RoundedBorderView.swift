@@ -12,7 +12,7 @@ class RoundedBorderView: UIView {
     override func awakeFromNib() {
         super.awakeFromNib()
         layer.cornerRadius = 15
-        backgroundColor = .systemGray6
+        backgroundColor = .systemBackground
     }
     
 }

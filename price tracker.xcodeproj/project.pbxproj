@@ -26,6 +26,7 @@
 		B014FE0B2CE3E66F0098438F /* ShoppingListProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B014FE0A2CE3E66F0098438F /* ShoppingListProductTableViewCell.swift */; };
 		B014FE0D2CE3E6940098438F /* ShoppingListProductTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B014FE0C2CE3E6940098438F /* ShoppingListProductTableViewCell.xib */; };
 		B014FE0F2CE3E7600098438F /* ShoppingList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B014FE0E2CE3E7600098438F /* ShoppingList.swift */; };
+		B023FB7C2E7B3E2300FFB3C1 /* GenerableProductCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B023FB7B2E7B3E1D00FFB3C1 /* GenerableProductCategory.swift */; };
 		B0717AAF2E672AB800F27E52 /* FirebaseShopRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0717AAE2E672A9F00F27E52 /* FirebaseShopRepository.swift */; };
 		B0717AB12E672DE200F27E52 /* FirebasePriceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0717AB02E672DDD00F27E52 /* FirebasePriceRepository.swift */; };
 		B0717AB32E673A8600F27E52 /* CombinedRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0717AB22E673A7600F27E52 /* CombinedRepository.swift */; };
@@ -184,6 +185,7 @@
 		B014FE0A2CE3E66F0098438F /* ShoppingListProductTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListProductTableViewCell.swift; sourceTree = "<group>"; };
 		B014FE0C2CE3E6940098438F /* ShoppingListProductTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShoppingListProductTableViewCell.xib; sourceTree = "<group>"; };
 		B014FE0E2CE3E7600098438F /* ShoppingList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingList.swift; sourceTree = "<group>"; };
+		B023FB7B2E7B3E1D00FFB3C1 /* GenerableProductCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerableProductCategory.swift; sourceTree = "<group>"; };
 		B0717AAE2E672A9F00F27E52 /* FirebaseShopRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseShopRepository.swift; sourceTree = "<group>"; };
 		B0717AB02E672DDD00F27E52 /* FirebasePriceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebasePriceRepository.swift; sourceTree = "<group>"; };
 		B0717AB22E673A7600F27E52 /* CombinedRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinedRepository.swift; sourceTree = "<group>"; };
@@ -511,6 +513,7 @@
 		B08FBE6E2C7F963200455298 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				B023FB7B2E7B3E1D00FFB3C1 /* GenerableProductCategory.swift */,
 				B0F1844B2E742567008A33BD /* User.swift */,
 				B0717AB42E673ABB00F27E52 /* ProductWithPrice.swift */,
 				B0717AB62E673ADD00F27E52 /* PriceWithShop.swift */,
@@ -825,6 +828,7 @@
 				B0F183F92E6B0814008A33BD /* ShoppingListRepository.swift in Sources */,
 				B0717ACD2E684DD000F27E52 /* AppCoordinator.swift in Sources */,
 				B0B9BF9F2CC193B000C7E287 /* NoResultsProductTableViewCell.swift in Sources */,
+				B023FB7C2E7B3E2300FFB3C1 /* GenerableProductCategory.swift in Sources */,
 				B0F184552E79A7B4008A33BD /* DatasetInformationViewModel.swift in Sources */,
 				B0F184352E733DE6008A33BD /* FirebaseInviteService.swift in Sources */,
 				B0717ADD2E697E1400F27E52 /* SearchResultsView.swift in Sources */,

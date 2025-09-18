@@ -4,11 +4,10 @@
 //
 //  Created by Kris Skierniewski on 28/08/2025.
 //
-
 enum ProductCategory: String, CaseIterable, Codable {
     case meat
-    case fish
-    case canned
+    case freshFish
+    case tinsAndJars
     case dairy
     case bakery
     case grains
@@ -17,12 +16,14 @@ enum ProductCategory: String, CaseIterable, Codable {
     case drinks
     case frozen
     case household
+    case snacks
     case other
     
     var title: String {
         switch self {
         case .herbsAndSpices: return "Herbs & spices"
-        case .canned: return "Tins & Jars"
+        case .tinsAndJars: return "Tins & Jars"
+        case .freshFish: return "Fish"
         default: return rawValue.capitalized
         }
     }
@@ -30,8 +31,8 @@ enum ProductCategory: String, CaseIterable, Codable {
     var iconName: String {
         switch self {
         case .meat: return "meat"
-        case .fish: return "fish"
-        case .canned: return "canned"
+        case .freshFish: return "fish"
+        case .tinsAndJars: return "canned"
         case .dairy: return "dairy"
         case .bakery: return "bakery"
         case .grains: return "grains"
@@ -40,6 +41,7 @@ enum ProductCategory: String, CaseIterable, Codable {
         case .frozen: return "frozen"
         case .household: return "household"
         case .herbsAndSpices: return "herbsandspices"
+        case .snacks: return "snacks"
         case .other: return "other"
         }
     }

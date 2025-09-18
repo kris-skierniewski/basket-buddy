@@ -69,6 +69,7 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         content.secondaryText = row.subtitle
         cell.contentConfiguration = content
         cell.accessoryType = row.didSelectBlock == nil ? .none : .disclosureIndicator
+        cell.selectionStyle = row.isHeader ? .none : .default
         return cell
         
     }
