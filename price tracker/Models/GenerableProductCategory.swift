@@ -22,5 +22,6 @@ enum GenerableProductCategory: String, CaseIterable, Codable {
     case frozen
     case household
     case snacks
+    case condiments
     case other
 }

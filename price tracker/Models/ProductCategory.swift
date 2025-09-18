@@ -17,6 +17,7 @@ enum ProductCategory: String, CaseIterable, Codable {
     case frozen
     case household
     case snacks
+    case condiments
     case other
     
     var title: String {
@@ -42,6 +43,7 @@ enum ProductCategory: String, CaseIterable, Codable {
         case .household: return "household"
         case .herbsAndSpices: return "herbsandspices"
         case .snacks: return "snacks"
+        case .condiments: return "condiments"
         case .other: return "other"
         }
     }
