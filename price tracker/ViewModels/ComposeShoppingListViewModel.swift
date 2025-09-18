@@ -129,6 +129,8 @@ class ComposeShoppingListViewModel {
     }
     
     func selectProduct(atIndexPath indexPath: IndexPath) {
+        guard indexPath.section >= 0 && indexPath.section < sections.count else { return }
+        guard indexPath.row >= 0 && indexPath.row < sections[indexPath.section].products.count else { return }
         let product = sections[indexPath.section].products[indexPath.row].productWithPrices
         onProductTapped?(product)
     }

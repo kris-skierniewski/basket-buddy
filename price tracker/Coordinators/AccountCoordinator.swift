@@ -66,6 +66,7 @@ class AccountCoordinator {
         viewModel.onLeaveGroupTapped = { [weak self] in
             self?.showLeaveGroupAlert(viewModel: viewModel)
         }
+        viewModel.onError = showErrorAlert(error:)
         
         let viewController = DatasetInformationViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
