@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24127" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24063"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -13,12 +12,12 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SignInViewController" customModule="price_tracker" customModuleProvider="target">
             <connections>
                 <outlet property="activityIndicator" destination="O5A-Lt-9gG" id="muh-t0-W1c"/>
-                <outlet property="createAccountButton" destination="l6h-cw-epl" id="dXY-YL-YJ8"/>
+                <outlet property="createAccountButton" destination="eOv-jt-DaI" id="j6C-oG-c6p"/>
                 <outlet property="emailTextField" destination="zmi-eR-8sO" id="Zsh-Qb-tNI"/>
                 <outlet property="passwordTextField" destination="Ubz-1W-0YC" id="EES-uN-UTq"/>
                 <outlet property="resetPasswordButton" destination="vOR-Bc-f1h" id="Ieo-3T-loG"/>
                 <outlet property="resetPasswordButtonLabel" destination="Edi-U0-UD8" id="sPT-xx-Xku"/>
-                <outlet property="signInButton" destination="jI4-pa-O4y" id="F19-vQ-T7B"/>
+                <outlet property="signInButton" destination="0K6-d1-W7U" id="9Xk-Q7-XDg"/>
                 <outlet property="view" destination="IHD-u9-uA0" id="IZz-US-YP7"/>
             </connections>
         </placeholder>
@@ -31,7 +30,7 @@
                     <rect key="frame" x="0.0" y="118" width="393" height="666"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="anz-bR-fWc">
-                            <rect key="frame" x="0.0" y="0.0" width="393" height="584.33333333333337"/>
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="552.33333333333337"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="koa-0X-ury">
                                     <rect key="frame" x="20" y="239.99999999999997" width="353" height="58.666666666666657"/>
@@ -96,79 +95,43 @@
                                     </userDefinedRuntimeAttributes>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GHo-cX-tob" customClass="ShadowView" customModule="price_tracker" customModuleProvider="target">
-                                    <rect key="frame" x="149.66666666666666" y="437.33333333333337" width="93.666666666666657" height="51"/>
+                                    <rect key="frame" x="159" y="437.33333333333337" width="75" height="35"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jI4-pa-O4y" customClass="KButton" customModule="price_tracker" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="93.666666666666671" height="51"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign in" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Wx-86-Yt9">
-                                                    <rect key="frame" x="19.999999999999996" y="15" width="53.666666666666657" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" name="AccentColor"/>
-                                            <constraints>
-                                                <constraint firstItem="2Wx-86-Yt9" firstAttribute="top" secondItem="jI4-pa-O4y" secondAttribute="top" constant="15" id="Qql-wF-fBA"/>
-                                                <constraint firstAttribute="bottom" secondItem="2Wx-86-Yt9" secondAttribute="bottom" constant="15" id="SSo-cI-YUu"/>
-                                                <constraint firstAttribute="trailing" secondItem="2Wx-86-Yt9" secondAttribute="trailing" constant="20" id="d8M-uh-0Td"/>
-                                                <constraint firstItem="2Wx-86-Yt9" firstAttribute="leading" secondItem="jI4-pa-O4y" secondAttribute="leading" constant="20" id="fdK-eG-ejc"/>
-                                            </constraints>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                    <real key="value" value="25.5"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0K6-d1-W7U" customClass="KButton" customModule="price_tracker" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="75" height="35"/>
+                                            <state key="normal" title="Button"/>
+                                            <buttonConfiguration key="configuration" style="plain" title="Button"/>
                                             <connections>
-                                                <action selector="signInTapped" destination="-1" eventType="touchUpInside" id="YQX-cI-IKV"/>
+                                                <action selector="signInTapped" destination="-1" eventType="touchUpInside" id="I4W-RX-KKg"/>
                                             </connections>
-                                        </view>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
-                                        <constraint firstItem="jI4-pa-O4y" firstAttribute="leading" secondItem="GHo-cX-tob" secondAttribute="leading" id="UCi-aW-3uA"/>
-                                        <constraint firstAttribute="trailing" secondItem="jI4-pa-O4y" secondAttribute="trailing" id="c7z-dy-b0B"/>
-                                        <constraint firstItem="jI4-pa-O4y" firstAttribute="top" secondItem="GHo-cX-tob" secondAttribute="top" id="d5J-In-tQH"/>
-                                        <constraint firstAttribute="bottom" secondItem="jI4-pa-O4y" secondAttribute="bottom" id="sAi-XT-hJH"/>
+                                        <constraint firstItem="0K6-d1-W7U" firstAttribute="leading" secondItem="GHo-cX-tob" secondAttribute="leading" id="Rpt-RI-C4B"/>
+                                        <constraint firstAttribute="trailing" secondItem="0K6-d1-W7U" secondAttribute="trailing" id="VQQ-yr-upU"/>
+                                        <constraint firstItem="0K6-d1-W7U" firstAttribute="top" secondItem="GHo-cX-tob" secondAttribute="top" id="eeV-2K-oTA"/>
+                                        <constraint firstAttribute="bottom" secondItem="0K6-d1-W7U" secondAttribute="bottom" id="sEK-N7-GRQ"/>
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J4j-d6-sRX" customClass="ShadowView" customModule="price_tracker" customModuleProvider="target">
-                                    <rect key="frame" x="104" y="513.33333333333337" width="185" height="51"/>
+                                    <rect key="frame" x="159" y="497.33333333333337" width="75" height="35"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l6h-cw-epl" customClass="KButton" customModule="price_tracker" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="185" height="51"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create an account" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jmW-n7-Qrq">
-                                                    <rect key="frame" x="20" y="15" width="145" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" name="AccentColor"/>
-                                            <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="jmW-n7-Qrq" secondAttribute="trailing" constant="20" id="AFO-Aa-ioO"/>
-                                                <constraint firstItem="jmW-n7-Qrq" firstAttribute="leading" secondItem="l6h-cw-epl" secondAttribute="leading" constant="20" id="BOI-pI-gDb"/>
-                                                <constraint firstItem="jmW-n7-Qrq" firstAttribute="top" secondItem="l6h-cw-epl" secondAttribute="top" constant="15" id="L5A-hS-3aJ"/>
-                                                <constraint firstAttribute="bottom" secondItem="jmW-n7-Qrq" secondAttribute="bottom" constant="15" id="b4J-Cn-vom"/>
-                                            </constraints>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                    <real key="value" value="25.5"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eOv-jt-DaI" customClass="KButton" customModule="price_tracker" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="75" height="35"/>
+                                            <state key="normal" title="Button"/>
+                                            <buttonConfiguration key="configuration" style="plain" title="Button"/>
                                             <connections>
-                                                <action selector="createAccountTapped" destination="-1" eventType="touchUpInside" id="BIf-NM-zMW"/>
+                                                <action selector="createAccountTapped" destination="-1" eventType="touchUpInside" id="3SQ-If-8he"/>
                                             </connections>
-                                        </view>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
-                                        <constraint firstItem="l6h-cw-epl" firstAttribute="leading" secondItem="J4j-d6-sRX" secondAttribute="leading" id="AXb-3Q-suG"/>
-                                        <constraint firstAttribute="bottom" secondItem="l6h-cw-epl" secondAttribute="bottom" id="d2P-gd-4Qe"/>
-                                        <constraint firstItem="l6h-cw-epl" firstAttribute="top" secondItem="J4j-d6-sRX" secondAttribute="top" id="nGh-y7-GDf"/>
-                                        <constraint firstAttribute="trailing" secondItem="l6h-cw-epl" secondAttribute="trailing" id="rOD-Bx-4kc"/>
+                                        <constraint firstAttribute="trailing" secondItem="eOv-jt-DaI" secondAttribute="trailing" id="4gZ-t0-GDk"/>
+                                        <constraint firstAttribute="bottom" secondItem="eOv-jt-DaI" secondAttribute="bottom" id="Tbo-fm-GKF"/>
+                                        <constraint firstItem="eOv-jt-DaI" firstAttribute="top" secondItem="J4j-d6-sRX" secondAttribute="top" id="hzn-Hk-CLq"/>
+                                        <constraint firstItem="eOv-jt-DaI" firstAttribute="leading" secondItem="J4j-d6-sRX" secondAttribute="leading" id="oCm-Da-0oy"/>
                                     </constraints>
                                 </view>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BrandIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Qc6-Mj-65C">
@@ -255,9 +218,6 @@
     </objects>
     <resources>
         <image name="BrandIcon" width="341.33334350585938" height="341.33334350585938"/>
-        <namedColor name="AccentColor">
-            <color red="1" green="0.79199999570846558" blue="0.15700000524520874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

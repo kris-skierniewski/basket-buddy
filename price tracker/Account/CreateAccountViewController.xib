@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24127" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24063"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -13,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CreateAccountViewController" customModule="price_tracker" customModuleProvider="target">
             <connections>
                 <outlet property="confirmPasswordTextField" destination="grL-fQ-EQL" id="8Au-4E-9ds"/>
+                <outlet property="createAccountButton" destination="NFR-W1-XTu" id="Csi-ga-auQ"/>
                 <outlet property="displayNameTextField" destination="N2w-er-Y7H" id="gqd-fn-tSA"/>
                 <outlet property="emailTextField" destination="mGm-Kj-qNM" id="hdZ-us-pbD"/>
                 <outlet property="passwordTextField" destination="QCb-3g-Jdh" id="8e7-gJ-9se"/>
@@ -28,7 +28,7 @@
                     <rect key="frame" x="0.0" y="118" width="393" height="666"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bf9-N4-F1t">
-                            <rect key="frame" x="0.0" y="0.0" width="393" height="431.66666666666669"/>
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="415.66666666666669"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gt8-rl-IIy">
                                     <rect key="frame" x="20" y="19.999999999999996" width="353" height="58.666666666666657"/>
@@ -155,41 +155,23 @@
                                     </userDefinedRuntimeAttributes>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q3R-2A-A8S" customClass="ShadowView" customModule="price_tracker" customModuleProvider="target">
-                                    <rect key="frame" x="115.66666666666667" y="314.66666666666669" width="161.66666666666663" height="51"/>
+                                    <rect key="frame" x="159" y="314.66666666666669" width="75" height="35"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="llH-ci-f4A" customClass="KButton" customModule="price_tracker" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="161.66666666666666" height="51"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create account" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OeL-oX-DEw">
-                                                    <rect key="frame" x="19.999999999999979" y="15" width="121.66666666666669" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" name="AccentColor"/>
-                                            <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="OeL-oX-DEw" secondAttribute="bottom" constant="15" id="L8h-Lt-fKg"/>
-                                                <constraint firstItem="OeL-oX-DEw" firstAttribute="leading" secondItem="llH-ci-f4A" secondAttribute="leading" constant="20" id="hQv-nI-6Vc"/>
-                                                <constraint firstItem="OeL-oX-DEw" firstAttribute="top" secondItem="llH-ci-f4A" secondAttribute="top" constant="15" id="joK-uD-boq"/>
-                                                <constraint firstAttribute="trailing" secondItem="OeL-oX-DEw" secondAttribute="trailing" constant="20" id="wRi-It-Hkw"/>
-                                            </constraints>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                    <real key="value" value="25.5"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NFR-W1-XTu" customClass="KButton" customModule="price_tracker" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="75" height="35"/>
+                                            <state key="normal" title="Button"/>
+                                            <buttonConfiguration key="configuration" style="plain" title="Button"/>
                                             <connections>
-                                                <action selector="createAccountTapped" destination="-1" eventType="touchUpInside" id="6Lk-44-oNY"/>
+                                                <action selector="createAccountTapped" destination="-1" eventType="touchUpInside" id="gVK-Pj-3HZ"/>
                                             </connections>
-                                        </view>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
-                                        <constraint firstItem="llH-ci-f4A" firstAttribute="leading" secondItem="q3R-2A-A8S" secondAttribute="leading" id="6wz-oe-Ra1"/>
-                                        <constraint firstItem="llH-ci-f4A" firstAttribute="top" secondItem="q3R-2A-A8S" secondAttribute="top" id="DbA-bi-jGB"/>
-                                        <constraint firstAttribute="trailing" secondItem="llH-ci-f4A" secondAttribute="trailing" id="FUq-fM-QJi"/>
-                                        <constraint firstAttribute="bottom" secondItem="llH-ci-f4A" secondAttribute="bottom" id="Yi4-PB-6Gd"/>
+                                        <constraint firstItem="NFR-W1-XTu" firstAttribute="top" secondItem="q3R-2A-A8S" secondAttribute="top" id="1sR-8I-W09"/>
+                                        <constraint firstAttribute="trailing" secondItem="NFR-W1-XTu" secondAttribute="trailing" id="5Un-ts-0JE"/>
+                                        <constraint firstAttribute="bottom" secondItem="NFR-W1-XTu" secondAttribute="bottom" id="hKY-Wb-ByA"/>
+                                        <constraint firstItem="NFR-W1-XTu" firstAttribute="leading" secondItem="q3R-2A-A8S" secondAttribute="leading" id="nbB-FC-jyI"/>
                                     </constraints>
                                 </view>
                             </subviews>
@@ -236,9 +218,6 @@
         </view>
     </objects>
     <resources>
-        <namedColor name="AccentColor">
-            <color red="0.5490196078431373" green="0.82352941176470584" blue="0.54117647058823526" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

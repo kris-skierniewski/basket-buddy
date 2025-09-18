@@ -13,6 +13,7 @@ class WelcomeViewController: UIViewController {
     @IBOutlet private weak var scrollView: UIScrollView!
     @IBOutlet private weak var pageControl: UIPageControl!
     @IBOutlet private weak var continueButtonShadowView: UIView!
+    @IBOutlet private weak var continueButton: KButton!
     
     @IBOutlet private weak var termsAndConditionsLabel: TTTAttributedLabel!
     
@@ -41,6 +42,7 @@ class WelcomeViewController: UIViewController {
         
         setupScrollView()
         setupTermsLabel()
+        setupContinueButton()
         
         continueButtonShadowView.layer.shadowColor = UIColor.black.cgColor
         continueButtonShadowView.layer.shadowOpacity = 0.4
@@ -142,6 +144,18 @@ class WelcomeViewController: UIViewController {
         termsAndConditionsLabel.delegate = self
     }
     
+    private func setupContinueButton() {
+        if #available(iOS 26.0, *) {
+            continueButton.configuration = UIButton.Configuration.prominentGlass()
+        } else {
+            continueButton.configuration = UIButton.Configuration.filled()
+            continueButton.configuration?.cornerStyle = .capsule
+        }
+        continueButton.configuration?.buttonSize = .large
+        continueButton.tintColor = .accent
+        continueButton.setTitle("Continue", for: .normal)
+    }
+    
     private func setPage(_ pageIndex: Int) {
         scrollView.setContentOffset(CGPoint(x: scrollView.bounds.width * CGFloat(pageIndex), y: 0), animated: true)
         pageControl.currentPage = pageIndex
@@ -149,7 +163,7 @@ class WelcomeViewController: UIViewController {
     
     private func startTimer() {
         stopTimer()
-        autoScrollTimer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { [weak self] _ in
+        autoScrollTimer = Timer.scheduledTimer(withTimeInterval: 6.0, repeats: true) { [weak self] _ in
             if let index = self?.currentIndex {
                 if let pages = self?.pageControl.numberOfPages, index >= pages-1 { self?.setPage(0)
                 } else {

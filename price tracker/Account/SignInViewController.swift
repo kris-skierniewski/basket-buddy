@@ -36,6 +36,7 @@ class SignInViewController: UIViewController {
         
         setupUIBindings()
         setupResetPasswordButton()
+        setupSignInAndCreateAccountButtons()
     }
     
     private func setupUIBindings() {
@@ -55,6 +56,28 @@ class SignInViewController: UIViewController {
                 self?.activityIndicator.stopAnimating()
             }
         }
+    }
+    
+    private func setupSignInAndCreateAccountButtons() {
+        if #available(iOS 26.0, *) {
+            createAccountButton.configuration = UIButton.Configuration.prominentGlass()
+        } else {
+            createAccountButton.configuration = UIButton.Configuration.filled()
+            createAccountButton.configuration?.cornerStyle = .capsule
+        }
+        createAccountButton.configuration?.buttonSize = .large
+        createAccountButton.tintColor = .accent
+        createAccountButton.setTitle("Create an account", for: .normal)
+        
+        if #available(iOS 26.0, *) {
+            signInButton.configuration = UIButton.Configuration.prominentGlass()
+        } else {
+            signInButton.configuration = UIButton.Configuration.filled()
+            signInButton.configuration?.cornerStyle = .capsule
+        }
+        signInButton.configuration?.buttonSize = .large
+        signInButton.tintColor = .accent
+        signInButton.setTitle("Sign in", for: .normal)
     }
 
     private func setupResetPasswordButton() {
@@ -90,10 +113,6 @@ class SignInViewController: UIViewController {
     @IBAction private func createAccountTapped() {
         viewModel.createAccount()
        
-    }
-    
-    private func showPasswordResetDialog() {
-        //TODO: here or in coordinator?
     }
     
 }

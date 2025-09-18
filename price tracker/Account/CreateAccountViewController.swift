@@ -19,6 +19,8 @@ class CreateAccountViewController: UIViewController {
     
     @IBOutlet private weak var confirmPasswordTextField: UITextField!
     
+    @IBOutlet private weak var createAccountButton: KButton!
+    
     private var viewModel: CreateAccountViewModel
     
     init(viewModel: CreateAccountViewModel) {
@@ -34,6 +36,7 @@ class CreateAccountViewController: UIViewController {
         super.viewDidLoad()
         navigationItem.title = "Create an account"
         setupUIBindings()
+        setupCreateAccountButton()
     }
     
     private func setupUIBindings() {
@@ -41,6 +44,18 @@ class CreateAccountViewController: UIViewController {
         emailTextField.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
         passwordTextField.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
         confirmPasswordTextField.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
+    }
+    
+    private func setupCreateAccountButton() {
+        if #available(iOS 26.0, *) {
+            createAccountButton.configuration = UIButton.Configuration.prominentGlass()
+        } else {
+            createAccountButton.configuration = UIButton.Configuration.filled()
+            createAccountButton.configuration?.cornerStyle = .capsule
+        }
+        createAccountButton.configuration?.buttonSize = .large
+        createAccountButton.tintColor = .accent
+        createAccountButton.setTitle("Create account", for: .normal)
     }
     
     @objc private func textFieldEditingChanged(_ textField: UITextField) {

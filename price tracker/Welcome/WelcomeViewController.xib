@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_72" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24127" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24063"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WelcomeViewController" customModule="price_tracker" customModuleProvider="target">
             <connections>
+                <outlet property="continueButton" destination="Nes-oZ-nnJ" id="7Im-G6-CwV"/>
                 <outlet property="continueButtonShadowView" destination="bjN-Rn-UxV" id="4hO-O6-dsf"/>
                 <outlet property="pageControl" destination="D0S-J5-a63" id="iHg-hj-Q69"/>
                 <outlet property="scrollView" destination="RcN-pT-oxT" id="iMq-rG-BBg"/>
@@ -21,20 +22,20 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Welcome to Basket Buddy" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KKY-gQ-Bz6">
-                    <rect key="frame" x="20" y="79" width="390" height="31.333333333333329"/>
+                    <rect key="frame" x="20" y="138" width="353" height="31.333333333333343"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e6t-o8-C1c" customClass="RoundedBorderView" customModule="price_tracker" customModuleProvider="target">
-                    <rect key="frame" x="20" y="140.33333333333334" width="390" height="60.666666666666657"/>
+                    <rect key="frame" x="20" y="199.33333333333334" width="353" height="81.000000000000028"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="1000" text="Your ultimate shopping companion for saving money on groceries. Let's get started!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C1m-iA-DGm">
-                            <rect key="frame" x="10" y="10" width="370" height="40.666666666666664"/>
+                            <rect key="frame" x="10" y="10" width="333" height="61"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -49,10 +50,10 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="kKC-z0-QPj">
-                    <rect key="frame" x="0.0" y="276" width="430" height="380"/>
+                    <rect key="frame" x="0.0" y="301" width="393" height="250"/>
                     <subviews>
                         <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="D0S-J5-a63">
-                            <rect key="frame" x="157" y="354" width="116" height="26"/>
+                            <rect key="frame" x="160" y="224" width="73" height="26"/>
                             <color key="pageIndicatorTintColor" red="0.54901963470000004" green="0.82352948189999997" blue="0.5411764979" alpha="0.49898097826086957" colorSpace="custom" customColorSpace="displayP3"/>
                             <color key="currentPageIndicatorTintColor" name="AccentColor"/>
                             <connections>
@@ -60,7 +61,7 @@
                             </connections>
                         </pageControl>
                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RcN-pT-oxT">
-                            <rect key="frame" x="0.0" y="0.0" width="430" height="334"/>
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="204"/>
                         </scrollView>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -76,48 +77,30 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" verticalHuggingPriority="255" translatesAutoresizingMaskIntoConstraints="NO" id="bjN-Rn-UxV">
-                    <rect key="frame" x="143.33333333333331" y="814" width="143.33333333333331" height="54"/>
+                    <rect key="frame" x="159" y="719" width="75" height="35"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x2B-2c-34G" customClass="KButton" customModule="price_tracker" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="0.0" width="143.33333333333334" height="54"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Continue" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dvj-eD-Vf6">
-                                    <rect key="frame" x="29.999999999999993" y="15" width="83.333333333333314" height="24"/>
-                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
-                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                            </subviews>
-                            <color key="backgroundColor" name="AccentColor"/>
-                            <constraints>
-                                <constraint firstAttribute="bottom" secondItem="Dvj-eD-Vf6" secondAttribute="bottom" constant="15" id="2Ic-iC-kJp"/>
-                                <constraint firstItem="Dvj-eD-Vf6" firstAttribute="leading" secondItem="x2B-2c-34G" secondAttribute="leading" constant="30" id="aSr-RV-AEl"/>
-                                <constraint firstAttribute="trailing" secondItem="Dvj-eD-Vf6" secondAttribute="trailing" constant="30" id="g2b-Oz-cyw"/>
-                                <constraint firstItem="Dvj-eD-Vf6" firstAttribute="top" secondItem="x2B-2c-34G" secondAttribute="top" constant="15" id="nVY-1P-jx7"/>
-                            </constraints>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                    <real key="value" value="25.5"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nes-oZ-nnJ" customClass="KButton" customModule="price_tracker" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="75" height="35"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" title="Button"/>
                             <connections>
-                                <action selector="continueTapped" destination="-1" eventType="touchUpInside" id="0RT-eI-p2a"/>
+                                <action selector="continueTapped" destination="-1" eventType="touchUpInside" id="LDR-k2-Xqa"/>
                             </connections>
-                        </view>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="x2B-2c-34G" firstAttribute="top" secondItem="bjN-Rn-UxV" secondAttribute="top" id="0DC-lJ-KT6"/>
-                        <constraint firstAttribute="trailing" secondItem="x2B-2c-34G" secondAttribute="trailing" id="C9O-zk-xCx"/>
-                        <constraint firstAttribute="bottom" secondItem="x2B-2c-34G" secondAttribute="bottom" id="cwb-H7-T5W"/>
-                        <constraint firstItem="x2B-2c-34G" firstAttribute="leading" secondItem="bjN-Rn-UxV" secondAttribute="leading" id="lXA-pk-var"/>
+                        <constraint firstAttribute="bottom" secondItem="Nes-oZ-nnJ" secondAttribute="bottom" id="22o-y5-65p"/>
+                        <constraint firstItem="Nes-oZ-nnJ" firstAttribute="leading" secondItem="bjN-Rn-UxV" secondAttribute="leading" id="YNb-Tn-rjo"/>
+                        <constraint firstItem="Nes-oZ-nnJ" firstAttribute="top" secondItem="bjN-Rn-UxV" secondAttribute="top" id="u6I-E1-ZtR"/>
+                        <constraint firstAttribute="trailing" secondItem="Nes-oZ-nnJ" secondAttribute="trailing" id="uka-6b-VcS"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JAr-DE-1wX" customClass="RoundedBorderView" customModule="price_tracker" customModuleProvider="target">
-                    <rect key="frame" x="20" y="756" width="390" height="38"/>
+                    <rect key="frame" x="20" y="661" width="353" height="38"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="By using the app..." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lbF-I1-w2S" customClass="TTTAttributedLabel">
-                            <rect key="frame" x="10" y="10" width="370" height="18"/>
+                            <rect key="frame" x="10" y="10" width="333" height="18"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -156,14 +139,9 @@
             <point key="canvasLocation" x="23.664122137404579" y="19.718309859154932"/>
         </view>
     </objects>
-    <designables>
-        <designable name="lbF-I1-w2S">
-            <size key="intrinsicContentSize" width="127.33333333333333" height="18"/>
-        </designable>
-    </designables>
     <resources>
         <namedColor name="AccentColor">
-            <color red="0.5490196078431373" green="0.82352941176470584" blue="0.54117647058823526" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="1" green="0.79199999570846558" blue="0.15700000524520874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
