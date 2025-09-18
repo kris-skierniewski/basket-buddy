@@ -140,8 +140,16 @@ class AppCoordinator {
         datasetHandle = datasetRepository?.observeDataset(withId: datasetId, onChange: { [weak self] updatedDataset in
             if let updatedDataset = updatedDataset,
                updatedDataset != self?.dataset {
-                self?.dataset = updatedDataset
-                self?.showMainFlow(forDataset: updatedDataset)
+                
+                let isUserStillInDataset = updatedDataset.members.contains(where: { $0.key == self?.authService.currentUserId && $0.value == true })
+                
+                if isUserStillInDataset {
+                    self?.dataset = updatedDataset
+                    self?.showMainFlow(forDataset: updatedDataset)
+                } else {
+                    self?.dataset = nil
+                    self?.showDatasetLoadingFlow()
+                }
             }
         })
         

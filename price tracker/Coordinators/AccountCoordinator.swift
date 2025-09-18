@@ -63,9 +63,21 @@ class AccountCoordinator {
     private func showDatasetInformationViewController() {
         let viewModel = DatasetInformationViewModel(datasetId: datasetId, combinedRepository: combinedRepository, datasetRepository: datasetRepository, authService: authService)
         viewModel.onInviteTapped = showShareFlow(sourceView:)
+        viewModel.onLeaveGroupTapped = { [weak self] in
+            self?.showLeaveGroupAlert(viewModel: viewModel)
+        }
         
         let viewController = DatasetInformationViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    private func showLeaveGroupAlert(viewModel: DatasetInformationViewModel) {
+        let alertController = UIAlertController(title: "Sorry to see you go", message: "Are you sure you would like to leave your group? All of your products and prices will be deleted.", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Leave group", style: .destructive, handler: { _ in
+            viewModel.leaveGroup()
+        }))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        navigationController.topViewController?.present(alertController, animated: true)
     }
     
     private func showShareFlow(sourceView: UIView) {

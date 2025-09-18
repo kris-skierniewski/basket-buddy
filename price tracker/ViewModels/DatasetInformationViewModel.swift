@@ -10,9 +10,15 @@ import UIKit
 struct DatasetMemberRow: Comparable {
     var displayName: String
     var isCurrentUser: Bool
+    var showLeaveButton: Bool
+    var leaveButtonTappedBlock: (() -> Void)?
     
     static func < (lhs: DatasetMemberRow, rhs: DatasetMemberRow) -> Bool {
         return lhs.displayName < rhs.displayName
+    }
+    
+    static func == (lhs: DatasetMemberRow, rhs: DatasetMemberRow) -> Bool {
+        return lhs.displayName == rhs.displayName && lhs.isCurrentUser == rhs.isCurrentUser
     }
 }
 
@@ -31,6 +37,8 @@ class DatasetInformationViewModel {
     var rows: [DatasetMemberRow] = []
     var onRowsUpdated: (() -> Void)?
     var onInviteTapped: ((UIView) -> Void)?
+    var onLeaveGroupTapped: (() -> Void)?
+    var onError: ((Error) -> Void)?
     
     init(datasetId: String, combinedRepository: CombinedRepositoryProtocol, datasetRepository: DatasetRepository, authService: AuthService) {
         self.datasetId = datasetId
@@ -62,10 +70,43 @@ class DatasetInformationViewModel {
             return nil
         } ?? [User]()
         
+        let canLeaveGroup = mappedUsers.count > 1
+        
         rows = mappedUsers.map({ user in
-            DatasetMemberRow(displayName: user.displayName, isCurrentUser: currentUserId == user.id)
+            let isCurrentUser = currentUserId == user.id
+            let shouldShowLeaveButton = isCurrentUser && canLeaveGroup
+            
+            return DatasetMemberRow(displayName: user.displayName,
+                                    isCurrentUser: isCurrentUser,
+                                    showLeaveButton: shouldShowLeaveButton,
+                                    leaveButtonTappedBlock: shouldShowLeaveButton ? leaveGroupTapped : nil)
         }).sorted()
         onRowsUpdated?()
+    }
+    
+    private func leaveGroupTapped() {
+        onLeaveGroupTapped?()
+    }
+    
+    func leaveGroup() {
+        guard let currentUserId = authService.currentUserId, let datasetId = dataset?.id else {
+            return
+        }
+        combinedRepository.deleteAllUserData(userId: currentUserId) { result in
+            switch result {
+            case .success():
+                self.datasetRepository.deleteUserFromDataset(datasetId: datasetId, userId: currentUserId) { result in
+                    switch result {
+                    case .success():
+                        break
+                    case .failure(let error):
+                        self.onError?(error)
+                    }
+                }
+            case .failure(let error):
+                self.onError?(error)
+            }
+        }
     }
     
     func invite(sourceView: UIView) {
