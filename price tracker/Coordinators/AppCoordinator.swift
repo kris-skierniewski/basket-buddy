@@ -56,6 +56,15 @@ class AppCoordinator {
         datasetRepository = FirebaseDatasetRepository(firebaseService: firebaseDatabaseService, userId: currentUserId!)
         inviteService = FirebaseInviteService(databaseService: firebaseDatabaseService, datasetRepository: datasetRepository!, authService: authService)
         
+        let loadingViewController = LoadingViewController()
+        window.rootViewController = loadingViewController
+        window.makeKeyAndVisible()
+        
+        getUserDatasetId()
+    }
+    
+    private var getUserIdFailCount: Int = 0
+    private func getUserDatasetId() {
         datasetRepository?.getUserDatasetId { [weak self] result in
             switch result {
             case .success(let datasetId):
@@ -67,13 +76,14 @@ class AppCoordinator {
                     self?.showSelectDatasetFlow()
                 }
             case .failure(let error):
-                self?.showErrorAlert(error: error)
+                self?.getUserIdFailCount += 1
+                if (self?.getUserIdFailCount ?? 0) <= 5 {
+                    self?.showErrorAlert(error: error, withRetryBlock: self?.getUserDatasetId)
+                } else { //give up
+                    self?.showErrorAlert(error: error)
+                }
             }
         }
-        
-        let loadingViewController = LoadingViewController()
-        window.rootViewController = loadingViewController
-        window.makeKeyAndVisible()
     }
     
     private func showSelectDatasetFlow() {
@@ -111,6 +121,7 @@ class AppCoordinator {
         })
     }
     
+    private var getDatasetFailCount: Int = 0
     private func getDataset(withId datasetId: String) {
         datasetRepository?.getDataset(withId: datasetId) { [weak self] result in
             switch result {
@@ -123,21 +134,41 @@ class AppCoordinator {
                     guard let currentUserId = self?.currentUserId else {
                         return
                     }
-                    let newDataset = Dataset(id: datasetId, members: [currentUserId: true])
-                    self?.datasetRepository?.updateDataset(newDataset) { result in
-                        switch result {
-                        case .success():
-                            self?.observeDataSet(withId: datasetId)
-                        case .failure(let error):
-                            self?.showErrorAlert(error: error)
-                        }
-                    }
+                    //user datset id set but dataset is missing! set it up
+                    // can happen if onboarding is left unfinished
+                    self?.setupNewDataset(withId: datasetId, userId: currentUserId)
                 }
             case .failure(let error):
-                self?.showErrorAlert(error: error)
+                self?.getDatasetFailCount += 1
+                if (self?.getDatasetFailCount ?? 0) <= 5 {
+                    self?.showErrorAlert(error: error, withRetryBlock: {
+                        self?.getDataset(withId: datasetId)
+                    })
+                } else {
+                    self?.showErrorAlert(error: error)
+                }
             }
         }
-        
+    }
+    
+    private var setupNewDatasetFailCount: Int = 0
+    private func setupNewDataset(withId datasetId: String, userId: String) {
+        let newDataset = Dataset(id: datasetId, members: [userId: true])
+        datasetRepository?.updateDataset(newDataset) { [weak self] result in
+            switch result {
+            case .success():
+                self?.observeDataSet(withId: datasetId)
+            case .failure(let error):
+                self?.setupNewDatasetFailCount += 1
+                if (self?.setupNewDatasetFailCount ?? 0) <= 5 {
+                    self?.showErrorAlert(error: error, withRetryBlock: {
+                        self?.setupNewDataset(withId: datasetId, userId: userId)
+                    })
+                } else {
+                    self?.showErrorAlert(error: error)
+                }
+            }
+        }
     }
     
     private func observeDataSet(withId datasetId: String) {
@@ -163,6 +194,15 @@ class AppCoordinator {
     private func showErrorAlert(error: Error) {
         let alert = UIAlertController(title: "Sorry, something went wrong...", message: error.localizedDescription, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+        
+        window.rootViewController?.present(alert, animated: true)
+    }
+    
+    private func showErrorAlert(error: Error, withRetryBlock retryBlock: (() -> Void)?) {
+        let alert = UIAlertController(title: "Sorry, something went wrong...", message: error.localizedDescription, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Try again", style: .default, handler: { _ in
+            retryBlock?()
+        }))
         
         window.rootViewController?.present(alert, animated: true)
     }
