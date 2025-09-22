@@ -20,6 +20,9 @@ class SignInViewController: UIViewController {
     @IBOutlet private weak var resetPasswordButton: KButton!
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     
+    @IBOutlet private weak var inviteNoticeView: UIView!
+    @IBOutlet private weak var inviteNoticeLabel: UILabel!
+    
     private var viewModel: SignInViewModel
     
     init(viewModel: SignInViewModel) {
@@ -34,6 +37,7 @@ class SignInViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupInviteNoticeView()
         setupUIBindings()
         setupResetPasswordButton()
         setupSignInAndCreateAccountButtons()
@@ -49,12 +53,18 @@ class SignInViewController: UIViewController {
                 self?.createAccountButton.isEnabled = false
                 self?.resetPasswordButton.isEnabled = false
                 self?.activityIndicator.startAnimating()
+                self?.inviteNoticeView.isHidden = true
             } else {
                 self?.signInButton.isEnabled = true
                 self?.createAccountButton.isEnabled = true
                 self?.resetPasswordButton.isEnabled = true
                 self?.activityIndicator.stopAnimating()
+                self?.updateInviteNoticeView()
             }
+        }
+        
+        viewModel.onInviteNoticeStringChanged = { [weak self] in
+            self?.updateInviteNoticeView()
         }
     }
     
@@ -89,6 +99,21 @@ class SignInViewController: UIViewController {
         ]
         
         resetPasswordButtonLabel.attributedText = NSAttributedString(string: "Reset password", attributes: attributes)
+    }
+    
+    private func setupInviteNoticeView() {
+        inviteNoticeView.backgroundColor = .accent.withAlphaComponent(0.3)
+        inviteNoticeView.isHidden = true
+    }
+    
+    private func updateInviteNoticeView() {
+        if viewModel.inviteNoticeString.count == 0 {
+            inviteNoticeView.isHidden = true
+            inviteNoticeLabel.text = ""
+        } else {
+            inviteNoticeView.isHidden = false
+            inviteNoticeLabel.text = viewModel.inviteNoticeString
+        }
     }
     
     @objc private func textFieldEditingChanged(_ textField: UITextField) {

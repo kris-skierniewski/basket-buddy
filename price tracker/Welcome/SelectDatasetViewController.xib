@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24127" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24063"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -13,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SelectDatasetViewController" customModule="price_tracker" customModuleProvider="target">
             <connections>
                 <outlet property="inviteCodeTextField" destination="nGH-A9-2Vh" id="aVW-f4-Jcv"/>
+                <outlet property="signOutButton" destination="uRS-lW-VAg" id="vmQ-nM-GkP"/>
                 <outlet property="view" destination="Qah-2k-DRi" id="hI5-fs-lZg"/>
             </connections>
         </placeholder>
@@ -192,11 +193,33 @@
                         <constraint firstItem="jvS-zk-0xC" firstAttribute="centerX" secondItem="HOu-vj-u5F" secondAttribute="centerX" id="xdm-Aq-8aI"/>
                     </constraints>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3q7-zt-3ce" customClass="ShadowView" customModule="price_tracker" customModuleProvider="target">
+                    <rect key="frame" x="20" y="133" width="75" height="35"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" springLoaded="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uRS-lW-VAg" customClass="KButton" customModule="price_tracker" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="75" height="35"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                            <connections>
+                                <action selector="signOutButtonTapped" destination="-1" eventType="touchUpInside" id="v97-az-O0C"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="uRS-lW-VAg" firstAttribute="top" secondItem="3q7-zt-3ce" secondAttribute="top" id="YzG-W5-02z"/>
+                        <constraint firstAttribute="trailing" secondItem="uRS-lW-VAg" secondAttribute="trailing" id="dL6-g8-Bpt"/>
+                        <constraint firstAttribute="bottom" secondItem="uRS-lW-VAg" secondAttribute="bottom" id="lJh-he-IjO"/>
+                        <constraint firstItem="uRS-lW-VAg" firstAttribute="leading" secondItem="3q7-zt-3ce" secondAttribute="leading" id="tc6-6P-UJO"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="eOd-Wj-B3g"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="3q7-zt-3ce" firstAttribute="top" secondItem="eOd-Wj-B3g" secondAttribute="top" constant="15" id="GaR-f3-Eod"/>
                 <constraint firstItem="HOu-vj-u5F" firstAttribute="centerY" secondItem="Qah-2k-DRi" secondAttribute="centerY" multiplier="0.8" id="MeX-VB-hCp"/>
+                <constraint firstItem="3q7-zt-3ce" firstAttribute="leading" secondItem="Qah-2k-DRi" secondAttribute="leading" constant="20" id="gSW-e4-mxa"/>
                 <constraint firstItem="HOu-vj-u5F" firstAttribute="leading" secondItem="eOd-Wj-B3g" secondAttribute="leading" constant="30" id="sKC-Hx-X22"/>
                 <constraint firstItem="eOd-Wj-B3g" firstAttribute="trailing" secondItem="HOu-vj-u5F" secondAttribute="trailing" constant="30" id="u0l-mN-OP1"/>
             </constraints>
@@ -205,7 +228,7 @@
     </objects>
     <resources>
         <namedColor name="AccentColor">
-            <color red="0.5490196078431373" green="0.82352941176470584" blue="0.54117647058823526" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="1" green="0.79199999570846558" blue="0.15700000524520874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

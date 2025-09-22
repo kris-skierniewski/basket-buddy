@@ -184,6 +184,7 @@
 		B014FE0A2CE3E66F0098438F /* ShoppingListProductTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListProductTableViewCell.swift; sourceTree = "<group>"; };
 		B014FE0C2CE3E6940098438F /* ShoppingListProductTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShoppingListProductTableViewCell.xib; sourceTree = "<group>"; };
 		B014FE0E2CE3E7600098438F /* ShoppingList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingList.swift; sourceTree = "<group>"; };
+		B01BFEC72E7EF683001722BF /* price tracker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "price tracker.entitlements"; sourceTree = "<group>"; };
 		B023FB7B2E7B3E1D00FFB3C1 /* GenerableProductCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerableProductCategory.swift; sourceTree = "<group>"; };
 		B0717AAE2E672A9F00F27E52 /* FirebaseShopRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseShopRepository.swift; sourceTree = "<group>"; };
 		B0717AB02E672DDD00F27E52 /* FirebasePriceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebasePriceRepository.swift; sourceTree = "<group>"; };
@@ -466,6 +467,7 @@
 		B08FBE512C7F8C8900455298 /* price tracker */ = {
 			isa = PBXGroup;
 			children = (
+				B01BFEC72E7EF683001722BF /* price tracker.entitlements */,
 				B0F74E6F2E7AA9D100746A9F /* Tables */,
 				B0F183EF2E6AE1C7008A33BD /* Managers */,
 				B0717AC92E684C9600F27E52 /* Coordinators */,
@@ -1063,12 +1065,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "price tracker/price tracker.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = BS24SDA9U2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "price tracker/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Basket Buddy";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
@@ -1095,12 +1099,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "price tracker/price tracker.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = BS24SDA9U2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "price tracker/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Basket Buddy";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";

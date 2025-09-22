@@ -10,6 +10,9 @@ class AuthCoordinator {
     private let authService: AuthService
     private let userRepository: UserRepository
     
+    private var signInViewModel: SignInViewModel?
+    private var createAccountViewModel: CreateAccountViewModel?
+    
     init(navigationController: UINavigationController, authService: AuthService, userRepository: UserRepository) {
         self.navigationController = navigationController
         self.authService = authService
@@ -18,27 +21,31 @@ class AuthCoordinator {
     
     func start() {
         
-        let signInViewModel = SignInViewModel(authService: authService)
+        signInViewModel = SignInViewModel(authService: authService)
         
-        signInViewModel.onError = { [weak self] error in
+        signInViewModel?.onError = { [weak self] error in
             self?.showErrorAlert(error: error)
         }
         
-        signInViewModel.onCreateAccountTapped = {
-            self.showCreateAccountViewController()
-        }
+        signInViewModel?.onCreateAccountTapped = showCreateAccountViewController(inviteCode:)
         
-        let signInViewController = SignInViewController(viewModel: signInViewModel)
+        let signInViewController = SignInViewController(viewModel: signInViewModel!)
         
         navigationController.viewControllers = [signInViewController]
     }
     
-    private func showCreateAccountViewController() {
-        let viewModel = CreateAccountViewModel(authService: authService, userRepository: userRepository)
-        viewModel.onError = { [weak self] error in
+    func showInvite(inviteCode: String) {
+        signInViewModel?.showInvite(inviteCode: inviteCode)
+        createAccountViewModel?.showInvite(inviteCode: inviteCode)
+    }
+    
+    private func showCreateAccountViewController(inviteCode: String?) {
+        createAccountViewModel = CreateAccountViewModel(authService: authService, userRepository: userRepository)
+        createAccountViewModel?.inviteCode = inviteCode
+        createAccountViewModel?.onError = { [weak self] error in
             self?.showErrorAlert(error: error)
         }
-        let viewController = CreateAccountViewController(viewModel: viewModel)
+        let viewController = CreateAccountViewController(viewModel: createAccountViewModel!)
         navigationController.pushViewController(viewController, animated: true)
     }
     

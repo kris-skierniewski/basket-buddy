@@ -10,6 +10,7 @@ import SafariServices
 
 class AppCoordinator {
     private let window: UIWindow
+    private var tabBarController: UITabBarController?
     
     private var authStateHandle: AuthStateHandle?
     private var authService: AuthService
@@ -21,6 +22,10 @@ class AppCoordinator {
     private var datasetRepository: FirebaseDatasetRepository?
     private var userDatasetIdHandle: ObserverHandle?
     private var datasetHandle: ObserverHandle?
+    
+    private var handleInviteBlock: ((String) -> Void)?
+    private var isReadyForInvite: Bool = false
+    private var inviteCode: String?
     
     var currentUserId: String? {
         return authService.currentUserId
@@ -40,7 +45,6 @@ class AppCoordinator {
             } else {
                 self.showAuthFlow()
             }
-            self.showOnbordingIfNeeded()
         }
     }
     
@@ -61,14 +65,6 @@ class AppCoordinator {
                     self?.getDataset(withId: datasetId)
                 } else {
                     self?.showSelectDatasetFlow()
-//                    self?.datasetRepository?.setupUserDataset { result in
-//                        switch result {
-//                        case .success(let datasetId):
-//                            self?.getDataset(withId: datasetId)
-//                        case .failure(let error):
-//                            self?.showErrorAlert(error: error)
-//                        }
-//                    }
                 }
             case .failure(let error):
                 self?.showErrorAlert(error: error)
@@ -84,13 +80,22 @@ class AppCoordinator {
         guard let datasetRepository = datasetRepository, let inviteService = inviteService else {
             return
         }
-        let viewModel = SelectDatasetViewModel(datasetRepository: datasetRepository, inviteService: inviteService)
+        let viewModel = SelectDatasetViewModel(authService: authService, datasetRepository: datasetRepository, inviteService: inviteService)
         viewModel.onSuccess = { [weak self] in
             self?.showDatasetLoadingFlow()
         }
+        viewModel.onError = showErrorAlert(error:)
         let viewController = SelectDatasetViewController(viewModel: viewModel)
         
         window.rootViewController = viewController
+        showOnbordingIfNeeded { [weak self] in
+            self?.isReadyForInvite = true
+            if let inviteCode = self?.inviteCode {
+                viewModel.showInvite(inviteCode: inviteCode)
+            } else {
+                self?.handleInviteBlock = viewModel.showInvite(inviteCode:)
+            }
+        }
     }
     
     private func observeUserDatasetId() {
@@ -172,7 +177,7 @@ class AppCoordinator {
         let userRepository = FirebaseUserRepository(firebaseService: firebaseDatabaseService)
         let combinedRepository = CombinedRepository(productRepository: productRepository, shopRepository: shopRepository, priceRepository: priceRepository, userPreferencesRepository: userPreferencesRepository, shoppingListRepository: shoppingListRepository, userRepository: userRepository)
         
-        let tabBarController = UITabBarController()
+        tabBarController = UITabBarController()
         
         let productTableNav = UINavigationController()
         let productCoordinator = ProductCoordinator(navigationController: productTableNav,
@@ -204,10 +209,28 @@ class AppCoordinator {
         productTableNav.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house"), tag: 0)
         shoppingListNav.tabBarItem = UITabBarItem(title: "Shopping List", image: UIImage(systemName: "cart"), tag: 1)
         accountNav.tabBarItem = UITabBarItem(title: "Account", image: UIImage(systemName: "person.crop.circle"), tag: 2)
-        tabBarController.viewControllers = [productTableNav, shoppingListNav, accountNav]
+        tabBarController?.viewControllers = [productTableNav, shoppingListNav, accountNav]
         
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()
+        
+        
+        showOnbordingIfNeeded { [weak self] in
+            self?.isReadyForInvite = true
+            if let inviteCode = self?.inviteCode {
+                self?.showJoingGroupViewController(inviteCode: inviteCode)
+            } else {
+                self?.handleInviteBlock = self?.showJoingGroupViewController(inviteCode:)
+            }
+        }
+    }
+    
+    private func showJoingGroupViewController(inviteCode: String) {
+        let viewModel = JoinGroupViewModel(inviteService: inviteService!, datasetRepository: datasetRepository!, inviteCode: inviteCode)
+        
+        viewModel.onError = showErrorAlert(error:)
+        let viewController = KTableViewController(viewModel: viewModel)
+        (tabBarController?.selectedViewController as? UINavigationController)?.pushViewController(viewController, animated: true)
     }
     
     private func showAuthFlow() {
@@ -218,10 +241,19 @@ class AppCoordinator {
         
         window.rootViewController = authNavController
         window.makeKeyAndVisible()
+        showOnbordingIfNeeded { [weak self] in
+            self?.isReadyForInvite = true
+            if let inviteCode = self?.inviteCode {
+                authCoordinator.showInvite(inviteCode: inviteCode)
+            } else {
+                self?.handleInviteBlock = authCoordinator.showInvite(inviteCode:)
+            }
+        }
     }
     
-    private func showOnbordingIfNeeded() {
+    private func showOnbordingIfNeeded(completion: @escaping () -> Void) {
         guard onboardingManager.needsOnboarding else {
+            completion()
             return
         }
         let welcomeViewModel = WelcomeViewModel()
@@ -234,10 +266,18 @@ class AppCoordinator {
         }
         welcomeViewModel.onContinueTapped = {
             self.onboardingManager.markOnboardingCompleted()
-            welcomeViewController.dismiss(animated: true)
+            welcomeViewController.dismiss(animated: true, completion: completion)
         }
         
         welcomeViewController.modalPresentationStyle = .fullScreen
         window.rootViewController?.present(welcomeViewController, animated: true)
+    }
+    
+    func handleInviteDeepLink(inviteCode: String) {
+        if isReadyForInvite {
+            handleInviteBlock?(inviteCode)
+        } else {
+            self.inviteCode = inviteCode
+        }
     }
 }

@@ -17,10 +17,15 @@ class CreateAccountViewModel {
     var emailAddress: String = ""
     var password: String = ""
     var confirmPassword: String = ""
+    var inviteCode: String?
     
     init(authService: AuthService, userRepository: UserRepository) {
         self.authService = authService
         self.userRepository = userRepository
+    }
+    
+    func showInvite(inviteCode: String) {
+        self.inviteCode = inviteCode
     }
     
     func createAccount() {

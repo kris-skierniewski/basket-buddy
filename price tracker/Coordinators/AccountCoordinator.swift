@@ -88,10 +88,11 @@ class AccountCoordinator {
             switch result {
             case .success(let invite):
                 
-                let inviteText = "Lets save money together! Download Basket Buddy and join my group using invite code: \(invite)"
+                let inviteText = "Lets save money together! Download Basket Buddy and join my group using invite code: \(invite) or tap the link."
+                let inviteUrl = URL(string: "https://appsbykris.com/basketbuddy/invite?code=\(invite)")!
                 
                 let activityViewController = UIActivityViewController(
-                    activityItems: [inviteText],
+                    activityItems: [inviteText, inviteUrl],
                     applicationActivities: nil
                 )
                 

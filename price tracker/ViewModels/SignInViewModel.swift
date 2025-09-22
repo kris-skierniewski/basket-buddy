@@ -8,19 +8,29 @@
 class SignInViewModel {
     
     private let authService: AuthService
+    private var inviteCode: String?
     
     var emailAddress: String = ""
     var password: String = ""
     
+    var inviteNoticeString = ""
+    
     var onSignInSuccess: (() -> Void)?
     var onResetPasswordSuccess: (() -> Void)?
-    var onCreateAccountTapped: (() -> Void)?
+    var onCreateAccountTapped: ((String?) -> Void)?
     var onError: ((Error)-> Void)?
+    var onInviteNoticeStringChanged: (() -> Void)?
     
     var onLoading: ((Bool) -> Void)?
     
     init(authService: AuthService) {
         self.authService = authService
+    }
+    
+    func showInvite(inviteCode: String) {
+        self.inviteCode = inviteCode
+        inviteNoticeString = "You have been invited to join a team\nBut first, sign in or create an account."
+        onInviteNoticeStringChanged?()
     }
     
     func signIn() {
@@ -52,7 +62,7 @@ class SignInViewModel {
     }
     
     func createAccount() {
-        onCreateAccountTapped?()
+        onCreateAccountTapped?(inviteCode)
     }
     
 }

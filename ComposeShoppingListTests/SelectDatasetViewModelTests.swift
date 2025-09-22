@@ -12,12 +12,14 @@ class SelectDatasetViewModelTests: XCTestCase {
     
     var mockRepository: MockDatasetRepository!
     var mockInviteService: MockInviteService!
+    var mockAuthService: MockAuthService!
     var viewModel: SelectDatasetViewModel!
     
     override func setUpWithError() throws {
         mockRepository = MockDatasetRepository()
+        mockAuthService = MockAuthService()
         mockInviteService = MockInviteService()
-        viewModel = SelectDatasetViewModel(datasetRepository: mockRepository, inviteService: mockInviteService)
+        viewModel = SelectDatasetViewModel(authService: mockAuthService, datasetRepository: mockRepository, inviteService: mockInviteService)
     }
     
     

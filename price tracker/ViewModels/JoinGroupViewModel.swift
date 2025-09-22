@@ -9,7 +9,7 @@ class JoinGroupViewModel: KTableViewModel {
     
     private let inviteService: InviteServiceProtocol
     private let datasetRepository: DatasetRepository
-    
+        
     private var inviteCode: String = ""
     
     
@@ -22,17 +22,19 @@ class JoinGroupViewModel: KTableViewModel {
     var onSectionsUpdated: (() -> Void)?
     var onError: ((Error) -> Void)?
     
-    init(inviteService: InviteServiceProtocol, datasetRepository: DatasetRepository) {
+    init(inviteService: InviteServiceProtocol, datasetRepository: DatasetRepository, inviteCode: String = "") {
+        self.inviteCode = inviteCode
         self.inviteService = inviteService
         self.datasetRepository = datasetRepository
     }
     
     func loadSections() {
-        let inviteCodeRow = KTableViewRow(placeholder: "Invite code", text: nil) { [weak self] code in
+        let inviteCodeRow = KTableViewRow(placeholder: "Invite code", text: inviteCode) { [weak self] code in
             self?.inviteCode = code
         }
+        let sectionTitle = inviteCode.isEmpty ? "Enter your invite code" : "You have been invited to join a group!"
         sections = [
-            KTableViewSection(title: "Enter your invite code", body: "Joining a new group means that you will leave your current group. You will also lose all existing products, prices and shops.", rows: [inviteCodeRow])
+            KTableViewSection(title: sectionTitle, body: "Joining a new group means that you will leave your current group. You will also lose all existing products, prices and shops.", rows: [inviteCodeRow])
         ]
         onSectionsUpdated?()
     }
