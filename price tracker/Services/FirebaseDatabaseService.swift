@@ -32,9 +32,26 @@ class FirebaseDatabaseService {
     private let jsonEncoder = JSONEncoder()
     private let jsonDecoder = JSONDecoder()
     
+    private var isConnectedObserver: ObserverHandle?
+    private var isConnected: Bool = true//false
+    
     init() {
-        self.database = Database.database(url: "https://price-tracker-f4073-default-rtdb.europe-west1.firebasedatabase.app/").reference()
-        Database.database().isPersistenceEnabled = true
+        let database = Database.database(url: "https://price-tracker-f4073-default-rtdb.europe-west1.firebasedatabase.app/")
+        database.isPersistenceEnabled = true
+        self.database = database.reference()
+        isConnectedObserver = observeConnection()
+    }
+    
+    func observeConnection() -> ObserverHandle {
+        let path = ".info/connected"
+        let handle = database.child(path).observe(.value) { [weak self] snapshot in
+            if let connected = snapshot.value as? Bool {
+                self?.isConnected = connected
+            } else {
+                self?.isConnected = false
+            }
+        }
+        return FirebaseObserverHandle(database: database, path: path, handle: handle)
     }
     
     func updateMultiple(_ updates: [String: Any], completion: @escaping(Result<Void, Error>) -> Void) {
@@ -72,11 +89,16 @@ class FirebaseDatabaseService {
         do {
             let data = try jsonEncoder.encode(item)
             let dictionary = try JSONSerialization.jsonObject(with: data) as? [String: Any]
-            database.child(path).setValue(dictionary) { error, _ in
-                if let error = error {
-                    completion(.failure(error))
-                } else {
-                    completion(.success(()))
+            if !isConnected {
+                database.child(path).setValue(dictionary)
+                completion(.success(()))
+            } else {
+                database.child(path).setValue(dictionary) { error, _ in
+                    if let error = error {
+                        completion(.failure(error))
+                    } else {
+                        completion(.success(()))
+                    }
                 }
             }
             
@@ -86,8 +108,11 @@ class FirebaseDatabaseService {
     }
     
     func delete(at path: String, completion: @escaping (Result<Void, Error>) -> Void) {
-        database.child(path).removeValue { error, _ in
-            DispatchQueue.main.async {
+        if !isConnected {
+            database.child(path).removeValue()
+            completion(.success(()))
+        } else {
+            database.child(path).removeValue { error, _ in
                 if let error = error {
                     completion(.failure(error))
                 } else {
@@ -98,32 +123,30 @@ class FirebaseDatabaseService {
     }
     
     func getValue<T:Codable>(_ path: String, as type: T.Type, completion: @escaping(Result<T?,Error>) -> Void) {
-        database.child(path).getData { error, snapshot in
-            if let error = error {
-                completion(.failure(error))
-            } else {
-                guard let nonNilValue = snapshot?.value else {
-                    completion(.success(nil))
-                    return
-                }
-                if let decodedValue = nonNilValue as? T {
-                    completion(.success(decodedValue))
-                    return
-                }
-                guard let value = nonNilValue as? [String: Any] else {
-                    
-                    completion(.success(nil))
-                    return
-                }
-                do {
-                    let data = try JSONSerialization.data(withJSONObject: value)
-                    let item = try JSONDecoder().decode(T.self, from: data)
-                    completion(.success(item))
-                } catch {
-                    completion(.failure(error))
-                }
+        database.child(path).observeSingleEvent(of: .value, with: { snapshot in
+            guard let nonNilValue = snapshot.value else {
+                completion(.success(nil))
+                return
             }
-        }
+            if let decodedValue = nonNilValue as? T {
+                completion(.success(decodedValue))
+                return
+            }
+            guard let value = nonNilValue as? [String: Any] else {
+                
+                completion(.success(nil))
+                return
+            }
+            do {
+                let data = try JSONSerialization.data(withJSONObject: value)
+                let item = try JSONDecoder().decode(T.self, from: data)
+                completion(.success(item))
+            } catch {
+                completion(.success(nil))
+            }
+        }, withCancel: { error in
+            completion(.failure(error))
+        })
     }
     
     func observe<T: Codable>(_ path: String, as type: T.Type, onChange: @escaping(T?) -> Void) -> ObserverHandle {
@@ -211,11 +234,16 @@ class FirebaseDatabaseService {
         do {
             let data = try JSONEncoder().encode(item)
             let dictionary = try JSONSerialization.jsonObject(with: data) as? [String: Any]
-            database.child(path).updateChildValues(dictionary ?? [:]) { error, _ in
-                if let error = error {
-                    completion(.failure(error))
-                } else {
-                    completion(.success(()))
+            if !isConnected {
+                database.child(path).updateChildValues(dictionary ?? [:])
+                completion(.success(()))
+            } else {
+                database.child(path).updateChildValues(dictionary ?? [:]) { error, _ in
+                    if let error = error {
+                        completion(.failure(error))
+                    } else {
+                        completion(.success(()))
+                    }
                 }
             }
         } catch {
