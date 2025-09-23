@@ -89,6 +89,13 @@ class SearchProductsViewModel {
         if selectedRow.exists {
             addProductToShoppingList(selectedRow.product)
         } else {
+            
+//            ProductCategoriser.shared.generateAICategory(name: selectedRow.product.product.name, description: "") { category in
+//                
+//                
+//                
+//            }
+            
             addNewProductToRepository(selectedRow.product) { [weak self] result in
                 switch result {
                 case .success(()):
@@ -105,7 +112,22 @@ class SearchProductsViewModel {
     }
     
     private func addNewProductToRepository(_ product: ProductWithPrices, completion: @escaping ((Result<Void,Error>) -> Void)) {
-        combinedRepository.addProduct(product.product, completion: completion)
+        combinedRepository.addProduct(product.product) { [weak self] result in
+            switch result {
+            case .success():
+                completion(.success(()))
+                //update category behind the scenes, lets add product instantly and not make user wait
+                var productToCategorise = product.product
+                ProductCategoriser.shared.generateAICategory(name: productToCategorise.name, description: "") { category in
+                    productToCategorise.category = category
+                    self?.combinedRepository.updateProduct(productToCategorise) { _ in
+                         
+                    }
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
     
     private func addProductToShoppingList(_ product: ProductWithPrices) {
@@ -165,6 +187,10 @@ class SearchProductsViewModel {
             }
         }
         onRowsUpdated?()
+    }
+    
+    private func categoriseProduct(product: ProductWithPrices) {
+        
     }
     
     

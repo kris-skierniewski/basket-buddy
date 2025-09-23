@@ -32,7 +32,7 @@ struct Product: Identifiable, Codable, Equatable, DiffableItem {
         case authorUid
     }
     
-    init(id: String, name: String, description: String, categoriser: ProductCategoriser = ProductCategoriser(), authorUid: String) {
+    init(id: String, name: String, description: String, categoriser: ProductCategoriser = ProductCategoriser.shared, authorUid: String) {
         self.id = id
         self.name = name
         self.description = description
@@ -48,7 +48,7 @@ struct Product: Identifiable, Codable, Equatable, DiffableItem {
           self.name = try container.decode(String.self, forKey: .name)
           self.description = try container.decode(String.self, forKey: .description)
           
-          self.category = try container.decodeIfPresent(ProductCategory.self, forKey: .category) ?? ProductCategoriser().categorise(itemName: name)
+        self.category = try container.decodeIfPresent(ProductCategory.self, forKey: .category) ?? ProductCategoriser.shared.categorise(itemName: name)
         self.authorUid = try container.decode(String.self, forKey: .authorUid)
       }
     
