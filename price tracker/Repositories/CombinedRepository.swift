@@ -147,7 +147,11 @@ class CombinedRepository: CombinedRepositoryProtocol {
     }
     
     func addProduct(_ product: Product, completion: @escaping (Result<Void, Error>) -> Void) {
-        productRepository.addProduct(product, completion: completion)
+        if currentProducts.values.contains(where: { $0.name == product.name }) {
+            completion(.failure(ProductValidationError.alreadyExists))
+        } else {
+            productRepository.addProduct(product, completion: completion)
+        }
     }
     func updateProduct(_ product: Product, completion: @escaping (Result<Void, Error>) -> Void) {
         productRepository.updateProduct(product, completion: completion)

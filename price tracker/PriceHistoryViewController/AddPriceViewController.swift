@@ -179,6 +179,7 @@ class AddPriceViewController: UIViewController {
     
     @IBAction private func unitTextFieldTapped() {
         stopEditing()
+        hideShopSearchResults()
         showUnitSearchResults()
     }
     

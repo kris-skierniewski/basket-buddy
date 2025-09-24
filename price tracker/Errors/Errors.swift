@@ -11,6 +11,7 @@ enum ProductValidationError: Error, Equatable, LocalizedError {
     case emptyPrice
     case emptyQuantity
     case emptyUnit
+    case alreadyExists
     
     var errorDescription: String? {
         switch self {
@@ -24,6 +25,8 @@ enum ProductValidationError: Error, Equatable, LocalizedError {
             return "Quantity is empty."
         case .emptyUnit:
             return "Unit is empty"
+        case .alreadyExists:
+            return "An item with this name already exists."
         }
     }
 }

@@ -24,17 +24,17 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="GxO-fW-pis">
-                    <rect key="frame" x="0.0" y="118" width="393" height="666"/>
+                    <rect key="frame" x="0.0" y="118" width="393" height="734"/>
                     <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                 </tableView>
                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="6z1-I1-4yE">
                     <rect key="frame" x="178" y="407.66666666666669" width="37" height="37"/>
                 </activityIndicatorView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rOC-Mw-veW" customClass="ShadowView" customModule="price_tracker" customModuleProvider="target">
-                    <rect key="frame" x="159" y="729" width="75" height="35"/>
+                    <rect key="frame" x="159" y="729.66666666666663" width="75" height="34.333333333333371"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UNK-7g-Yol" customClass="KButton" customModule="price_tracker" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="0.0" width="75" height="35"/>
+                        <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="780" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UNK-7g-Yol" customClass="KButton" customModule="price_tracker" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="75" height="34.333333333333336"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" title="Button"/>
                             <connections>
@@ -51,7 +51,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y54-dF-h4e" customClass="PassThroughView" customModule="price_tracker" customModuleProvider="target">
-                    <rect key="frame" x="196.66666666666666" y="709" width="0.0" height="0.0"/>
+                    <rect key="frame" x="196.66666666666666" y="709.66666666666663" width="0.0" height="0.0"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" priority="1" id="Eia-IT-oZh"/>
@@ -64,15 +64,16 @@
             <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="GxO-fW-pis" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="4RW-vZ-EAu"/>
-                <constraint firstItem="Isk-NL-63g" firstAttribute="top" secondItem="rOC-Mw-veW" secondAttribute="bottom" constant="20" id="BGu-Ha-sPc"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="rOC-Mw-veW" secondAttribute="bottom" constant="20" id="BGu-Ha-sPc"/>
                 <constraint firstItem="Y54-dF-h4e" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="BOw-bX-TYS"/>
                 <constraint firstItem="rOC-Mw-veW" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="bq9-rn-n43"/>
                 <constraint firstItem="6z1-I1-4yE" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="loq-8X-7s9"/>
+                <constraint firstItem="Isk-NL-63g" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Y54-dF-h4e" secondAttribute="bottom" constant="20" id="mt9-kR-qyf"/>
                 <constraint firstItem="GxO-fW-pis" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="niw-jE-ZZ3"/>
-                <constraint firstItem="Isk-NL-63g" firstAttribute="top" secondItem="GxO-fW-pis" secondAttribute="bottom" id="sCW-Fi-Hhh"/>
+                <constraint firstAttribute="bottom" secondItem="GxO-fW-pis" secondAttribute="bottom" id="sCW-Fi-Hhh"/>
                 <constraint firstItem="Y54-dF-h4e" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="tzD-A6-JeP"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Y54-dF-h4e" secondAttribute="trailing" constant="20" id="vdk-94-d9f"/>
-                <constraint firstItem="rOC-Mw-veW" firstAttribute="top" secondItem="Y54-dF-h4e" secondAttribute="bottom" constant="20" id="wSN-bp-Lku"/>
+                <constraint firstItem="rOC-Mw-veW" firstAttribute="top" secondItem="Y54-dF-h4e" secondAttribute="bottom" priority="750" constant="20" id="wSN-bp-Lku"/>
                 <constraint firstItem="6z1-I1-4yE" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="zBw-TQ-L27"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="GxO-fW-pis" secondAttribute="trailing" id="zXX-PC-Zd4"/>
             </constraints>

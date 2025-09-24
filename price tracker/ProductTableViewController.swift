@@ -23,6 +23,10 @@ class ProductTableViewController: UIViewController {
     private let searchController = UISearchController(searchResultsController: nil)
     private var filterButton: UIBarButtonItem?
     
+    private var baseContentInsetBottom: CGFloat = 0
+    private var currentKeyboardHeight: CGFloat = 0
+    private var keyboardObservers: [NSObjectProtocol] = []
+    
     init(viewModel: ProductTableViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -64,6 +68,16 @@ class ProductTableViewController: UIViewController {
         addButton.setImage(UIImage(systemName: "plus"), for: .normal)
         addButton.setTitle("Add", for: .normal)
         addButton.configuration?.imagePadding = 5
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        startKeyboardObservers()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        stopKeyboardObservers()
     }
     
     private func setupTableView() {
@@ -141,8 +155,14 @@ class ProductTableViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        tableView.contentInset.bottom = addButton.frame.height + 30
+        // Base inset to keep content clear of the Add button
+        baseContentInsetBottom = addButton.frame.height + 30
+        let bottom = max(baseContentInsetBottom, currentKeyboardHeight + 8)
+        tableView.contentInset.bottom = bottom
+        tableView.verticalScrollIndicatorInsets.bottom = bottom
     }
+    
+    
     
     private func showItemAddedToShoppingListToast() {
         toastView?.show(withMessage: "Added to shopping list")
@@ -161,6 +181,49 @@ class ProductTableViewController: UIViewController {
         present(alert, animated: true)
     }
     
+    // MARK: - Keyboard Handling
+    private func startKeyboardObservers() {
+        stopKeyboardObservers()
+        let center = NotificationCenter.default
+        let willChange = center.addObserver(forName: UIResponder.keyboardWillChangeFrameNotification, object: nil, queue: .main) { [weak self] notification in
+            self?.handleKeyboard(notification: notification)
+        }
+        let willHide = center.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { [weak self] notification in
+            self?.handleKeyboard(notification: notification)
+        }
+        keyboardObservers = [willChange, willHide]
+    }
+
+    private func stopKeyboardObservers() {
+        let center = NotificationCenter.default
+        for obs in keyboardObservers {
+            center.removeObserver(obs)
+        }
+        keyboardObservers.removeAll()
+    }
+
+    private func handleKeyboard(notification: Notification) {
+        guard isViewLoaded else { return }
+        let userInfo = notification.userInfo ?? [:]
+        let endFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue ?? .zero
+        // Convert to this view's coordinate space
+        let endFrameInView = view.convert(endFrame, from: nil)
+        // How much of the view is covered by the keyboard
+        let overlap = max(0, view.bounds.maxY - endFrameInView.origin.y)
+        // Subtract the bottom safe area so we don't double-count it
+        currentKeyboardHeight = max(0, overlap - view.safeAreaInsets.bottom)
+
+        let duration = (userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0.25
+        let curveRaw = (userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber)?.intValue ?? UIView.AnimationCurve.easeInOut.rawValue
+        let options = UIView.AnimationOptions(rawValue: UInt(curveRaw << 16))
+
+        let bottom = max(baseContentInsetBottom, currentKeyboardHeight + 8)
+        UIView.animate(withDuration: duration, delay: 0, options: [options, .beginFromCurrentState]) { [weak self] in
+            guard let self = self else { return }
+            self.tableView.contentInset.bottom = bottom
+            self.tableView.verticalScrollIndicatorInsets.bottom = bottom
+        }
+    }
 }
 
 extension ProductTableViewController: UITableViewDataSource, UITableViewDelegate {

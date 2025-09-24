@@ -26,7 +26,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="fUJ-kd-gpi">
-                    <rect key="frame" x="0.0" y="118" width="393" height="666"/>
+                    <rect key="frame" x="0.0" y="118" width="393" height="734"/>
                     <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                 </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xtf-Vu-td1">
@@ -104,7 +104,7 @@
                 <constraint firstItem="fUJ-kd-gpi" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="0YV-e7-DiU"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Xcx-iG-QXp" secondAttribute="bottom" constant="25" id="3sc-zr-2oV"/>
                 <constraint firstItem="AE3-zp-OqC" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="7rn-ar-hpR"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="fUJ-kd-gpi" secondAttribute="bottom" id="Ehk-do-rxa"/>
+                <constraint firstAttribute="bottom" secondItem="fUJ-kd-gpi" secondAttribute="bottom" id="Ehk-do-rxa"/>
                 <constraint firstItem="fUJ-kd-gpi" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="IFn-T5-1dD"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="fUJ-kd-gpi" secondAttribute="trailing" id="J0N-dz-cJa"/>
                 <constraint firstItem="Xcx-iG-QXp" firstAttribute="leading" secondItem="AE3-zp-OqC" secondAttribute="trailing" constant="10" id="QvE-Uj-wHt"/>

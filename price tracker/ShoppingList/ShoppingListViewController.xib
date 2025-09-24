@@ -24,7 +24,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="bOY-yP-IoZ">
-                    <rect key="frame" x="0.0" y="118" width="393" height="666"/>
+                    <rect key="frame" x="0.0" y="118" width="393" height="734"/>
                     <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                 </tableView>
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LS4-mj-4r7">
@@ -84,7 +84,7 @@
                 <constraint firstItem="6oB-0u-bwN" firstAttribute="bottom" secondItem="2MH-Hj-UMo" secondAttribute="bottom" constant="25" id="4wo-UF-6hW"/>
                 <constraint firstItem="bOY-yP-IoZ" firstAttribute="top" secondItem="6oB-0u-bwN" secondAttribute="top" id="HAD-1E-bNm"/>
                 <constraint firstItem="LS4-mj-4r7" firstAttribute="centerY" secondItem="Oor-Le-Rro" secondAttribute="centerY" multiplier="0.8" id="gOz-k1-DHE"/>
-                <constraint firstItem="6oB-0u-bwN" firstAttribute="bottom" secondItem="bOY-yP-IoZ" secondAttribute="bottom" id="k7x-b4-CLl"/>
+                <constraint firstAttribute="bottom" secondItem="bOY-yP-IoZ" secondAttribute="bottom" id="k7x-b4-CLl"/>
                 <constraint firstItem="6oB-0u-bwN" firstAttribute="trailing" secondItem="bOY-yP-IoZ" secondAttribute="trailing" id="sW8-75-8oo"/>
                 <constraint firstItem="LS4-mj-4r7" firstAttribute="leading" secondItem="6oB-0u-bwN" secondAttribute="leading" id="v3d-O9-amm"/>
                 <constraint firstItem="bOY-yP-IoZ" firstAttribute="leading" secondItem="6oB-0u-bwN" secondAttribute="leading" id="wTC-7i-aAC"/>
