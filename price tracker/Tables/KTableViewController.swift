@@ -66,6 +66,7 @@ extension KTableViewController: UITableViewDataSource, UITableViewDelegate {
             
             cell.updateForModel(row)
             cell.selectionStyle = .none
+            cell.backgroundColor = .systemBackground
             return cell
         }
         
@@ -76,6 +77,7 @@ extension KTableViewController: UITableViewDataSource, UITableViewDelegate {
         content.secondaryText = row.subtitle
         cell.contentConfiguration = content
         cell.accessoryType = row.accessoryType
+        cell.backgroundColor = .systemBackground
         return cell
     }
     
@@ -90,6 +92,19 @@ extension KTableViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         return viewModel.sections[section].body
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let row = viewModel.sections[indexPath.section].rows[indexPath.row]
+        if row.deleteBlock == nil {
+            return nil
+        } else {
+            let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { action, view, completionHandler in
+                row.deleteBlock?()
+                completionHandler(true)
+            }
+            return UISwipeActionsConfiguration(actions: [deleteAction])
+        }
     }
     
 }

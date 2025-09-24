@@ -9,7 +9,10 @@ protocol CombinedRepositoryProtocol {
     func observeProductsWithPrices(onChange: @escaping ([ProductWithPrices]) -> Void) -> [ObserverHandle]
     
     func observeShops(onChange: @escaping ([Shop]) -> Void) -> ObserverHandle
+    func observeShop(withId shopId: String, onChange: @escaping (Shop?) -> Void) -> ObserverHandle
     func addShop(_ shop: Shop, completion: @escaping (Result<Void, Error>) -> Void)
+    func deleteShop(_ shop: Shop, completion: @escaping (Result<Void, Error>) -> Void)
+    func updateShop(_ shop: Shop, completion: @escaping (Result<Void, Error>) -> Void)
     
     func addProduct(_ product: Product, completion: @escaping (Result<Void, Error>) -> Void)
     func updateProduct(_ product: Product, completion: @escaping (Result<Void, Error>) -> Void)
@@ -157,6 +160,38 @@ class CombinedRepository: CombinedRepositoryProtocol {
         shopRepository.addShop(shop, completion: completion)
     }
     
+    func observeShop(withId shopId: String, onChange: @escaping (Shop?) -> Void) -> ObserverHandle {
+        shopRepository.observeShop(withId: shopId, onChange: onChange)
+    }
+    
+    func updateShop(_ shop: Shop, completion: @escaping (Result<Void, Error>) -> Void) {
+        shopRepository.updateShop(shop, completion: completion)
+    }
+    
+    func deleteShop(_ shop: Shop, completion: @escaping (Result<Void, Error>) -> Void) {
+        let filteredPrices = currentPrices.filter({
+            $0.shopId != shop.id
+        })
+        let filteredPriceIds = filteredPrices.map({ $0.id })
+        let groupedPrices = Dictionary(grouping: currentPrices, by: { $0.productId })
+        let nestedPrices: [String: [String: Any]] = groupedPrices.mapValues { group in
+            Dictionary(uniqueKeysWithValues: group.map {
+                if filteredPriceIds.contains($0.id) {
+                    return ($0.id, $0)
+                } else {
+                    return ($0.id, NSNull())
+                }
+            })
+        }
+        shopRepository.deleteShop(shop) { [weak self] result in
+            switch result {
+            case .success():
+                self?.priceRepository.updatePrices(nestedPrices, completion: completion)
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
     
     func addPrice(_ price: Price, completion: @escaping (Result<Void, Error>) -> Void) {
         priceRepository.addPrice(price, completion: completion)

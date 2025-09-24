@@ -29,6 +29,7 @@ class AccountCoordinator {
         settingsViewModel.onError = showErrorAlert(error:)
         settingsViewModel.onDisplayNameTapped = showChangeDisplayNameViewController
         settingsViewModel.onCurrencyTapped = showCurrencySelectionViewController
+        settingsViewModel.onShopsTapped = showShopsViewController
         settingsViewModel.onInviteTapped = showDatasetInformationViewController
         settingsViewModel.onJoinGroupTapped = showJoinGroupViewController
         settingsViewModel.onDeleteAccountTapped = {
@@ -133,6 +134,37 @@ class AccountCoordinator {
         let viewModel = WebViewModel()
         let viewController = WebViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    private func showShopsViewController() {
+        let viewModel = ShopsViewModel(combinedRepository: combinedRepository)
+        viewModel.onDeleteShop = { [weak self] shop in
+            self?.showDeleteShopAlert(viewModel: viewModel, shop: shop)
+        }
+        viewModel.onShopTapped = showEditShopNameViewController(shop:)
+        viewModel.onError = showErrorAlert(error:)
+        
+        let viewController = KTableViewController(viewModel: viewModel)
+        navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    private func showEditShopNameViewController(shop: Shop) {
+        let viewModel = EditShopNameViewModel(combinedRepository: combinedRepository, shopId: shop.id)
+        viewModel.onError = showErrorAlert(error:)
+        viewModel.onCompleted = {
+            self.navigationController.popViewController(animated: true)
+        }
+        let viewController = KTableViewController(viewModel: viewModel)
+        navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    private func showDeleteShopAlert(viewModel: ShopsViewModel, shop: Shop) {
+        let alertController = UIAlertController(title: "Delete \(shop.name)", message: "Are you sure you would like to permanently delete \(shop.name)? All prices recorded at this shop will also be deleted.", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { _ in
+            viewModel.deleteShop(shop)
+        }))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        navigationController.topViewController?.present(alertController, animated: true)
     }
     
     private func showErrorAlert(error: Error) {

@@ -24,6 +24,8 @@
 		B014FE0B2CE3E66F0098438F /* ShoppingListProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B014FE0A2CE3E66F0098438F /* ShoppingListProductTableViewCell.swift */; };
 		B014FE0D2CE3E6940098438F /* ShoppingListProductTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B014FE0C2CE3E6940098438F /* ShoppingListProductTableViewCell.xib */; };
 		B014FE0F2CE3E7600098438F /* ShoppingList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B014FE0E2CE3E7600098438F /* ShoppingList.swift */; };
+		B01A84672E83E17700D507BA /* EditShopNameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01A84662E83E16F00D507BA /* EditShopNameViewModel.swift */; };
+		B01BFECD2E83011A001722BF /* ShopsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01BFECC2E830113001722BF /* ShopsViewModel.swift */; };
 		B023FB7C2E7B3E2300FFB3C1 /* GenerableProductCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B023FB7B2E7B3E1D00FFB3C1 /* GenerableProductCategory.swift */; };
 		B0717AAF2E672AB800F27E52 /* FirebaseShopRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0717AAE2E672A9F00F27E52 /* FirebaseShopRepository.swift */; };
 		B0717AB12E672DE200F27E52 /* FirebasePriceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0717AB02E672DDD00F27E52 /* FirebasePriceRepository.swift */; };
@@ -184,7 +186,9 @@
 		B014FE0A2CE3E66F0098438F /* ShoppingListProductTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListProductTableViewCell.swift; sourceTree = "<group>"; };
 		B014FE0C2CE3E6940098438F /* ShoppingListProductTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShoppingListProductTableViewCell.xib; sourceTree = "<group>"; };
 		B014FE0E2CE3E7600098438F /* ShoppingList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingList.swift; sourceTree = "<group>"; };
+		B01A84662E83E16F00D507BA /* EditShopNameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditShopNameViewModel.swift; sourceTree = "<group>"; };
 		B01BFEC72E7EF683001722BF /* price tracker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "price tracker.entitlements"; sourceTree = "<group>"; };
+		B01BFECC2E830113001722BF /* ShopsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopsViewModel.swift; sourceTree = "<group>"; };
 		B023FB7B2E7B3E1D00FFB3C1 /* GenerableProductCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerableProductCategory.swift; sourceTree = "<group>"; };
 		B0717AAE2E672A9F00F27E52 /* FirebaseShopRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseShopRepository.swift; sourceTree = "<group>"; };
 		B0717AB02E672DDD00F27E52 /* FirebasePriceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebasePriceRepository.swift; sourceTree = "<group>"; };
@@ -546,6 +550,8 @@
 		B0A819BC2E60AF7700B2F8D7 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				B01BFECC2E830113001722BF /* ShopsViewModel.swift */,
+				B01A84662E83E16F00D507BA /* EditShopNameViewModel.swift */,
 				B0F5F8E32E7C410A005DEEF4 /* WebViewModel.swift */,
 				B0F74E802E7AE98500746A9F /* ChangeDisplayNameViewModel.swift */,
 				B0F74E822E7AF4B200746A9F /* JoinGroupViewModel.swift */,
@@ -874,6 +880,7 @@
 				B0F5F8E02E7C40AB005DEEF4 /* WebViewController.swift in Sources */,
 				B0F183EB2E6A00A3008A33BD /* CreateAccountViewModel.swift in Sources */,
 				B0717ADB2E68C8A500F27E52 /* PriceCoordinator.swift in Sources */,
+				B01A84672E83E17700D507BA /* EditShopNameViewModel.swift in Sources */,
 				B0146AED2CAB3D3A007553A1 /* CreateAccountViewController.swift in Sources */,
 				B08FBE862C7FBB9000455298 /* Price.swift in Sources */,
 				B08FBE532C7F8C8900455298 /* AppDelegate.swift in Sources */,
@@ -903,6 +910,7 @@
 				B0F183F32E6AE525008A33BD /* WelcomeViewModel.swift in Sources */,
 				B0F1842F2E72CD87008A33BD /* FirebaseDatasetRepository.swift in Sources */,
 				B014FE072CE3E51D0098438F /* ComposeShoppingListViewController.swift in Sources */,
+				B01BFECD2E83011A001722BF /* ShopsViewModel.swift in Sources */,
 				B0F74E792E7AE6D400746A9F /* TextFieldTableViewCell.swift in Sources */,
 				B0A819AB2E605FD000B2F8D7 /* ProductCategoriser.swift in Sources */,
 				B0B9BF982CC18BFA00C7E287 /* TTTAttributedLabel.m in Sources */,

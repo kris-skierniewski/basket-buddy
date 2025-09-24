@@ -43,6 +43,7 @@ class ChangeDisplayNameViewModel: KTableViewModel {
             userObserverHandle = combinedRepository.observeUser(withId: currentUserId, onChange: { [weak self] updatedUser in
                 if let updatedUser = updatedUser {
                     self?.user = updatedUser
+                    self?.newDisplayName = updatedUser.displayName
                 } else {
                     self?.user = User(id: currentUserId, displayName: "")
                 }

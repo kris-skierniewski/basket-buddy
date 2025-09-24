@@ -35,6 +35,7 @@ class SettingsViewModel {
     private let datasetId: String
     private var dataset: Dataset?
     
+    private var shopsObserverHandle: ObserverHandle?
     private var datasetObserverHandle: ObserverHandle?
     private var userObserverHandle: ObserverHandle?
     private var preferencesObserverHandle: ObserverHandle?
@@ -43,6 +44,7 @@ class SettingsViewModel {
     private var user: User?
     private var emailAddress: String = ""
     private var userPreferences: UserPreferences?
+    private var shops: [Shop] = []
     
     var sections: [SettingsSection] = []
     var onSectionsUpdated: (() -> Void)?
@@ -55,6 +57,7 @@ class SettingsViewModel {
     var onJoinGroupTapped: (() -> Void)?
     var onDeleteAccountTapped: (() -> Void)?
     var onAcknowledgementsTapped: (() -> Void)?
+    var onShopsTapped: (() -> Void)?
     
     init(authService: AuthService, combinedRepository: CombinedRepositoryProtocol, datasetRepository: DatasetRepository, datasetId: String) {
         self.authService = authService
@@ -68,6 +71,7 @@ class SettingsViewModel {
         authStateHandle?.remove()
         userObserverHandle?.remove()
         datasetObserverHandle?.remove()
+        shopsObserverHandle?.remove()
     }
     
     func loadUser() {
@@ -102,6 +106,11 @@ class SettingsViewModel {
                 self?.dataset = dataset
             }
         })
+        
+        shopsObserverHandle = combinedRepository.observeShops(onChange: { [weak self] shops in
+            self?.shops = shops
+            self?.updateSections()
+        })
     }
     
     
@@ -114,6 +123,8 @@ class SettingsViewModel {
         
         let currencyRow = SettingsRow(title: "Currency", subtitle: userPreferences?.currency.symbol ?? "", didSelectBlock: onCurrencyTapped)
         
+        let shopsRow = SettingsRow(title: "Shops", subtitle: "\(shops.count)", didSelectBlock: onShopsTapped)
+        
         let inviteRow = SettingsRow(title: "Invite friends to join your group", subtitle: "", didSelectBlock: onInviteTapped)
         
         let joinRow = SettingsRow(title: "Join an existing group", subtitle: "", didSelectBlock: onJoinGroupTapped)
@@ -121,7 +132,7 @@ class SettingsViewModel {
         
         let deleteAccountRow = SettingsRow(title: "Delete account", subtitle: "", didSelectBlock: onDeleteAccountTapped)
         
-        let secondSection = SettingsSection(rows: [displayNameRow, currencyRow, inviteRow, joinRow, deleteAccountRow])
+        let secondSection = SettingsSection(rows: [displayNameRow, currencyRow, shopsRow, inviteRow, joinRow, deleteAccountRow])
         newSections.append(secondSection)
         
         let acknowdlegementsRow = SettingsRow(title: "Acknowledgements", subtitle: "", didSelectBlock: onAcknowledgementsTapped)
@@ -141,7 +152,7 @@ class SettingsViewModel {
     }
     
     func deleteAccount() {
-        guard let dataset = dataset, let user = user else {
+        guard let dataset = dataset, let _ = user else {
             onError?(RepositoryError.cannotFetchDataset)
             return
         }

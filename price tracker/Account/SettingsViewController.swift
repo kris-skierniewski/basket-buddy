@@ -73,6 +73,7 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: SettingsRowCellIdentifier) ?? UITableViewCell(style: .value1, reuseIdentifier: SettingsRowCellIdentifier)
+        cell.backgroundColor = .systemBackground
         
         let row = viewModel.sections[indexPath.section].rows[indexPath.row]
         

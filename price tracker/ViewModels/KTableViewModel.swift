@@ -38,6 +38,9 @@ class KTableViewRow {
     var textFieldText: String?
     var didChangeText: ((String) -> Void)?
     
+    //swipe to delete block
+    var deleteBlock: (() -> Void)?
+    
     init(title: String, subtitle: String, accessoryType: UITableViewCell.AccessoryType, didSelectBlock: (() -> Void)? = nil) {
         self.title = title
         self.subtitle = subtitle
@@ -53,4 +56,5 @@ class KTableViewRow {
         self.subtitle = ""
         self.accessoryType = .none
     }
+    
 }

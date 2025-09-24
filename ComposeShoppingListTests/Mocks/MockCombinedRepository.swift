@@ -22,6 +22,7 @@ class MockCombinedRepository: CombinedRepositoryProtocol {
     
     private var onChangeCallBacks: [(([ProductWithPrices]) -> Void)] = []
     
+    private var onShopChangeCallbacks: [String: [(Shop?) -> Void]] = [:]
     private var onShopsChangeCallBacks: [(([Shop]) -> Void)] = []
     
     private var onPreferencesChangeCallBacks: [(UserPreferences?) -> Void] = []
@@ -142,6 +143,32 @@ class MockCombinedRepository: CombinedRepositoryProtocol {
         completion(.success(()))
     }
     
+    func observeShop(withId shopId: String, onChange: @escaping (Shop?) -> Void) -> any ObserverHandle {
+        var callbacks = onShopChangeCallbacks[shopId] ?? []
+        callbacks.append(onChange)
+        onShopChangeCallbacks[shopId] = callbacks
+        
+        let observedShop = mockShops.first( where: {$0.id == shopId} )
+        onChange(observedShop)
+        return MockObserverHandle()
+    }
+    
+    func deleteShop(_ shop: Shop, completion: @escaping (Result<Void, any Error>) -> Void) {
+        if let index = mockShops.firstIndex(where: { $0.id == shop.id}) {
+            mockShops.remove(at: index)
+            triggerObservers()
+        }
+        completion(.success(()))
+    }
+    
+    func updateShop(_ shop: Shop, completion: @escaping (Result<Void, any Error>) -> Void) {
+        if let index = mockShops.firstIndex(where: { $0.id == shop.id}) {
+            mockShops[index] = shop
+            triggerObservers()
+        }
+        completion(.success(()))
+    }
+    
     var numberOfTimesDeleteAllUserDataCalled = 0
     func deleteAllUserData(userId: String, completion: @escaping (Result<Void, any Error>) -> Void) {
         mockShops.removeAll()
@@ -239,6 +266,13 @@ class MockCombinedRepository: CombinedRepositoryProtocol {
         onShopsChangeCallBacks.forEach { callback in
             callback(mockShops)
         }
+        for (shopId, callbacks) in onShopChangeCallbacks {
+            let observedShop = mockShops.first(where: { $0.id == shopId })
+            for callback in callbacks {
+                callback(observedShop)
+            }
+        }
+        
         onPreferencesChangeCallBacks.forEach { callback in
             callback(mockUserPreferences)
         }
