@@ -98,6 +98,7 @@ class ComposeShoppingListViewModel {
         var newShoppingList = shoppingList
         let newProduct = ShoppingListProduct(productWithPrices: product, isChecked: false)
         newShoppingList.products.append(newProduct)
+        DonationManager.shared.donateAddToShoppingList(itemName: product.product.name)
         combinedRepository.updateShoppingList(newShoppingList) { [weak self] result in
             switch result {
             case .success(()):

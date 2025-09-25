@@ -12,6 +12,7 @@ protocol ProductRepository {
     func deleteProduct(id: String, completion: @escaping (Result<Void, Error>) -> Void)
     func observeProducts(onChange: @escaping ([Product]) -> Void) -> ObserverHandle
     func deleteAllProducts(completion: @escaping (Result<Void, Error>) -> Void)
+    func getProducts() async throws -> [Product]
 }
 
 class FirebaseProductRepository: ProductRepository {
@@ -51,5 +52,19 @@ class FirebaseProductRepository: ProductRepository {
     func deleteAllProducts(completion: @escaping (Result<Void, Error>) -> Void) {
         let path = "datasets/\(datasetId)/products"
         firebaseService.delete(at: path, completion: completion)
+    }
+    
+    func getProducts() async throws-> [Product] {
+        let path = "datasets/\(datasetId)/products"
+        return try await withCheckedThrowingContinuation { continuation in
+            firebaseService.getList(path, as: Product.self) { result in
+                switch result {
+                case .success(let products):
+                    continuation.resume(returning: products)
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
     }
 }

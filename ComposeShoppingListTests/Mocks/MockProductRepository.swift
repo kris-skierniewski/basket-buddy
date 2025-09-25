@@ -64,6 +64,11 @@ class MockProductRepository: ProductRepository {
         completion(.success(()))
     }
     
+    func getProducts() async throws -> [Product] {
+        return mockProducts
+    }
+    
+    
     func triggerObservers() {
         onChangeCallBacks.forEach { callback in
             callback(mockProducts)

@@ -108,6 +108,7 @@ class ProductTableViewModel {
         var newShoppingList = shoppingList
         let newShoppingListProduct = ShoppingListProduct(productWithPrices: product, isChecked: false)
         newShoppingList.products.append(newShoppingListProduct)
+        DonationManager.shared.donateAddToShoppingList(itemName: product.product.name)
         combinedRepository.updateShoppingList(newShoppingList) { result in
             switch result {
             case .success(()):

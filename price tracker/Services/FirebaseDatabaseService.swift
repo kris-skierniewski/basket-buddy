@@ -37,7 +37,9 @@ class FirebaseDatabaseService {
     
     init() {
         let database = Database.database(url: "https://price-tracker-f4073-default-rtdb.europe-west1.firebasedatabase.app/")
-        database.isPersistenceEnabled = true
+        if database.isPersistenceEnabled == false {
+            database.isPersistenceEnabled = true
+        }
         self.database = database.reference()
         isConnectedObserver = observeConnection()
     }
@@ -120,6 +122,32 @@ class FirebaseDatabaseService {
                 }
             }
         }
+    }
+    
+    func getList<T: Codable>(_ path: String, as type: T.Type, completion: @escaping(Result<[T],Error>) -> Void) {
+        database.child(path).observeSingleEvent(of: .value, with: { snapshot in
+            guard let dictionary = snapshot.value as? [String: [String: Any]] else {
+                completion(.success([]))
+                return
+            }
+            
+            let items = dictionary.compactMap { (key, value) -> T? in
+                var itemDictionary = value
+                itemDictionary["id"] = key
+                
+                do {
+                    let data = try JSONSerialization.data(withJSONObject: itemDictionary)
+                        let item = try JSONDecoder().decode(T.self, from: data)
+                    
+                    return item
+                } catch {
+                    return nil
+                }
+            }
+            completion(.success(items))
+        }, withCancel: { error in
+            completion(.failure(error))
+        })
     }
     
     func getValue<T:Codable>(_ path: String, as type: T.Type, completion: @escaping(Result<T?,Error>) -> Void) {

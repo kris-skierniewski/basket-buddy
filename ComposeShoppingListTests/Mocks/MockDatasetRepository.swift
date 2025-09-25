@@ -100,6 +100,8 @@ class MockDatasetRepository: DatasetRepository {
         }
     }
     
-    
+    func getUserDatasetId() async throws -> String? {
+        return mockUserDatasetId
+    }
     
 }

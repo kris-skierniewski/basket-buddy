@@ -15,5 +15,9 @@
 			</array>
 		</dict>
 	</array>
+	<key>IntentsSupported</key>
+	<array>
+		<string>AppIntents</string>
+	</array>
 </dict>
 </plist>

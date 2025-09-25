@@ -25,6 +25,8 @@
 		B014FE0D2CE3E6940098438F /* ShoppingListProductTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B014FE0C2CE3E6940098438F /* ShoppingListProductTableViewCell.xib */; };
 		B014FE0F2CE3E7600098438F /* ShoppingList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B014FE0E2CE3E7600098438F /* ShoppingList.swift */; };
 		B01A84672E83E17700D507BA /* EditShopNameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01A84662E83E16F00D507BA /* EditShopNameViewModel.swift */; };
+		B01A846A2E840B0600D507BA /* AddToShoppingListIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01A84692E840AFF00D507BA /* AddToShoppingListIntent.swift */; };
+		B01A846C2E85C83D00D507BA /* DonationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01A846B2E85C83400D507BA /* DonationManager.swift */; };
 		B01BFECD2E83011A001722BF /* ShopsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01BFECC2E830113001722BF /* ShopsViewModel.swift */; };
 		B023FB7C2E7B3E2300FFB3C1 /* GenerableProductCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B023FB7B2E7B3E1D00FFB3C1 /* GenerableProductCategory.swift */; };
 		B0717AAF2E672AB800F27E52 /* FirebaseShopRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0717AAE2E672A9F00F27E52 /* FirebaseShopRepository.swift */; };
@@ -187,6 +189,8 @@
 		B014FE0C2CE3E6940098438F /* ShoppingListProductTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShoppingListProductTableViewCell.xib; sourceTree = "<group>"; };
 		B014FE0E2CE3E7600098438F /* ShoppingList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingList.swift; sourceTree = "<group>"; };
 		B01A84662E83E16F00D507BA /* EditShopNameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditShopNameViewModel.swift; sourceTree = "<group>"; };
+		B01A84692E840AFF00D507BA /* AddToShoppingListIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToShoppingListIntent.swift; sourceTree = "<group>"; };
+		B01A846B2E85C83400D507BA /* DonationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonationManager.swift; sourceTree = "<group>"; };
 		B01BFEC72E7EF683001722BF /* price tracker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "price tracker.entitlements"; sourceTree = "<group>"; };
 		B01BFECC2E830113001722BF /* ShopsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopsViewModel.swift; sourceTree = "<group>"; };
 		B023FB7B2E7B3E1D00FFB3C1 /* GenerableProductCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerableProductCategory.swift; sourceTree = "<group>"; };
@@ -381,6 +385,14 @@
 			path = ShoppingList;
 			sourceTree = "<group>";
 		};
+		B01A84682E840AF900D507BA /* Intents */ = {
+			isa = PBXGroup;
+			children = (
+				B01A84692E840AFF00D507BA /* AddToShoppingListIntent.swift */,
+			);
+			path = Intents;
+			sourceTree = "<group>";
+		};
 		B0717AC62E68434B00F27E52 /* Errors */ = {
 			isa = PBXGroup;
 			children = (
@@ -471,6 +483,7 @@
 		B08FBE512C7F8C8900455298 /* price tracker */ = {
 			isa = PBXGroup;
 			children = (
+				B01A84682E840AF900D507BA /* Intents */,
 				B01BFEC72E7EF683001722BF /* price tracker.entitlements */,
 				B0F74E6F2E7AA9D100746A9F /* Tables */,
 				B0F183EF2E6AE1C7008A33BD /* Managers */,
@@ -627,6 +640,7 @@
 		B0F183EF2E6AE1C7008A33BD /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				B01A846B2E85C83400D507BA /* DonationManager.swift */,
 				B0F183F02E6AE1CB008A33BD /* OnboardingManager.swift */,
 			);
 			path = Managers;
@@ -847,9 +861,11 @@
 				B08B158E2CB1CD78002B4AC8 /* PassThroughView.swift in Sources */,
 				B0A819C02E60B56700B2F8D7 /* FirebaseDatabaseService.swift in Sources */,
 				B08FBE7E2C7FA5D800455298 /* AddProductViewController.swift in Sources */,
+				B01A846A2E840B0600D507BA /* AddToShoppingListIntent.swift in Sources */,
 				B08FBE742C7F976300455298 /* ProductTableViewController.swift in Sources */,
 				B0B9BF9D2CC192E500C7E287 /* ShadowView.swift in Sources */,
 				B0F184312E72DA21008A33BD /* LoadingViewController.swift in Sources */,
+				B01A846C2E85C83D00D507BA /* DonationManager.swift in Sources */,
 				B0F184512E79A791008A33BD /* DatasetInformationViewController.swift in Sources */,
 				B0F184212E7072DB008A33BD /* SearchProductsViewController.swift in Sources */,
 				B0F1843B2E735CC0008A33BD /* SelectDatasetViewController.swift in Sources */,
@@ -1081,11 +1097,12 @@
 				INFOPLIST_FILE = "price tracker/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Basket Buddy";
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_NSSiriUsageDescription = Shortcuts;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 16;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1115,11 +1132,12 @@
 				INFOPLIST_FILE = "price tracker/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Basket Buddy";
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_NSSiriUsageDescription = Shortcuts;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 16;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

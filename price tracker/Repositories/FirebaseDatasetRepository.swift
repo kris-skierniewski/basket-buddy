@@ -24,6 +24,8 @@ protocol DatasetRepository {
     
     func deleteDataset(withId datasetId: String, completion: @escaping (Result<Void, Error>) -> Void)
     func deleteUserFromDataset(datasetId: String, userId: String, completion:  @escaping (Result<Void, Error>) -> Void)
+    
+    func getUserDatasetId() async throws -> String?
     //var userDatasetId: String? { get }
 }
 
@@ -41,6 +43,19 @@ class FirebaseDatasetRepository: DatasetRepository {
     func getUserDatasetId(completion: @escaping (Result<String?, Error>) -> Void) {
         let path = "userDataset/\(userId)"
         firebaseService.getValue(path, as: String.self, completion: completion)
+    }
+    
+    func getUserDatasetId() async throws -> String? {
+        try await withCheckedThrowingContinuation { continuation in
+            getUserDatasetId { result in
+                switch result {
+                case .success(let datasetId):
+                    continuation.resume(returning: datasetId)
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
     }
     
     func observeUserDatasetId(onChange: @escaping (String?) -> Void) -> any ObserverHandle {
@@ -129,3 +144,4 @@ class FirebaseDatasetRepository: DatasetRepository {
         }
     }
 }
+

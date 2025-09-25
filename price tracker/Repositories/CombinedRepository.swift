@@ -36,6 +36,11 @@ protocol CombinedRepositoryProtocol {
     func observeUser(withId userId: String, onChange: @escaping (User?) -> Void) -> ObserverHandle
     func deleteUser(_ user: User, completion: @escaping (Result<Void, Error>) -> Void)
     func observeUsers(onChange: @escaping ([User]) -> Void) -> ObserverHandle
+    
+    func getShoppingList() async throws -> ShoppingList?
+    func updateShoppingList(_ shoppingList: ShoppingList) async throws
+    func getProducts() async throws -> [Product]
+    func addProduct(product: Product) async throws -> Void
 }
 
 class CombinedRepository: CombinedRepositoryProtocol {
@@ -71,6 +76,15 @@ class CombinedRepository: CombinedRepositoryProtocol {
         self.userRepository = userRepository
     }
     
+    init(datasetId: String, firebaseService: FirebaseDatabaseService) {
+        self.productRepository = FirebaseProductRepository(firebaseService: firebaseService, datasetId: datasetId)
+        self.shopRepository = FirebaseShopRepository(firebaseService: firebaseService, datasetId: datasetId)
+        self.priceRepository = FirebasePriceRepository(firebaseService: firebaseService, datasetId: datasetId)
+        self.userPreferencesRepository = FirebaseUserPreferenceRepository(firebaseService: firebaseService, datasetId: datasetId)
+        self.shoppingListRepository = FirebaseShoppingListRepository(firebaseService: firebaseService, datasetId: datasetId)
+        self.userRepository = FirebaseUserRepository(firebaseService: firebaseService)
+    }
+    
     func observeProductsWithPrices(onChange: @escaping ([ProductWithPrices]) -> Void) -> [ObserverHandle] {
         let productHandle = productRepository.observeProducts { [weak self] products in
             self?.combineData(products: products, onChange: onChange)
@@ -91,7 +105,7 @@ class CombinedRepository: CombinedRepositoryProtocol {
         return [productHandle, shopHandle, priceHandle, userHandle]
     }
     
-    func observeShops(onChange: @escaping ([Shop]) -> Void) -> any ObserverHandle {
+    func observeShops(onChange: @escaping ([Shop]) -> Void) -> ObserverHandle {
         return shopRepository.observeShops(onChange: onChange)
     }
     
@@ -292,4 +306,38 @@ class CombinedRepository: CombinedRepositoryProtocol {
     func observeUsers(onChange: @escaping ([User]) -> Void) -> ObserverHandle {
         userRepository.observeUsers(onChange: onChange)
     }
+    
+    //for siri
+    func getShoppingList() async throws -> ShoppingList? {
+        try await shoppingListRepository.getShoppingList()
+    }
+    func getProducts() async throws -> [Product] {
+        try await productRepository.getProducts()
+    }
+    func addProduct(product: Product) async throws -> Void {
+        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+            productRepository.addProduct(product) { result in
+                switch result {
+                case .success():
+                    continuation.resume()
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
+    }
+    func updateShoppingList(_ shoppingList: ShoppingList) async throws {
+        try await withCheckedThrowingContinuation { continuation in
+            shoppingListRepository.updateShoppingList(shoppingList) { result in
+                switch result {
+                case .success():
+                    continuation.resume()
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
+        
+    }
 }
+

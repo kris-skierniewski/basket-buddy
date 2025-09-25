@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseCore
+import AppIntents
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -27,6 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         appCoordinator = AppCoordinator(window: window!)
         appCoordinator?.start()
+        
+        ShoppingListAppShortcuts.updateAppShortcutParameters()
         
         return true
     }

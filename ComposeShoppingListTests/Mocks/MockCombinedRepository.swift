@@ -210,6 +210,33 @@ class MockCombinedRepository: CombinedRepositoryProtocol {
         onChange(mockShoppingList)
         return [MockObserverHandle()]
     }
+    func getShoppingList() async throws -> ShoppingList? {
+        return mockShoppingList?.repoShoppingList
+    }
+    
+    func updateShoppingList(_ shoppingList: ShoppingList) async throws {
+        let shoppingListId = mockShoppingList?.id ?? UUID().uuidString
+        let shoppingListProducts = shoppingList.products.compactMap { item in
+            if let productWithPrice = mockProductsWithPrices.first(where: { $0.product.id == item.productId}) {
+                return ShoppingListProduct(productWithPrices: productWithPrice, isChecked: item.isChecked)
+            } else {
+                return nil
+            }
+        }
+        let newShoppingList = EnrichedShoppingList(id: shoppingListId, products: shoppingListProducts)
+        mockShoppingList = newShoppingList
+        triggerObservers()
+    }
+    
+    func getProducts() async throws -> [Product] {
+        return mockProductsWithPrices.map { $0.product }
+    }
+    
+    func addProduct(product: Product) async throws {
+        let newProduct = ProductWithPrices(product: product, author: mockLoggedInUser, priceHistory: [])
+        mockProductsWithPrices.append(newProduct)
+        triggerObservers()
+    }
     
     private func combineShoppingList() {
         if let repoShoppingList = mockShoppingList?.repoShoppingList {
