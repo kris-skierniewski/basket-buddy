@@ -5,6 +5,7 @@
 //  Created by Kris Skierniewski on 26/09/2025.
 //
 
+import FirebaseCore
 import WidgetKit
 import SwiftUI
 
@@ -24,7 +25,7 @@ struct Provider: TimelineProvider {
         Task {
             let entry = await getShoppingListEntry()
             
-            let nextUpdateDate = Calendar.current.date(byAdding: .minute, value: 45, to: Date())!
+            let nextUpdateDate = Calendar.current.date(byAdding: .minute, value: 25, to: Date())!
             
             let timeline = Timeline(
                 entries: [entry],
@@ -55,7 +56,11 @@ struct Provider: TimelineProvider {
                 let allProducts = try await combinedRepository.getProducts()
                 
                 let items = shoppingList.products.compactMap({ shoppingListItem in
-                    return allProducts.first(where: { $0.id == shoppingListItem.productId })
+                    if shoppingListItem.isChecked == false {
+                        return allProducts.first(where: { $0.id == shoppingListItem.productId })
+                    } else {
+                        return nil
+                    }
                 }).map {
                     $0.name
                 }
@@ -249,7 +254,9 @@ struct ShoppingListWidget: Widget {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
             if #available(iOS 17.0, *) {
                 WidgetsEntryView(entry: entry)
-                    .containerBackground(.fill.tertiary, for: .widget)//.glassEffect()
+                    .containerBackground(
+                        Color("AccentColor").opacity(0.22),
+                        for: .widget)
             } else {
                 WidgetsEntryView(entry: entry)
                     .padding()

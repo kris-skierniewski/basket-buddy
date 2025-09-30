@@ -74,7 +74,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return false
     }
     
-    func applicationWillResignActive(_ application: UIApplication) {
+    func applicationDidEnterBackground(_ application: UIApplication) {
         WidgetCenter.shared.reloadAllTimelines()
     }
     
