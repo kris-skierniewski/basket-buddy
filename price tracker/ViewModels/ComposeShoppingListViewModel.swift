@@ -144,6 +144,9 @@ class ComposeShoppingListViewModel {
         combinedRepository.updateShoppingList(newShoppingList) { [weak self] result in
             switch result {
             case .success(()):
+                let generator = UINotificationFeedbackGenerator()
+                generator.prepare()
+                generator.notificationOccurred(.success)
                 break
             case .failure(let error):
                 self?.onError?(error)

@@ -5,6 +5,8 @@
 //  Created by Kris Skierniewski on 02/09/2025.
 //
 
+import Foundation
+
 protocol CombinedRepositoryProtocol {
     func observeProductsWithPrices(onChange: @escaping ([ProductWithPrices]) -> Void) -> [ObserverHandle]
     

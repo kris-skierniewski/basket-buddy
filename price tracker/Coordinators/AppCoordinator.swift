@@ -8,6 +8,11 @@
 import FirebaseAuth
 import SafariServices
 
+enum Deeplink {
+    case shoppingList
+    case invite(code: String)
+}
+
 class AppCoordinator {
     private let window: UIWindow
     private var tabBarController: UITabBarController?
@@ -23,9 +28,9 @@ class AppCoordinator {
     private var userDatasetIdHandle: ObserverHandle?
     private var datasetHandle: ObserverHandle?
     
-    private var handleInviteBlock: ((String) -> Void)?
-    private var isReadyForInvite: Bool = false
-    private var inviteCode: String?
+    private var handleDeeplinkBlock: ((Deeplink) -> Void)?
+    private var isReadyForDeeplink: Bool = false
+    private var deeplink: Deeplink?
     
     var currentUserId: String? {
         return authService.currentUserId
@@ -99,11 +104,16 @@ class AppCoordinator {
         
         window.rootViewController = viewController
         showOnbordingIfNeeded { [weak self] in
-            self?.isReadyForInvite = true
-            if let inviteCode = self?.inviteCode {
-                viewModel.showInvite(inviteCode: inviteCode)
+            self?.isReadyForDeeplink = true
+            
+            if case let .invite(code) = self?.deeplink {
+                viewModel.showInvite(inviteCode: code)
             } else {
-                self?.handleInviteBlock = viewModel.showInvite(inviteCode:)
+                self?.handleDeeplinkBlock = { deeplink in
+                    if case let .invite(code) = deeplink {
+                        viewModel.showInvite(inviteCode: code)
+                    }
+                }
             }
         }
     }
@@ -256,12 +266,33 @@ class AppCoordinator {
         
         
         showOnbordingIfNeeded { [weak self] in
-            self?.isReadyForInvite = true
-            if let inviteCode = self?.inviteCode {
-                self?.showJoingGroupViewController(inviteCode: inviteCode)
-            } else {
-                self?.handleInviteBlock = self?.showJoingGroupViewController(inviteCode:)
+            self?.isReadyForDeeplink = true
+            
+            switch self?.deeplink {
+            case .shoppingList:
+                self?.tabBarController?.selectedIndex = 1
+            case .invite(let code):
+                self?.showJoingGroupViewController(inviteCode: code)
+            case nil:
+                self?.handleDeeplinkBlock = { deeplink in
+                    switch deeplink {
+                    case .shoppingList:
+                        self?.tabBarController?.selectedIndex = 1
+                    case .invite(let code):
+                        self?.showJoingGroupViewController(inviteCode: code)
+                    default:
+                        break
+                    }
+                }
             }
+            
+            
+            
+//            if let inviteCode = self?.inviteCode {
+//                self?.showJoingGroupViewController(inviteCode: inviteCode)
+//            } else {
+//                self?.handleInviteBlock = self?.showJoingGroupViewController(inviteCode:)
+//            }
         }
     }
     
@@ -282,12 +313,21 @@ class AppCoordinator {
         window.rootViewController = authNavController
         window.makeKeyAndVisible()
         showOnbordingIfNeeded { [weak self] in
-            self?.isReadyForInvite = true
-            if let inviteCode = self?.inviteCode {
-                authCoordinator.showInvite(inviteCode: inviteCode)
+            self?.isReadyForDeeplink = true
+            if case let .invite(code) = self?.deeplink {
+                authCoordinator.showInvite(inviteCode: code)
             } else {
-                self?.handleInviteBlock = authCoordinator.showInvite(inviteCode:)
+                self?.handleDeeplinkBlock = { deeplink in
+                    if case let .invite(code) = deeplink {
+                        authCoordinator.showInvite(inviteCode: code)
+                    }
+                }
             }
+//            if let inviteCode = self?.inviteCode {
+//                authCoordinator.showInvite(inviteCode: inviteCode)
+//            } else {
+//                self?.handleInviteBlock = authCoordinator.showInvite(inviteCode:)
+//            }
         }
     }
     
@@ -313,11 +353,11 @@ class AppCoordinator {
         window.rootViewController?.present(welcomeViewController, animated: true)
     }
     
-    func handleInviteDeepLink(inviteCode: String) {
-        if isReadyForInvite {
-            handleInviteBlock?(inviteCode)
+    func handleDeepLink(deeplink: Deeplink) {
+        if isReadyForDeeplink {
+            handleDeeplinkBlock?(deeplink)
         } else {
-            self.inviteCode = inviteCode
+            self.deeplink = deeplink
         }
     }
 }

@@ -4,6 +4,8 @@
 //
 //  Created by Kris Skierniewski on 28/08/2025.
 //
+import Foundation
+
 enum ProductCategory: String, CaseIterable, Codable {
     case meat
     case freshFish

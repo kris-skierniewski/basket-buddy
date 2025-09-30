@@ -5,6 +5,7 @@
 //  Created by Kris Skierniewski on 28/08/2025.
 //
 
+import Foundation
 import FoundationModels
 
 class ProductCategoriser {

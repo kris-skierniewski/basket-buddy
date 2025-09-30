@@ -149,6 +149,9 @@ class SearchProductsViewModel {
         combinedRepository.updateShoppingList(newShoppingList) { [weak self] result in
             switch result {
             case .success(()):
+                let generator = UINotificationFeedbackGenerator()
+                generator.prepare()
+                generator.notificationOccurred(.success)
                 self?.onItemAddedToShoppingList?()
                
             case .failure(let error):

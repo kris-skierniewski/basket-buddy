@@ -5,6 +5,7 @@
 //  Created by Kris Skierniewski on 04/09/2025.
 //
 
+import FirebaseCore
 import FirebaseAuth
 
 protocol AuthService {
@@ -45,6 +46,12 @@ class FirebaseAuthService: AuthService {
     
     var currentUserEmailAddress: String? {
         return Auth.auth().currentUser?.email
+    }
+    
+    init() {
+        if FirebaseApp.app() == nil {
+               FirebaseApp.configure()
+           }
     }
     
     func signIn(email: String, password: String, completion: @escaping ((Result<Void,Error>) -> Void)) {

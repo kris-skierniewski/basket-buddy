@@ -4,6 +4,7 @@
 //
 //  Created by Kris Skierniewski on 03/09/2025.
 //
+import Foundation
 
 enum ProductValidationError: Error, Equatable, LocalizedError {
     case emptyName

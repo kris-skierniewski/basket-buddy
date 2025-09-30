@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseCore
 import AppIntents
+import WidgetKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -48,7 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                let inviteCode = queryItems.first(where: { $0.name == "code" })?.value {
                 
                 // Handle the invite code
-                appCoordinator?.handleInviteDeepLink(inviteCode: inviteCode)
+                appCoordinator?.handleDeepLink(deeplink: Deeplink.invite(code: inviteCode))
                 return true
             }
         }
@@ -57,18 +58,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        if url.path.contains("invite") {
+        if url.path.contains("shoppinglist") {
+            appCoordinator?.handleDeepLink(deeplink: Deeplink.shoppingList)
+            return true
+            
+        } else if url.path.contains("invite") {
             if let components = URLComponents(url: url, resolvingAgainstBaseURL: true),
                let queryItems = components.queryItems,
                let inviteCode = queryItems.first(where: { $0.name == "code"})?.value {
                 
-                appCoordinator?.handleInviteDeepLink(inviteCode: inviteCode)
+                appCoordinator?.handleDeepLink(deeplink: Deeplink.invite(code: inviteCode))
                 return true
             }
         }
         return false
     }
-
-
+    
+    func applicationWillResignActive(_ application: UIApplication) {
+        WidgetCenter.shared.reloadAllTimelines()
+    }
+    
+    
 }
 
