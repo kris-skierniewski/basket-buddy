@@ -333,7 +333,8 @@ class AppCoordinator {
     
     private func showOnbordingIfNeeded(completion: @escaping () -> Void) {
         guard onboardingManager.needsOnboarding else {
-            completion()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: completion)
+            //completion()
             return
         }
         let welcomeViewModel = WelcomeViewModel()
