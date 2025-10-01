@@ -39,7 +39,7 @@ struct Provider: TimelineProvider {
     func getShoppingListEntry() async -> ShoppingListEntry {
         let authService = FirebaseAuthService()
         if let currentUserId = authService.currentUserId {
-            let firebaseService = FirebaseDatabaseService()
+            let firebaseService = FirebaseDatabaseService(forWidget: true)
             let datatsetRepository = FirebaseDatasetRepository(firebaseService: firebaseService, userId: currentUserId)
             
             do {

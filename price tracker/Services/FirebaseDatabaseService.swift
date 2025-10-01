@@ -35,9 +35,9 @@ class FirebaseDatabaseService {
     private var isConnectedObserver: ObserverHandle?
     private var isConnected: Bool = true//false
     
-    init() {
+    init(forWidget: Bool = false) {
         let database = Database.database(url: "https://price-tracker-f4073-default-rtdb.europe-west1.firebasedatabase.app/")
-        if database.isPersistenceEnabled == false {
+        if database.isPersistenceEnabled == false && !forWidget { //the widget target seems to heavily cache, lets turn caching off
             database.isPersistenceEnabled = true
         }
         self.database = database.reference()
