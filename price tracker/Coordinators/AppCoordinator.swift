@@ -108,10 +108,12 @@ class AppCoordinator {
             
             if case let .invite(code) = self?.deeplink {
                 viewModel.showInvite(inviteCode: code)
+                self?.deeplink = nil
             } else {
                 self?.handleDeeplinkBlock = { deeplink in
                     if case let .invite(code) = deeplink {
                         viewModel.showInvite(inviteCode: code)
+                        self?.deeplink = nil
                     }
                 }
             }
@@ -319,6 +321,7 @@ class AppCoordinator {
             } else {
                 self?.handleDeeplinkBlock = { deeplink in
                     if case let .invite(code) = deeplink {
+                        self?.deeplink = deeplink //this needs to be handled again in selectDataset flow potentially
                         authCoordinator.showInvite(inviteCode: code)
                     }
                 }
