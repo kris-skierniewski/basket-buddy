@@ -132,6 +132,7 @@
 		B0BD13E02E8A86D30045CED7 /* ProductCategoriser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A819AA2E605FC600B2F8D7 /* ProductCategoriser.swift */; };
 		B0BD13E12E8A86DF0045CED7 /* GenerableProductCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B023FB7B2E7B3E1D00FFB3C1 /* GenerableProductCategory.swift */; };
 		B0BD13E22E8A8CD80045CED7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B08FBE902C7FBDBB00455298 /* GoogleService-Info.plist */; };
+		B0BD144D2E8E92FD0045CED7 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = B0BD144C2E8E92FD0045CED7 /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		B0F183E92E69F573008A33BD /* AccountCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F183E82E69F56F008A33BD /* AccountCoordinator.swift */; };
 		B0F183EB2E6A00A3008A33BD /* CreateAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F183EA2E6A009E008A33BD /* CreateAccountViewModel.swift */; };
 		B0F183F12E6AE1D2008A33BD /* OnboardingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F183F02E6AE1CB008A33BD /* OnboardingManager.swift */; };
@@ -418,6 +419,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B08FBE8D2C7FBD3F00455298 /* FirebaseCrashlytics in Frameworks */,
+				B0BD144D2E8E92FD0045CED7 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				B08FBE892C7FBD3F00455298 /* FirebaseAnalytics in Frameworks */,
 				B08FBE8F2C7FBD3F00455298 /* FirebaseDatabase in Frameworks */,
 				B08FBE8B2C7FBD3F00455298 /* FirebaseAuth in Frameworks */,
@@ -816,6 +818,7 @@
 				B08FBE8A2C7FBD3F00455298 /* FirebaseAuth */,
 				B08FBE8C2C7FBD3F00455298 /* FirebaseCrashlytics */,
 				B08FBE8E2C7FBD3F00455298 /* FirebaseDatabase */,
+				B0BD144C2E8E92FD0045CED7 /* FirebaseAnalyticsWithoutAdIdSupport */,
 			);
 			productName = "price tracker";
 			productReference = B08FBE4F2C7F8C8900455298 /* price tracker.app */;
@@ -1520,6 +1523,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B08FBE872C7FBD3F00455298 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseDatabase;
+		};
+		B0BD144C2E8E92FD0045CED7 /* FirebaseAnalyticsWithoutAdIdSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B08FBE872C7FBD3F00455298 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsWithoutAdIdSupport;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

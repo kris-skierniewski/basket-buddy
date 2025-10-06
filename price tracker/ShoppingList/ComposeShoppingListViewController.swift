@@ -5,6 +5,7 @@
 //  Created by Kris Skierniewski on 12/11/2024.
 //
 
+import FirebaseAnalytics
 import Foundation
 
 class ComposeShoppingListViewController: UIViewController {
@@ -131,10 +132,12 @@ class ComposeShoppingListViewController: UIViewController {
     
     @IBAction private func startButtonTapped() {
         viewModel.start()
+        Analytics.logEvent("ComposeShoppingList_StartTapped", parameters: nil)
     }
     
     @IBAction private func cleanUpButtonTapped() {
         viewModel.cleanUp()
+        Analytics.logEvent("ComposeShoppingList_CleanUpTapped", parameters: nil)
     }
     
     @objc private func addProductButtonTapped() {
