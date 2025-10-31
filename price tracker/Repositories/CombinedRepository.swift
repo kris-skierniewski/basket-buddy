@@ -151,7 +151,7 @@ class CombinedRepository: CombinedRepositoryProtocol {
         if let currentShoppingList = currentShoppingList {
             let shoppingListProducts = currentShoppingList.products.compactMap { item in
                 if let product = currentProductsWithPrices.first(where: { $0.product.id == item.productId }) {
-                    return ShoppingListProduct(productWithPrices: product, isChecked: item.isChecked)
+                    return ShoppingListProduct(productWithPrices: product, isChecked: item.isChecked, quantity: item.quantity, unit: item.unit)
                 }
                 return nil
             }

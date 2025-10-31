@@ -46,7 +46,7 @@ struct AddToShoppingListIntent: AppIntent {
                     guard !shoppingList.products.contains(where: { $0.productId == existingProduct.id }) else {
                         return .result(dialog: "\(item.name) is already in your shopping list.")
                     }
-                    shoppingList.products.append(ShoppingListItem(productId: existingProduct.id, isChecked: false))
+                    shoppingList.products.append(ShoppingListItem(productId: existingProduct.id, isChecked: false, quantity: nil, unit: nil))
                     try await combinedRepository.updateShoppingList(shoppingList)
                     
                     return .result(dialog: "\(item.name) was added to your shopping list in basket buddy")
@@ -66,7 +66,7 @@ struct AddToShoppingListIntent: AppIntent {
                     }
                     
                     
-                    shoppingList.products.append(ShoppingListItem(productId: newProduct.id, isChecked: false))
+                    shoppingList.products.append(ShoppingListItem(productId: newProduct.id, isChecked: false, quantity: nil, unit: nil))
                     try await combinedRepository.updateShoppingList(shoppingList)
                     return .result(dialog: "\(item.name) was added to your shopping list in basket buddy")
                 }

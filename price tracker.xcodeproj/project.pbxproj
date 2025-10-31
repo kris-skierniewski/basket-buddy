@@ -133,6 +133,9 @@
 		B0BD13E12E8A86DF0045CED7 /* GenerableProductCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B023FB7B2E7B3E1D00FFB3C1 /* GenerableProductCategory.swift */; };
 		B0BD13E22E8A8CD80045CED7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B08FBE902C7FBDBB00455298 /* GoogleService-Info.plist */; };
 		B0BD144D2E8E92FD0045CED7 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = B0BD144C2E8E92FD0045CED7 /* FirebaseAnalyticsWithoutAdIdSupport */; };
+		B0EA7B1D2EB260E10081F0B3 /* SetQuantityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EA7B1C2EB260D90081F0B3 /* SetQuantityViewController.swift */; };
+		B0EA7B1F2EB261010081F0B3 /* SetQuantityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0EA7B1E2EB261010081F0B3 /* SetQuantityViewController.xib */; };
+		B0EA7B212EB263DF0081F0B3 /* SetQuantityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EA7B202EB263D90081F0B3 /* SetQuantityViewModel.swift */; };
 		B0F183E92E69F573008A33BD /* AccountCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F183E82E69F56F008A33BD /* AccountCoordinator.swift */; };
 		B0F183EB2E6A00A3008A33BD /* CreateAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F183EA2E6A009E008A33BD /* CreateAccountViewModel.swift */; };
 		B0F183F12E6AE1D2008A33BD /* OnboardingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F183F02E6AE1CB008A33BD /* OnboardingManager.swift */; };
@@ -324,6 +327,9 @@
 		B0B9BFA02CC193BD00C7E287 /* NoResultsProductTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoResultsProductTableViewCell.xib; sourceTree = "<group>"; };
 		B0B9BFA22CC2BFBC00C7E287 /* CapusleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapusleView.swift; sourceTree = "<group>"; };
 		B0BD13E32E8A8E1C0045CED7 /* WidgetsExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WidgetsExtension.entitlements; sourceTree = "<group>"; };
+		B0EA7B1C2EB260D90081F0B3 /* SetQuantityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetQuantityViewController.swift; sourceTree = "<group>"; };
+		B0EA7B1E2EB261010081F0B3 /* SetQuantityViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SetQuantityViewController.xib; sourceTree = "<group>"; };
+		B0EA7B202EB263D90081F0B3 /* SetQuantityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetQuantityViewModel.swift; sourceTree = "<group>"; };
 		B0F183E82E69F56F008A33BD /* AccountCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCoordinator.swift; sourceTree = "<group>"; };
 		B0F183EA2E6A009E008A33BD /* CreateAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountViewModel.swift; sourceTree = "<group>"; };
 		B0F183F02E6AE1CB008A33BD /* OnboardingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingManager.swift; sourceTree = "<group>"; };
@@ -660,6 +666,7 @@
 		B0A819BC2E60AF7700B2F8D7 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				B0EA7B202EB263D90081F0B3 /* SetQuantityViewModel.swift */,
 				B01BFECC2E830113001722BF /* ShopsViewModel.swift */,
 				B01A84662E83E16F00D507BA /* EditShopNameViewModel.swift */,
 				B0F5F8E32E7C410A005DEEF4 /* WebViewModel.swift */,
@@ -723,6 +730,8 @@
 		B0B9BF992CC190A400C7E287 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B0EA7B1C2EB260D90081F0B3 /* SetQuantityViewController.swift */,
+				B0EA7B1E2EB261010081F0B3 /* SetQuantityViewController.xib */,
 				B0F1841C2E7067DE008A33BD /* NavigationTitleView.swift */,
 				B0F1841E2E7067F1008A33BD /* NavigationTitleView.xib */,
 				B0F183FE2E6B244E008A33BD /* ToastView.swift */,
@@ -920,6 +929,7 @@
 				B002AE612CC8298900EE3F8A /* SimpleTableViewHeaderView.xib in Resources */,
 				B08B15952CB3C74C002B4AC8 /* onboarding text ideas in Resources */,
 				B0F1845C2E79B27C008A33BD /* DatasetMemberTableViewCell.xib in Resources */,
+				B0EA7B1F2EB261010081F0B3 /* SetQuantityViewController.xib in Resources */,
 				B0F74E6B2E7A9EF800746A9F /* SettingsViewController.xib in Resources */,
 				B08FBE5C2C7F8C8B00455298 /* Assets.xcassets in Resources */,
 				B0B9BFA12CC193BD00C7E287 /* NoResultsProductTableViewCell.xib in Resources */,
@@ -1021,6 +1031,7 @@
 				B08B15972CB44A55002B4AC8 /* CarouselItemView.swift in Sources */,
 				B0F183F92E6B0814008A33BD /* ShoppingListRepository.swift in Sources */,
 				B0717ACD2E684DD000F27E52 /* AppCoordinator.swift in Sources */,
+				B0EA7B1D2EB260E10081F0B3 /* SetQuantityViewController.swift in Sources */,
 				B0B9BF9F2CC193B000C7E287 /* NoResultsProductTableViewCell.swift in Sources */,
 				B023FB7C2E7B3E2300FFB3C1 /* GenerableProductCategory.swift in Sources */,
 				B0F184552E79A7B4008A33BD /* DatasetInformationViewModel.swift in Sources */,
@@ -1085,6 +1096,7 @@
 				B0717AC52E683E2400F27E52 /* AddProductViewModel.swift in Sources */,
 				B0F74E732E7AAA0A00746A9F /* KTableViewModel.swift in Sources */,
 				B0717AAF2E672AB800F27E52 /* FirebaseShopRepository.swift in Sources */,
+				B0EA7B212EB263DF0081F0B3 /* SetQuantityViewModel.swift in Sources */,
 				B0717ACB2E684C9F00F27E52 /* ProductCoordinator.swift in Sources */,
 				B07F62BB2C8CC5A600CD1309 /* SimpleTableViewController.swift in Sources */,
 				B0F74E672E7A9ED500746A9F /* SettingsViewModel.swift in Sources */,

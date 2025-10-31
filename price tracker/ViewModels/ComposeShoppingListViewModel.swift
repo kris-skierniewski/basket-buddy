@@ -54,6 +54,7 @@ class ComposeShoppingListViewModel {
     }
     
     var onProductTapped: ((ProductWithPrices) -> Void)?
+    var onSetQuantityTapped: ((ShoppingListProduct) -> Void)?
     var onAddProductButtonTapped: (() -> Void)?
     var onContentsChanged: ((SectionedDiff) -> Void)?
     var onStartTapped: (() -> Void)?
@@ -96,7 +97,7 @@ class ComposeShoppingListViewModel {
         }
         
         var newShoppingList = shoppingList
-        let newProduct = ShoppingListProduct(productWithPrices: product, isChecked: false)
+        let newProduct = ShoppingListProduct(productWithPrices: product, isChecked: false, quantity: nil, unit: nil)
         newShoppingList.products.append(newProduct)
         DonationManager.shared.donateAddToShoppingList(itemName: product.product.name)
         combinedRepository.updateShoppingList(newShoppingList) { [weak self] result in
@@ -129,11 +130,16 @@ class ComposeShoppingListViewModel {
         }
     }
     
-    func selectProduct(atIndexPath indexPath: IndexPath) {
-        guard indexPath.section >= 0 && indexPath.section < sections.count else { return }
-        guard indexPath.row >= 0 && indexPath.row < sections[indexPath.section].products.count else { return }
-        let product = sections[indexPath.section].products[indexPath.row].productWithPrices
+    func selectProduct(_ product: ProductWithPrices) {
         onProductTapped?(product)
+    }
+    
+    func setQuantityForProduct(at indexPath: IndexPath) {
+        guard indexPath.section < sections.count, indexPath.row < sections[indexPath.section].products.count else {
+            return
+        }
+        let product = sections[indexPath.section].products[indexPath.row]
+        onSetQuantityTapped?(product)
     }
     
     func cleanUp() {

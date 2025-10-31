@@ -20,13 +20,22 @@ class ShoppingListProductTableViewCell: UITableViewCell {
     
     func update(withProduct product: ShoppingListProduct) {
         
-        let attributes: [NSAttributedString.Key: Any] = [
-            .font: nameLabel.font ?? UIFont.systemFont(ofSize: 17),
+        let nameAttributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: 18, weight: .medium),
+            .foregroundColor: nameLabel.textColor ?? UIColor.label,
+            .strikethroughStyle: product.isChecked ? NSUnderlineStyle.single.rawValue : 0
+        ]
+        let quantityAttributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: 16, weight: .light),
             .foregroundColor: nameLabel.textColor ?? UIColor.label,
             .strikethroughStyle: product.isChecked ? NSUnderlineStyle.single.rawValue : 0
         ]
         
-        nameLabel.attributedText = NSAttributedString(string: product.productWithPrices.product.name, attributes: attributes)
+        let composedName = NSMutableAttributedString(string: product.productWithPrices.product.name, attributes: nameAttributes)
+        if product.quantityString.isEmpty == false {
+            composedName.append(NSAttributedString(string: "  \(product.quantityString)", attributes: quantityAttributes))
+        }
+        nameLabel.attributedText = composedName
         
         descriptionLabel.text = product.productWithPrices.product.description
         

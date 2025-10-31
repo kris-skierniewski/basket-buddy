@@ -154,9 +154,7 @@ extension ComposeShoppingListViewController: UITableViewDataSource, UITableViewD
         
         let cell = tableView.dequeueReusableCell(withIdentifier: ProductTableViewCell.identifier, for: indexPath) as! ProductTableViewCell
         cell.update(forProduct: product, currency: viewModel.currency)
-        cell.onInfoButtonTapped = { [weak self] in
-            self?.viewModel.selectProduct(atIndexPath: indexPath)
-        }
+        cell.onInfoButtonTapped = viewModel.selectProduct(_:)
         cell.selectionStyle = .none
         return cell
     }
@@ -176,10 +174,29 @@ extension ComposeShoppingListViewController: UITableViewDataSource, UITableViewD
         return viewModel.sections[section].title
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        
-        if editingStyle == .delete {
-            viewModel.removeProduct(atIndexPath: indexPath)
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let removeAction = UIContextualAction(style: .destructive, title: "Remove") { [weak self] (action, view, completionHandler) in
+            self?.viewModel.removeProduct(atIndexPath: indexPath)
+            completionHandler(true)
         }
+        
+        let setQuantityAction = UIContextualAction(style: .normal, title: "Set quantity") { [weak self] (action, view, completionHandler) in
+            self?.viewModel.setQuantityForProduct(at: indexPath)
+            completionHandler(true)
+        }
+        
+        //setQuantityAction.image = UIImage(systemName: "plus.forwardslash.minus")
+        setQuantityAction.backgroundColor = .accent
+        let configuration = UISwipeActionsConfiguration(actions: [removeAction, setQuantityAction])
+        configuration.performsFirstActionWithFullSwipe = true
+        return configuration
+        //plus.forwardslash.minus
     }
+    
+//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//        
+//        if editingStyle == .delete {
+//            viewModel.removeProduct(atIndexPath: indexPath)
+//        }
+//    }
 }

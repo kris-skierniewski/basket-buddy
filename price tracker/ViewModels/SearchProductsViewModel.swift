@@ -143,7 +143,7 @@ class SearchProductsViewModel {
         }
         
         var newShoppingList = shoppingList
-        let newShoppingListProduct = ShoppingListProduct(productWithPrices: product, isChecked: false)
+        let newShoppingListProduct = ShoppingListProduct(productWithPrices: product, isChecked: false, quantity: nil, unit: nil)
         newShoppingList.products.append(newShoppingListProduct)
         DonationManager.shared.donateAddToShoppingList(itemName: product.product.name)
         combinedRepository.updateShoppingList(newShoppingList) { [weak self] result in
@@ -184,10 +184,22 @@ class SearchProductsViewModel {
                 }
                 
             } else {
-                rows = filteredProducts.map {
+                var searchResults = filteredProducts.map {
                     let isInShoppingList = shoppingList.isProductInList($0.product.id)
                     return SearchProductsRow(product: $0, exists: true, isInShoppingList: isInShoppingList)
                 }
+                
+                let hasPerfectMatch = searchResults.contains(where: { $0.product.product.name.lowercased().trimmingCharacters(in: .whitespacesAndNewlines) == searchString.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)})
+                if !hasPerfectMatch {
+                    //add new product
+                    if let currentUser = currentUser {
+                        let newProduct = ProductWithPrices(product: Product(id: UUID().uuidString, name: searchString, description: "", authorUid: currentUser.id), author: currentUser, priceHistory: [])
+                        let newProductRow = SearchProductsRow(product: newProduct, exists: false, isInShoppingList: false)
+                        searchResults.append(newProductRow)
+                    }
+                }
+                
+                rows = searchResults
             }
         }
         onRowsUpdated?()

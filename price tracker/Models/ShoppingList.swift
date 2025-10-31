@@ -10,6 +10,8 @@ import Foundation
 struct ShoppingListItem: Codable {
     let productId: String
     var isChecked: Bool
+    let quantity: Double?
+    let unit: Unit?
 }
 
 struct ShoppingList: Identifiable, Codable {

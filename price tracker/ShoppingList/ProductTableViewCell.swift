@@ -14,17 +14,28 @@ class ProductTableViewCell: UITableViewCell {
     
     @IBOutlet private weak var priceLabel: UILabel!
     @IBOutlet private weak var cheapestShopLabel: UILabel!
+    private var product: ProductWithPrices?
     
-    var onInfoButtonTapped: (() -> Void)?
+    var onInfoButtonTapped: ((ProductWithPrices) -> Void)?
     
     func update(forProduct product: ShoppingListProduct, currency: Currency) {
-        let attributes: [NSAttributedString.Key: Any] = [
-            .font: nameLabel.font ?? UIFont.systemFont(ofSize: 17),
+        self.product = product.productWithPrices
+        let nameAttributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: 18, weight: .medium),
+            .foregroundColor: nameLabel.textColor ?? UIColor.label,
+            .strikethroughStyle: product.isChecked ? NSUnderlineStyle.single.rawValue : 0
+        ]
+        let quantityAttributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: 16, weight: .light),
             .foregroundColor: nameLabel.textColor ?? UIColor.label,
             .strikethroughStyle: product.isChecked ? NSUnderlineStyle.single.rawValue : 0
         ]
         
-        nameLabel.attributedText = NSAttributedString(string: product.productWithPrices.product.name, attributes: attributes)
+        let composedName = NSMutableAttributedString(string: product.productWithPrices.product.name, attributes: nameAttributes)
+        if product.quantityString.isEmpty == false {
+            composedName.append(NSAttributedString(string: "  \(product.quantityString)", attributes: quantityAttributes))
+        }
+        nameLabel.attributedText = composedName
         
         descriptionLabel.text = product.productWithPrices.product.description
         
@@ -38,6 +49,8 @@ class ProductTableViewCell: UITableViewCell {
     }
     
     @IBAction private func infoButtonTapped() {
-        onInfoButtonTapped?()
+        if let product = product {
+            onInfoButtonTapped?(product)
+        }
     }
 }

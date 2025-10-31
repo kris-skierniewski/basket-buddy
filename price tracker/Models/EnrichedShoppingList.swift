@@ -24,7 +24,7 @@ struct EnrichedShoppingList: Identifiable {
     
     var repoShoppingList: ShoppingList {
         let shoppingListItems = products.map({
-            return ShoppingListItem(productId: $0.productWithPrices.product.id, isChecked: $0.isChecked)
+            return ShoppingListItem(productId: $0.productWithPrices.product.id, isChecked: $0.isChecked, quantity: $0.quantity, unit: $0.unit)
         })
         return ShoppingList(id: id, products: shoppingListItems)
     }

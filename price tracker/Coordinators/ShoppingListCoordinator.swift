@@ -45,6 +45,7 @@ class ShoppingListCoordinator {
         
         viewModel.onAddProductButtonTapped = showAddProductViewController
         viewModel.onProductTapped = showProductDetailViewController(product:)
+        viewModel.onSetQuantityTapped = showSetQuantityViewController(for:)
         
         viewModel.onError = showErrorAlert(error:)
         
@@ -74,6 +75,17 @@ class ShoppingListCoordinator {
         let addProductNav = UINavigationController(rootViewController: viewController)
         addProductNav.modalPresentationStyle = .fullScreen
         navigationController.present(addProductNav, animated: true)
+    }
+    
+    private func showSetQuantityViewController(for product: ShoppingListProduct) {
+        let viewModel = SetQuantityViewModel(combinedRepository: combinedRepository, shoppingListProduct: product)
+        let viewController = SetQuantityViewController(viewModel: viewModel)
+        viewModel.onSuccess = { [weak self] in
+            self?.navigationController.popViewController(animated: true)
+        }
+        viewModel.onError = showErrorAlert(error:)
+        
+        navigationController.pushViewController(viewController, animated: true)
     }
     
     private func showProductDetailViewController(product: ProductWithPrices) {

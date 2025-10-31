@@ -83,7 +83,12 @@ class AddPriceViewController: UIViewController {
             priceTextField.text = String(price)
         }
         if let quantity = viewModel.quantity {
-            quantityTextField.text = String(quantity)
+            
+            if quantity.truncatingRemainder(dividingBy: 1) == 0 {
+                quantityTextField.text = String(Int(quantity))
+            } else {
+                quantityTextField.text = String(quantity)
+            }
         }
         if let unit = viewModel.unit {
             unitTextField.text = unit.rawValue

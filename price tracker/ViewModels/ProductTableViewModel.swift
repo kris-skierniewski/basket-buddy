@@ -106,7 +106,7 @@ class ProductTableViewModel {
         }
         
         var newShoppingList = shoppingList
-        let newShoppingListProduct = ShoppingListProduct(productWithPrices: product, isChecked: false)
+        let newShoppingListProduct = ShoppingListProduct(productWithPrices: product, isChecked: false, quantity: nil, unit: nil)
         newShoppingList.products.append(newShoppingListProduct)
         DonationManager.shared.donateAddToShoppingList(itemName: product.product.name)
         combinedRepository.updateShoppingList(newShoppingList) { result in
