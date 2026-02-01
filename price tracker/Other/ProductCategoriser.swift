@@ -64,10 +64,29 @@ class ProductCategoriser {
             guard !name.isEmpty else { return .other }
             guard SystemLanguageModel.default.isAvailable else { return .other }
             let session = LanguageModelSession()
+//            let prompt = """
+//                You are classifying grocery items into standard supermarket categories
+//                to make them easier to find. Return the one category that is most fitting for item with name: \(name), and description: \(description).
+//                """
             let prompt = """
-                You are classifying grocery items into standard supermarket categories
-                to make them easier to find. Return the one category that is most fitting for item with name: \(name), and description: \(description).
-                """
+            You are a grocery product classifier.
+
+            Your task is to assign exactly ONE category to the product below.
+            You must choose the single best match from the following categories:
+
+            \(GenerableProductCategory.allCases.map(\.rawValue).joined(separator: ", "))
+
+            Rules:
+            - Choose the most specific category that applies.
+            - Prefer what the product IS, not how it is used.
+            - If multiple categories could apply, choose the one a supermarket would shelve it under.
+            - Use "other" ONLY if none of the categories reasonably apply.
+
+            Product name: \(name)
+            Product description: \(description)
+
+            Return ONLY the category.
+            """
             do {
                 let response = try await session.respond(to: prompt, generating: GenerableProductCategory.self)
                 let generableCategory = response.content
